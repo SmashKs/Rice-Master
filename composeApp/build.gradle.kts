@@ -78,3 +78,7 @@ android {
 dependencies {
     debugImplementation(compose.uiTooling)
 }
+
+dependencyLocking {
+    lockMode.set(LockMode.LENIENT) // or STRICT if needed
+}

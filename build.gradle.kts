@@ -9,4 +9,7 @@ plugins {
 }
 
 allprojects {
+    configurations.all {
+        resolutionStrategy.activateDependencyLocking()
+    }
 }
