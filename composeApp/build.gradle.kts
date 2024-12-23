@@ -42,8 +42,14 @@ kotlin {
 
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
+            implementation(libs.navigation.compose)
+
             implementation(libs.kotlinx.datetime)
             implementation(libs.ktor.client.core)
+
+            implementation(libs.bundles.koin)
+            implementation(libs.koin.mm.compose)
+            implementation(libs.koin.mm.viewmodel.navigation)
         }
     }
 }

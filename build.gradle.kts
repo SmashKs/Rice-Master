@@ -9,7 +9,10 @@ plugins {
 }
 
 allprojects {
-    configurations.all {
-        resolutionStrategy.activateDependencyLocking()
-    }
+    configurations
+        .matching {
+            it.name in listOf("androidReleaseCompileClasspath", "androidReleaseRuntimeClasspath")
+        }.all {
+            resolutionStrategy.activateDependencyLocking()
+        }
 }

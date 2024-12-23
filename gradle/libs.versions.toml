@@ -16,7 +16,7 @@ kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref =
 
 [versions]
 
-android-compileSdk = "34"
+android-compileSdk = "35"
 
 android-minSdk = "24"
 
@@ -100,15 +100,19 @@ ktor-client-serialization = { group = "io.ktor", name = "ktor-serialization-kotl
 
 ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 
+ktor-client-json = { group = "io.ktor", name = "ktor-client-json", version.ref = "ktor" }
+
 ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
 
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 
-koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
-
 koin-androidx-workmanager = { group = "io.insert-koin", name = "koin-androidx-workmanager", version.ref = "koin" }
 
-koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
+koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
+
+koin-mm-compose = { group = "io.insert-koin", name = "koin-compose", version.ref = "koin" }
+
+koin-mm-viewmodel-navigation = { group = "io.insert-koin", name = "koin-compose-viewmodel-navigation", version.ref = "koin" }
 
 koin-annotations = { group = "io.insert-koin", name = "koin-annotations", version.ref = "koin-annotation" }
 
@@ -123,3 +127,9 @@ androidx-test-junit = { group = "androidx.test.ext", name = "junit", version.ref
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidx-espresso-core" }
+
+[bundles]
+
+ktor = ["ktor-client-core", "ktor-client-okhttp", "ktor-client-serialization", "ktor-client-content-negotiation", "ktor-client-json", "ktor-client-logging"]
+
+koin = ["koin-core", "koin-annotations", "koin-ksp-compiler"]
