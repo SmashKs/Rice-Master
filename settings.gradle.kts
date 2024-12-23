@@ -1,4 +1,3 @@
-rootProject.name = "RiceMaster"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
@@ -15,6 +14,10 @@ pluginManagement {
     }
 }
 
+plugins {
+    id("de.fayard.refreshVersions") version "0.60.5"
+}
+
 dependencyResolutionManagement {
     repositories {
         google {
@@ -27,5 +30,7 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+
+rootProject.name = "RiceMaster"
 
 include(":composeApp")
