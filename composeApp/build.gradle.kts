@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -47,21 +48,36 @@ kotlin {
             implementation(libs.kotlinx.datetime)
             implementation(libs.ktor.client.core)
 
-            implementation(libs.bundles.koin)
+            implementation(libs.koin.core)
+            api(libs.koin.annotations)
+
             implementation(libs.koin.mm.compose)
             implementation(libs.koin.mm.viewmodel.navigation)
+
+            implementation(project(":core:network"))
+        }
+
+        // https://insert-koin.io/docs/setup/annotations#kotlin-multiplatform-ksp-setup
+        named("commonMain").configure {
+            kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
         }
     }
 }
 
 android {
     namespace = "taiwan.no.one.ricemaster"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    compileSdk = libs.versions.android.compileSdk
+        .get()
+        .toInt()
 
     defaultConfig {
         applicationId = "taiwan.no.one.ricemaster"
-        minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk
+            .get()
+            .toInt()
+        targetSdk = libs.versions.android.targetSdk
+            .get()
+            .toInt()
         versionCode = 1
         versionName = "1.0"
     }
@@ -82,7 +98,18 @@ android {
 }
 
 dependencies {
+    add("kspCommonMainMetadata", libs.koin.ksp.compiler)
+    add("kspAndroid", libs.koin.ksp.compiler)
+    add("kspIosX64", libs.koin.ksp.compiler)
+    add("kspIosArm64", libs.koin.ksp.compiler)
+    add("kspIosSimulatorArm64", libs.koin.ksp.compiler)
     debugImplementation(compose.uiTooling)
+}
+
+project.tasks.withType(KotlinCompilationTask::class.java).configureEach {
+    if (name != "kspCommonMainKotlinMetadata") {
+        dependsOn("kspCommonMainKotlinMetadata")
+    }
 }
 
 dependencyLocking {

@@ -24,6 +24,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import ricemaster.composeapp.generated.resources.Res
 import ricemaster.composeapp.generated.resources.compose_multiplatform
+import taiwan.no.one.ricemaster.core.network.networkModule
 
 @Composable
 @Preview
@@ -33,7 +34,7 @@ fun App() {
 
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
+                Text("Click me!" + networkModule())
             }
 
             Text(
