@@ -42,7 +42,7 @@ androidx-constraintlayout = "2.2.0"
 
 androidx-core-ktx = "1.15.0"
 
-androidx-navigation = "2.9.0-alpha04"
+androidx-navigation = "2.8.5"
 
 androidx-lifecycle = "2.8.4"
 
