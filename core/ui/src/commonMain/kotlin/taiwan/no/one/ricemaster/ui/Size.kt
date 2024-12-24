@@ -1,4 +1,4 @@
-package taiwan.no.one.ricemaster.core.ui
+package taiwan.no.one.ricemaster.ui
 
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp

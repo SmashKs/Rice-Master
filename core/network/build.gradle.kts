@@ -5,9 +5,13 @@ plugins {
 
 kotlin {
     androidLibrary {
-        namespace = "taiwan.no.one.ricemaster.core.network"
-        compileSdk = libs.versions.android.compileSdk.get().toInt()
-        minSdk = libs.versions.android.minSdk.get().toInt()
+        namespace = "taiwan.no.one.ricemaster.network"
+        compileSdk = libs.versions.android.compileSdk
+            .get()
+            .toInt()
+        minSdk = libs.versions.android.minSdk
+            .get()
+            .toInt()
     }
 
     listOf(
