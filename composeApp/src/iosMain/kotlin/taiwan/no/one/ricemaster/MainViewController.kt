@@ -8,5 +8,5 @@ fun MainViewController() = ComposeUIViewController(
         startKoin {
         }
     },
-    content = { App() },
+    content = { RiceMasterApp() },
 )
