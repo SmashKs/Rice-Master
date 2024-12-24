@@ -34,31 +34,38 @@ kotlin {
 
             implementation(libs.kotlinx.coroutines.android)
 
+            implementation(libs.ktor.client.android)
+
             implementation(libs.koin.android)
         }
 
         commonMain.dependencies {
+            implementation(project(":core:network"))
+
             implementation(compose.runtime)
             implementation(compose.foundation)
-            implementation(compose.material)
+            implementation(compose.material3)
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-
+            // android
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
-//            implementation(libs.navigation.compose)
-
+            implementation(libs.androidx.navigation.compose)
+            // kotlin
             implementation(libs.kotlinx.datetime)
+            implementation(libs.kotlinx.collections.immutable)
+            // internet
             implementation(libs.ktor.client.core)
-
+            // dependency injection
             implementation(libs.koin.core)
             api(libs.koin.annotations)
-
             implementation(libs.koin.mm.compose)
             implementation(libs.koin.mm.viewmodel.navigation)
+        }
 
-            implementation(project(":core:network"))
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
         }
 
         // https://insert-koin.io/docs/setup/annotations#kotlin-multiplatform-ksp-setup
