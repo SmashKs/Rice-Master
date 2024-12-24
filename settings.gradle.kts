@@ -34,4 +34,6 @@ dependencyResolutionManagement {
 rootProject.name = "RiceMaster"
 
 include(":composeApp")
+
+include(":core:ui")
 include(":core:network")
