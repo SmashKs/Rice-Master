@@ -18,8 +18,22 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import taiwan.no.one.ricemaster.component.BottomNavBarComponent
+import taiwan.no.one.ricemaster.entity.TopLevelNavigationItem.CAMERA
+import taiwan.no.one.ricemaster.entity.TopLevelNavigationItem.EXPLORE
+import taiwan.no.one.ricemaster.entity.TopLevelNavigationItem.FAVORITE
+import taiwan.no.one.ricemaster.entity.TopLevelNavigationItem.PROFILE
+import taiwan.no.one.ricemaster.favorite.navigation.FavoriteGraph
+import taiwan.no.one.ricemaster.favorite.navigation.FavoriteGraphNavHost
+import taiwan.no.one.ricemaster.favorite.navigation.navigateToFavorite
+import taiwan.no.one.ricemaster.identity.navigation.IdentityGraph
+import taiwan.no.one.ricemaster.identity.navigation.IdentityGraphNavHost
+import taiwan.no.one.ricemaster.identity.navigation.navigateToIdentity
+import taiwan.no.one.ricemaster.profile.navigation.ProfileGraph
+import taiwan.no.one.ricemaster.profile.navigation.ProfileGraphNavHost
+import taiwan.no.one.ricemaster.profile.navigation.navigateToProfile
 import taiwan.no.one.ricemaster.search.navigation.SearchGraph
 import taiwan.no.one.ricemaster.search.navigation.SearchGraphNavHost
+import taiwan.no.one.ricemaster.search.navigation.navigateToSearch
 
 @Composable
 @Preview
@@ -48,12 +62,12 @@ fun RiceMasterApp(
                         restoreState = true
                     }
 
-//                    when (topLevelItem) {
-//                        EXPLORE -> rootNavController.navigateToSearch(topLevelNavOptions)
-//                        CAMERA -> rootNavController.navigateToPhoto(topLevelNavOptions)
-//                        FAVORITE -> rootNavController.navigateToFavorite(topLevelNavOptions)
-//                        PROFILE -> rootNavController.navigateToProfile(topLevelNavOptions)
-//                    }
+                    when (topLevelItem) {
+                        EXPLORE -> rootNavController.navigateToSearch(topLevelNavOptions)
+                        CAMERA -> rootNavController.navigateToIdentity(topLevelNavOptions)
+                        FAVORITE -> rootNavController.navigateToFavorite(topLevelNavOptions)
+                        PROFILE -> rootNavController.navigateToProfile(topLevelNavOptions)
+                    }
                 }
             },
             content = { paddingValues ->
@@ -63,6 +77,9 @@ fun RiceMasterApp(
                     startDestination = SearchGraph,
                 ) {
                     composable<SearchGraph> { SearchGraphNavHost() }
+                    composable<IdentityGraph> { IdentityGraphNavHost() }
+                    composable<FavoriteGraph> { FavoriteGraphNavHost() }
+                    composable<ProfileGraph> { ProfileGraphNavHost() }
                 }
             },
         )
