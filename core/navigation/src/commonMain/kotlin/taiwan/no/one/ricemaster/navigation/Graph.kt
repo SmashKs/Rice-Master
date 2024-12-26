@@ -1,7 +1,9 @@
 package taiwan.no.one.ricemaster.navigation
 
+import androidx.compose.runtime.Stable
 import kotlinx.serialization.Serializable
 
+@Stable
 sealed interface Graph {
     @Serializable
     data object ProfileTopGraph : Graph

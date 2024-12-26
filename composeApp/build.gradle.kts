@@ -34,10 +34,13 @@ kotlin {
             implementation(project(":core:network"))
             implementation(project(":core:ui"))
             implementation(project(":core:navigation"))
+
             implementation(project(":feat:search"))
             implementation(project(":feat:profile"))
             implementation(project(":feat:identity"))
             implementation(project(":feat:favorite"))
+            implementation(project(":feat:photo"))
+            implementation(project(":feat:registration"))
 
             implementation(compose.runtime)
             implementation(compose.foundation)

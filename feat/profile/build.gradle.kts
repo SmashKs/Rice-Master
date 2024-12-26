@@ -35,6 +35,7 @@ kotlin {
 // See: https://kotlinlang.org/docs/multiplatform-hierarchy.html
     sourceSets {
         commonMain.dependencies {
+            implementation(project(":core:navigation"))
             implementation(compose.material3)
             implementation(compose.components.uiToolingPreview)
 

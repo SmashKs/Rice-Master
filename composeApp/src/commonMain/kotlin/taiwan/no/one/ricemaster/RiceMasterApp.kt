@@ -23,6 +23,7 @@ import taiwan.no.one.ricemaster.navigation.Graph.IdentityTopGraph
 import taiwan.no.one.ricemaster.navigation.Graph.ProfileTopGraph
 import taiwan.no.one.ricemaster.navigation.Graph.SearchTopGraph
 import taiwan.no.one.ricemaster.profile.navigation.ProfileNavHost
+import taiwan.no.one.ricemaster.registration.presentation.navigation.RegistrationGraph
 import taiwan.no.one.ricemaster.search.navigation.SearchNavHost
 import taiwan.no.one.ricemaster.state.AppState
 import taiwan.no.one.ricemaster.state.currentTopLevelDestination
@@ -77,9 +78,18 @@ fun RiceMasterApp(
                     startDestination = SearchTopGraph,
                 ) {
                     composable<SearchTopGraph> { SearchNavHost() }
+
                     composable<IdentityTopGraph> { IdentityNavHost() }
+
                     composable<FavoriteTopGraph> { FavoriteNavHost() }
-                    composable<ProfileTopGraph> { ProfileNavHost() }
+
+                    composable<ProfileTopGraph> {
+                        ProfileNavHost(
+                            subgraphBuilder = {
+                                RegistrationGraph()
+                            },
+                        )
+                    }
                 }
             },
         )

@@ -1,6 +1,5 @@
 package taiwan.no.one.ricemaster.photo.navigation
 
-import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
@@ -11,7 +10,6 @@ import taiwan.no.one.ricemaster.photo.component.PhotoRoute
 @Serializable
 private data object PhotoRoute
 
-@Composable
 fun NavGraphBuilder.PhotoGraph() {
     navigation<PhotoGraph>(startDestination = PhotoRoute) {
         composable<PhotoRoute> { PhotoRoute() }

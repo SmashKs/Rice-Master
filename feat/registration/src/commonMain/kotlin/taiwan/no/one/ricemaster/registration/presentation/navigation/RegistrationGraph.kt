@@ -1,6 +1,5 @@
 package taiwan.no.one.ricemaster.registration.presentation.navigation
 
-import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
@@ -15,7 +14,6 @@ private data object LoginRoute
 @Serializable
 private data object SignInRoute
 
-@Composable
 fun NavGraphBuilder.RegistrationGraph() {
     navigation<RegistrationGraph>(startDestination = LoginRoute) {
         composable<LoginRoute> { LoginRoute() }
