@@ -2,7 +2,7 @@
 
 [bundles]
 
-ktor = ["ktor-client-core", "ktor-client-okhttp", "ktor-client-serialization", "ktor-client-content-negotiation", "ktor-client-json", "ktor-client-logging"]
+ktor = ["ktor-client-core", "ktor-client-serialization", "ktor-client-content-negotiation", "ktor-client-json", "ktor-client-logging"]
 
 [plugins]
 
@@ -21,6 +21,10 @@ composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "k
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+googleplayServices = { id = "com.google.gms.google-services", version.ref = "google-play-services" }
+
+firebaseCrashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics-plugin" }
 
 [versions]
 
@@ -68,6 +72,12 @@ koin-annotation = "2.0.0-Beta3"
 
 ktor = "3.0.3"
 
+firebase-bom = "33.7.0"
+
+firebase-crashlytics-plugin = "3.0.2"
+
+google-play-services = "4.4.2"
+
 junit = "4.13.2"
 
 androidx-test-junit = "1.2.1"
@@ -100,6 +110,8 @@ kotlinx-collections-immutable = { group = "org.jetbrains.kotlinx", name = "kotli
 
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinx-datetime" }
 
+kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 
 kotlinx_serialization_json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
@@ -130,9 +142,15 @@ koin-mm-compose = { group = "io.insert-koin", name = "koin-compose", version.ref
 
 koin-mm-viewmodel-navigation = { group = "io.insert-koin", name = "koin-compose-viewmodel-navigation", version.ref = "koin" }
 
+koin-ktor = { group = "io.insert-koin", name = "koin-ktor", version.ref = "koin" }
+
 koin-annotations = { group = "io.insert-koin", name = "koin-annotations", version.ref = "koin-annotation" }
 
 koin-ksp-compiler = { group = "io.insert-koin", name = "koin-ksp-compiler", version.ref = "koin-annotation" }
+
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
+
+firebase-crashlyticsKtx = { module = "com.google.firebase:firebase-crashlytics-ktx" }
 
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 

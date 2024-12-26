@@ -7,6 +7,8 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.googleKsp)
+    alias(libs.plugins.googleplayServices)
+    alias(libs.plugins.firebaseCrashlytics)
 }
 
 kotlin {
@@ -67,6 +69,9 @@ kotlin {
             implementation(libs.ktor.client.android)
 
             implementation(libs.koin.android)
+
+            implementation(project.dependencies.platform(libs.firebase.bom))
+            implementation(libs.firebase.crashlyticsKtx)
         }
 
         iosMain.dependencies {
@@ -120,6 +125,10 @@ dependencies {
     add("kspIosArm64", libs.koin.ksp.compiler)
     add("kspIosSimulatorArm64", libs.koin.ksp.compiler)
     debugImplementation(compose.uiTooling)
+}
+
+ksp {
+    arg("KOIN_CONFIG_CHECK", "true")
 }
 
 project.tasks.withType(KotlinCompilationTask::class.java).configureEach {
