@@ -33,6 +33,7 @@ kotlin {
         commonMain.dependencies {
             implementation(project(":core:network"))
             implementation(project(":core:ui"))
+            implementation(project(":core:navigation"))
             implementation(project(":feat:search"))
             implementation(project(":feat:profile"))
             implementation(project(":feat:identity"))

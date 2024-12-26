@@ -1,14 +1,14 @@
 plugins {
+    alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidKotlinMultiplatformLibrary)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
-    alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.kotlinSerialization)
 }
 
 kotlin {
     androidLibrary {
-        namespace = "taiwan.no.one.ricemaster.photo"
+        namespace = "taiwan.no.one.ricemaster.navigation"
         compileSdk = libs.versions.android.compileSdk
             .get()
             .toInt()
@@ -23,7 +23,7 @@ kotlin {
         iosSimulatorArm64(),
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "photo"
+            baseName = "navigation"
             isStatic = true
         }
     }
@@ -35,13 +35,9 @@ kotlin {
 // See: https://kotlinlang.org/docs/multiplatform-hierarchy.html
     sourceSets {
         commonMain.dependencies {
-            implementation(project(":core:navigation"))
-            implementation(compose.material3)
-            implementation(compose.components.uiToolingPreview)
-
+            implementation(compose.foundation)
             implementation(libs.kotlin.stdlib)
             implementation(libs.kotlinx.serialization.json)
-
             implementation(libs.androidx.navigation.compose)
         }
 

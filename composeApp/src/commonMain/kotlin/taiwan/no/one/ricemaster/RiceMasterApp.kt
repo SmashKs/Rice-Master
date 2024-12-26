@@ -16,18 +16,14 @@ import taiwan.no.one.ricemaster.entity.TopLevelNavigationItem.EXPLORE
 import taiwan.no.one.ricemaster.entity.TopLevelNavigationItem.FAVORITE
 import taiwan.no.one.ricemaster.entity.TopLevelNavigationItem.IDENTITY
 import taiwan.no.one.ricemaster.entity.TopLevelNavigationItem.PROFILE
-import taiwan.no.one.ricemaster.favorite.navigation.FavoriteGraph
-import taiwan.no.one.ricemaster.favorite.navigation.FavoriteGraphNavHost
-import taiwan.no.one.ricemaster.favorite.navigation.navigateToFavorite
-import taiwan.no.one.ricemaster.identity.navigation.IdentityGraph
-import taiwan.no.one.ricemaster.identity.navigation.IdentityGraphNavHost
-import taiwan.no.one.ricemaster.identity.navigation.navigateToIdentity
-import taiwan.no.one.ricemaster.profile.navigation.ProfileGraph
-import taiwan.no.one.ricemaster.profile.navigation.ProfileGraphNavHost
-import taiwan.no.one.ricemaster.profile.navigation.navigateToProfile
-import taiwan.no.one.ricemaster.search.navigation.SearchGraph
-import taiwan.no.one.ricemaster.search.navigation.SearchGraphNavHost
-import taiwan.no.one.ricemaster.search.navigation.navigateToSearch
+import taiwan.no.one.ricemaster.favorite.navigation.FavoriteNavHost
+import taiwan.no.one.ricemaster.identity.navigation.IdentityNavHost
+import taiwan.no.one.ricemaster.navigation.Graph.FavoriteTopGraph
+import taiwan.no.one.ricemaster.navigation.Graph.IdentityTopGraph
+import taiwan.no.one.ricemaster.navigation.Graph.ProfileTopGraph
+import taiwan.no.one.ricemaster.navigation.Graph.SearchTopGraph
+import taiwan.no.one.ricemaster.profile.navigation.ProfileNavHost
+import taiwan.no.one.ricemaster.search.navigation.SearchNavHost
 import taiwan.no.one.ricemaster.state.AppState
 import taiwan.no.one.ricemaster.state.currentTopLevelDestination
 import taiwan.no.one.ricemaster.state.rememberAppState
@@ -66,10 +62,10 @@ fun RiceMasterApp(
 
                     with(rootNavController) {
                         when (topLevelItem) {
-                            EXPLORE -> navigateToSearch(topLevelNavOptions)
-                            IDENTITY -> navigateToIdentity(topLevelNavOptions)
-                            FAVORITE -> navigateToFavorite(topLevelNavOptions)
-                            PROFILE -> navigateToProfile(topLevelNavOptions)
+                            EXPLORE -> navigate(SearchTopGraph, topLevelNavOptions)
+                            IDENTITY -> navigate(IdentityTopGraph, topLevelNavOptions)
+                            FAVORITE -> navigate(FavoriteTopGraph, topLevelNavOptions)
+                            PROFILE -> navigate(ProfileTopGraph, topLevelNavOptions)
                         }
                     }
                 }
@@ -78,12 +74,12 @@ fun RiceMasterApp(
                 NavHost(
                     modifier = Modifier.padding(paddingValues),
                     navController = rootNavController,
-                    startDestination = SearchGraph,
+                    startDestination = SearchTopGraph,
                 ) {
-                    composable<SearchGraph> { SearchGraphNavHost() }
-                    composable<IdentityGraph> { IdentityGraphNavHost() }
-                    composable<FavoriteGraph> { FavoriteGraphNavHost() }
-                    composable<ProfileGraph> { ProfileGraphNavHost() }
+                    composable<SearchTopGraph> { SearchNavHost() }
+                    composable<IdentityTopGraph> { IdentityNavHost() }
+                    composable<FavoriteTopGraph> { FavoriteNavHost() }
+                    composable<ProfileTopGraph> { ProfileNavHost() }
                 }
             },
         )

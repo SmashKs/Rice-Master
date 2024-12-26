@@ -37,9 +37,11 @@ include(":composeApp")
 
 include(":core:ui")
 include(":core:network")
+include(":core:navigation")
 
 include(":feat:search")
 include(":feat:identity")
 include(":feat:profile")
 include(":feat:favorite")
 include(":feat:photo")
+include(":feat:registration")

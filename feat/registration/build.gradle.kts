@@ -8,7 +8,7 @@ plugins {
 
 kotlin {
     androidLibrary {
-        namespace = "taiwan.no.one.ricemaster.photo"
+        namespace = "taiwan.no.one.ricemaster.registration"
         compileSdk = libs.versions.android.compileSdk
             .get()
             .toInt()
@@ -23,7 +23,7 @@ kotlin {
         iosSimulatorArm64(),
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "photo"
+            baseName = "registration"
             isStatic = true
         }
     }
