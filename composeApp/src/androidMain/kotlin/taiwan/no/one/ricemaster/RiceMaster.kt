@@ -11,7 +11,7 @@ class RiceMaster : Application() {
         super.onCreate()
         startKoin {
             androidLogger()
-            androidContext(applicationContext)
+            androidContext(this@RiceMaster)
 
             modules(provideAppModule)
         }

@@ -11,6 +11,9 @@ import org.koin.android.annotation.KoinViewModel
 import taiwan.no.one.ricemaster.registration.data.RegistrationRepo
 import taiwan.no.one.ricemaster.registration.presentation.entity.LoginUiState
 import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent.DebugPrintData
+import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent.Execute
+import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent.Login
+import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent.SignUp
 import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent.UpdateEmail
 import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent.UpdatePassword
 import taiwan.no.one.ricemaster.ui.event.EventHandler
@@ -32,9 +35,6 @@ class LoginViewModel(
             initialValue = LoginUiState.Init(),
         )
 
-    init {
-    }
-
     override fun handleEvent(event: LoginEvent) {
         when (event) {
             DebugPrintData -> viewModelScope.launch {
@@ -42,10 +42,11 @@ class LoginViewModel(
                 println(registrationRepo.observeLoginFlow().first().toString())
                 println("=================================================")
             }
-
+            SignUp -> TODO()
+            Login -> TODO()
             is UpdateEmail -> registrationRepo.updateEmail(event.email)
-
             is UpdatePassword -> registrationRepo.updatePassword(event.password)
+            is Execute -> TODO()
         }
     }
 }

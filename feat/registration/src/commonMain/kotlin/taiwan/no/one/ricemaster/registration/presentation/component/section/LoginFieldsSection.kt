@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
+import taiwan.no.one.ricemaster.registration.presentation.component.textFieldValueSaver
 
 @Composable
 internal fun LoginFieldsSection(
@@ -31,8 +32,12 @@ internal fun LoginFieldsSection(
     onEmailValChange: (String) -> Unit = {},
     onPassValChange: (String) -> Unit = {},
 ) {
-    var emailFieldVal by rememberSaveable { mutableStateOf(TextFieldValue(text = email)) }
-    var passwordFieldVal by rememberSaveable { mutableStateOf(TextFieldValue(text = password)) }
+    var emailFieldVal by rememberSaveable(stateSaver = textFieldValueSaver, key = email) {
+        mutableStateOf(TextFieldValue(text = email))
+    }
+    var passwordFieldVal by rememberSaveable(stateSaver = textFieldValueSaver, key = password) {
+        mutableStateOf(TextFieldValue(text = password))
+    }
 
     Column(
         modifier = modifier.fillMaxWidth(),

@@ -36,11 +36,13 @@ internal fun LoginScreen(
         Login3PartyIconsSection(
             modifier = Modifier.align(Alignment.CenterHorizontally),
             icons = SocialIcon.entries.toPersistentList(),
+            onClick = { eventHandler.invoke(LoginEvent.Execute(it)) },
         )
 
         ButtonSection(
             modifier = Modifier,
-            onClick = { eventHandler.invoke(LoginEvent.DebugPrintData) },
+            onLoginClick = { eventHandler.invoke(LoginEvent.Login) },
+            onSignUpClick = { eventHandler.invoke(LoginEvent.SignUp) },
         )
     }
 }
