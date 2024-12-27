@@ -22,6 +22,8 @@ kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref =
 
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
+kotlinAtmoic = { id = "org.jetbrains.kotlinx.atomicfu", version.ref = "kotlinx-atmoicfu" }
+
 googleplayServices = { id = "com.google.gms.google-services", version.ref = "google-play-services" }
 
 firebaseCrashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics-plugin" }
@@ -34,7 +36,7 @@ android-minSdk = "24"
 
 android-targetSdk = "34"
 
-agp = "8.8.0-rc02"
+agp = "8.9.0-alpha07"
 
 kotlin = "2.1.0"
 
@@ -65,6 +67,8 @@ kotlinx-datetime = "0.6.1"
 kotlinx-coroutines = "1.10.1"
 
 kotlinx-serialization = "1.7.3"
+
+kotlinx-atmoicfu = "0.26.1"
 
 koin = "4.1.0-Beta1"
 
@@ -115,6 +119,8 @@ kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-cor
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 
 kotlinx_serialization_json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+
+kotlinx_atmoicfu = { group = "org.jetbrains.kotlinx", name = "atomicfu", version.ref = "kotlinx-atmoicfu" }
 
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 

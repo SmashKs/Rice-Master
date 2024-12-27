@@ -38,6 +38,7 @@ include(":composeApp")
 include(":core:ui")
 include(":core:network")
 include(":core:navigation")
+include(":core:util")
 
 include(":feat:search")
 include(":feat:identity")

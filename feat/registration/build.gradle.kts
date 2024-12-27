@@ -1,9 +1,12 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
+
 plugins {
     alias(libs.plugins.androidKotlinMultiplatformLibrary)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.googleKsp)
 }
 
 kotlin {
@@ -35,28 +38,54 @@ kotlin {
 // See: https://kotlinlang.org/docs/multiplatform-hierarchy.html
     sourceSets {
         commonMain.dependencies {
+            implementation(project(":core:ui"))
             implementation(project(":core:navigation"))
+            implementation(project(":core:util"))
             implementation(compose.material3)
+            implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
 
             implementation(libs.kotlin.stdlib)
+            implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization.json)
-
+            implementation(libs.kotlinx.collections.immutable)
             implementation(libs.androidx.navigation.compose)
+
+            implementation(libs.koin.mm.compose)
+            implementation(libs.koin.mm.viewmodel.navigation)
+            api(libs.koin.annotations)
         }
 
         androidMain.dependencies {
-            // Add Android-specific dependencies here. Note that this source set depends on
-            // commonMain by default and will correctly pull the Android artifacts of any KMP
-            // dependencies declared in commonMain.
         }
 
         iosMain.dependencies {
-            // Add iOS-specific dependencies here. This a source set created by Kotlin Gradle
-            // Plugin (KGP) that each specific iOS target (e.g., iosX64) depends on as
-            // part of KMP’s default source set hierarchy. Note that this source set depends
-            // on common by default and will correctly pull the iOS artifacts of any
-            // KMP dependencies declared in commonMain.
         }
+
+        // KSP Common sourceSet
+        sourceSets.named("commonMain").configure {
+            kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
+        }
+    }
+}
+
+// KSP Tasks
+dependencies {
+    add("kspCommonMainMetadata", libs.koin.ksp.compiler)
+    add("kspAndroid", libs.koin.ksp.compiler)
+    add("kspIosX64", libs.koin.ksp.compiler)
+    add("kspIosArm64", libs.koin.ksp.compiler)
+    add("kspIosSimulatorArm64", libs.koin.ksp.compiler)
+}
+
+ksp {
+    arg("KOIN_USE_COMPOSE_VIEWMODEL", "true")
+    arg("KOIN_CONFIG_CHECK", "true")
+}
+
+// Trigger Common Metadata Generation from Native tasks
+project.tasks.withType(KotlinCompilationTask::class.java).configureEach {
+    if (name != "kspCommonMainKotlinMetadata") {
+        dependsOn("kspCommonMainKotlinMetadata")
     }
 }
