@@ -6,7 +6,7 @@ import taiwan.no.one.ricemaster.network.di.networkModuleProvider
 import taiwan.no.one.ricemaster.registration.di.RegistrationModule
 
 val provideAppModule = module {
-    includes(networkModuleProvider)
+    includes(networkModuleProvider, platformModuleProvider, utilModule)
 
     includes(RegistrationModule().module)
 }

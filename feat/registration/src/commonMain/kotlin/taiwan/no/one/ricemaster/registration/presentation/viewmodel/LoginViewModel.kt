@@ -22,31 +22,44 @@ import taiwan.no.one.ricemaster.ui.event.EventHandler
 class LoginViewModel(
     private val registrationRepo: RegistrationRepo,
 ) : ViewModel(), EventHandler<LoginEvent> {
-    val state = registrationRepo
-        .observeLoginFlow()
-        .map {
-            LoginUiState.Input(
-                email = it.email,
-                password = it.password,
+    val state =
+        registrationRepo
+            .observeLoginFlow()
+            .map {
+                LoginUiState.Input(
+                    email = it.email,
+                    password = it.password,
+                )
+            }.stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.Eagerly,
+                initialValue = LoginUiState.Init(),
             )
-        }.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.Eagerly,
-            initialValue = LoginUiState.Init(),
-        )
 
     override fun handleEvent(event: LoginEvent) {
         when (event) {
-            DebugPrintData -> viewModelScope.launch {
-                println("=================================================")
-                println(registrationRepo.observeLoginFlow().first().toString())
-                println("=================================================")
+            DebugPrintData -> {
+                viewModelScope.launch {
+                    println("=================================================")
+                    println(registrationRepo.observeLoginFlow().first().toString())
+                    println("=================================================")
+                }
             }
-            SignUp -> TODO()
-            Login -> TODO()
-            is UpdateEmail -> registrationRepo.updateEmail(event.email)
-            is UpdatePassword -> registrationRepo.updatePassword(event.password)
-            is Execute -> TODO()
+            SignUp -> {
+                TODO()
+            }
+            Login -> {
+                TODO()
+            }
+            is UpdateEmail -> {
+                registrationRepo.updateEmail(event.email)
+            }
+            is UpdatePassword -> {
+                registrationRepo.updatePassword(event.password)
+            }
+            is Execute -> {
+                TODO()
+            }
         }
     }
 }

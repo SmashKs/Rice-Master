@@ -22,6 +22,7 @@ ij_kotlin_line_break_after_multiline_when_entry=false
 
 ktlint_experimental=enabled
 ktlint_function_naming_ignore_when_annotated_with=Composable
+ktlint_standard_chain-wrapping=disabled
 ktlint_standard_multiline-expression-wrapping=disabled
 ktlint_standard_class-signature=disabled
 ktlint_standard_function-signature=disabled

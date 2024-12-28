@@ -8,14 +8,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
-import taiwan.no.one.ricemaster.registration.presentation.auth.GoogleAuthProvider
+import taiwan.no.one.ricemaster.registration.presentation.auth.FirebaseAuth
 import taiwan.no.one.ricemaster.ui.Sizing
-
-interface GoogleButtonUiContainerScope {
-    fun onClick()
-}
 
 @Composable
 internal fun ButtonSection(
@@ -23,22 +18,31 @@ internal fun ButtonSection(
     onLoginClick: () -> Unit = {},
     onSignUpClick: () -> Unit = {},
 ) {
-    val googleAuthProvider = koinInject<GoogleAuthProvider>()
-    val googleAuthUiProvider = googleAuthProvider.getUiProvider()
+//    val googleAuthProvider = koinInject<GoogleAuthProvider>()
+//    val googleAuthUiProvider = googleAuthProvider.getUiProvider()
     val coroutineScope = rememberCoroutineScope()
+    val firebaseAuth = koinInject<FirebaseAuth>()
 
     Column {
         Button(
-            onClick = onLoginClick,
+//            onClick = onLoginClick,
+            onClick = {
+            },
             content = {
                 Text(text = "Login")
 
-                coroutineScope.launch {
-                    val googleUser = googleAuthUiProvider.signIn()
-                    println("=================================================")
-                    println(googleUser)
-                    println("=================================================")
-                }
+                firebaseAuth.signInWithTwitter(
+                    onSuccess = {
+                        println("#################################################")
+                        println(it)
+                        println("#################################################")
+                    },
+                    onError = {
+                        println("=================================================")
+                        println(it)
+                        println("=================================================")
+                    },
+                )
             },
         )
 
