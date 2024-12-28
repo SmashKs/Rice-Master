@@ -51,12 +51,25 @@ kotlin {
             implementation(libs.kotlinx.collections.immutable)
             implementation(libs.androidx.navigation.compose)
 
+            implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.mm.compose)
             implementation(libs.koin.mm.viewmodel.navigation)
             api(libs.koin.annotations)
+
+//            implementation(project.dependencies.platform(libs.firebase.bom))
+//            implementation(libs.firebase.auth)
         }
 
         androidMain.dependencies {
+            implementation(project.dependencies.platform(libs.firebase.bom))
+            implementation(libs.firebase.authKtx)
+
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.android)
+
+            implementation(libs.androidx.auth.credentials)
+            implementation(libs.androidx.auth.playstore)
+            implementation("com.google.android.libraries.identity.googleid:googleid:1.1.0")
         }
 
         iosMain.dependencies {

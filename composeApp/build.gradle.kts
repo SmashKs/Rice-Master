@@ -58,10 +58,11 @@ kotlin {
             // internet
             implementation(libs.ktor.client.core)
             // dependency injection
+            implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
-            api(libs.koin.annotations)
             implementation(libs.koin.mm.compose)
             implementation(libs.koin.mm.viewmodel.navigation)
+            api(libs.koin.annotations)
         }
 
         androidMain.dependencies {
@@ -72,6 +73,7 @@ kotlin {
 
             implementation(libs.ktor.client.android)
 
+            implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.android)
 
             implementation(project.dependencies.platform(libs.firebase.bom))
