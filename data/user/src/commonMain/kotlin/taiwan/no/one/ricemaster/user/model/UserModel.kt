@@ -1,6 +1,6 @@
-package taiwan.no.one.ricemaster.registration.presentation.auth
+package taiwan.no.one.ricemaster.user.model
 
-data class User(
+data class UserModel(
     val idToken: String,
     val displayName: String = "",
     val profilePicUrl: String? = null,

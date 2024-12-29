@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.kotlinSerialization)
 }
 
 kotlin {
@@ -35,8 +34,9 @@ kotlin {
 // See: https://kotlinlang.org/docs/multiplatform-hierarchy.html
     sourceSets {
         commonMain.dependencies {
+            implementation(compose.foundation)
+
             implementation(libs.kotlin.stdlib)
-            implementation(libs.kotlinx.serialization.json)
         }
 
         androidMain.dependencies {

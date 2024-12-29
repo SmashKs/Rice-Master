@@ -41,6 +41,7 @@ kotlin {
             implementation(project(":core:ui"))
             implementation(project(":core:navigation"))
             implementation(project(":core:util"))
+            implementation(project(":data:user"))
             implementation(compose.material3)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)

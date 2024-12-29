@@ -11,6 +11,7 @@ import androidx.credentials.GetCredentialRequest
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException
+import taiwan.no.one.ricemaster.user.model.UserModel
 
 internal class GoogleAuthUiProviderImpl(
     private val activityContext: Context,
@@ -18,7 +19,7 @@ internal class GoogleAuthUiProviderImpl(
     private val credentials: GoogleAuthCredentials,
 ) : GoogleAuthUiProvider {
     @RequiresApi(VERSION_CODES.UPSIDE_DOWN_CAKE)
-    override suspend fun signIn(): User? = try {
+    override suspend fun signIn(): UserModel? = try {
         val credential = credentialManager
             .getCredential(
                 context = activityContext,
@@ -34,26 +35,24 @@ internal class GoogleAuthUiProviderImpl(
         null
     }
 
-    private fun getGoogleUserFromCredential(credential: Credential): User? = when {
-        credential is CustomCredential &&
-            credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL -> {
-            try {
-                val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
-                User(
-                    idToken = googleIdTokenCredential.idToken,
-                    displayName = googleIdTokenCredential.displayName.orEmpty(),
-                    profilePicUrl = googleIdTokenCredential.profilePictureUri?.toString(),
-                )
-            } catch (e: GoogleIdTokenParsingException) {
-                println("=================================================")
-                println("GoogleAuthUiProvider Received an invalid google id token response: ${e.message}")
-                println("=================================================")
-                null
-            }
-        }
-        else -> {
+    private fun getGoogleUserFromCredential(credential: Credential): UserModel? = if (credential is CustomCredential &&
+        credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
+    ) {
+        try {
+            val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
+            UserModel(
+                idToken = googleIdTokenCredential.idToken,
+                displayName = googleIdTokenCredential.displayName.orEmpty(),
+                profilePicUrl = googleIdTokenCredential.profilePictureUri?.toString(),
+            )
+        } catch (e: GoogleIdTokenParsingException) {
+            println("=================================================")
+            println("GoogleAuthUiProvider Received an invalid google id token response: ${e.message}")
+            println("=================================================")
             null
         }
+    } else {
+        null
     }
 
     private fun getCredentialRequest(): GetCredentialRequest = GetCredentialRequest

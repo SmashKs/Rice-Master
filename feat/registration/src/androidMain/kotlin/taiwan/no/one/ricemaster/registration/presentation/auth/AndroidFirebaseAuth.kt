@@ -8,13 +8,14 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.OAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import taiwan.no.one.ricemaster.user.model.UserModel
 
 internal class AndroidFirebaseAuth : FirebaseAuth {
     private val auth = AndroidFirebaseAuth.getInstance()
 
     @Composable
     override fun signInWithTwitter(
-        onSuccess: (User) -> Unit,
+        onSuccess: (UserModel) -> Unit,
         onError: (Exception) -> Unit,
     ) {
         val provider = OAuthProvider
@@ -30,7 +31,7 @@ internal class AndroidFirebaseAuth : FirebaseAuth {
             .addOnSuccessListener { authResult ->
                 val user = authResult.user
                 if (user != null) {
-                    onSuccess(User(user.uid, user.displayName.orEmpty(), user.email.orEmpty()))
+                    onSuccess(UserModel(user.uid, user.displayName.orEmpty(), user.email.orEmpty()))
                 } else {
                     onError(Exception("Sign-in successful, but user is null"))
                 }
@@ -41,7 +42,7 @@ internal class AndroidFirebaseAuth : FirebaseAuth {
     override fun createUser(
         email: String,
         password: String,
-        onSuccess: (User) -> Unit,
+        onSuccess: (UserModel) -> Unit,
         onError: (Exception) -> Unit,
     ) {
         Firebase.auth
@@ -60,7 +61,7 @@ internal class AndroidFirebaseAuth : FirebaseAuth {
     override fun signIn(
         email: String,
         password: String,
-        onSuccess: (User) -> Unit,
+        onSuccess: (UserModel) -> Unit,
         onError: (Exception) -> Unit,
     ) {
         Firebase.auth
@@ -76,7 +77,7 @@ internal class AndroidFirebaseAuth : FirebaseAuth {
             .addOnFailureListener(onError)
     }
 
-    private fun FirebaseUser.convertToUser() = User(
+    private fun FirebaseUser.convertToUser() = UserModel(
         idToken = uid,
         displayName = displayName.orEmpty(),
         profilePicUrl = photoUrl?.path,
