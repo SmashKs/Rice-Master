@@ -4,7 +4,7 @@ import org.koin.core.module.Module
 import org.koin.dsl.module
 import taiwan.no.one.ricemaster.registration.presentation.auth.GoogleAuthCredentials
 
-expect val platformModuleProvider: Module
+expect val platformModule: Module
 
 val utilModule = module {
     factory {

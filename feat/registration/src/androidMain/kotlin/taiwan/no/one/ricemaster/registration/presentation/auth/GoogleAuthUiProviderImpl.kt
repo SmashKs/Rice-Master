@@ -18,7 +18,7 @@ internal class GoogleAuthUiProviderImpl(
     private val credentials: GoogleAuthCredentials,
 ) : GoogleAuthUiProvider {
     @RequiresApi(VERSION_CODES.UPSIDE_DOWN_CAKE)
-    override suspend fun signIn(): GoogleUser? = try {
+    override suspend fun signIn(): User? = try {
         val credential = credentialManager
             .getCredential(
                 context = activityContext,
@@ -34,12 +34,12 @@ internal class GoogleAuthUiProviderImpl(
         null
     }
 
-    private fun getGoogleUserFromCredential(credential: Credential): GoogleUser? = when {
+    private fun getGoogleUserFromCredential(credential: Credential): User? = when {
         credential is CustomCredential &&
             credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL -> {
             try {
                 val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
-                GoogleUser(
+                User(
                     idToken = googleIdTokenCredential.idToken,
                     displayName = googleIdTokenCredential.displayName.orEmpty(),
                     profilePicUrl = googleIdTokenCredential.profilePictureUri?.toString(),

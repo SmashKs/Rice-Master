@@ -12,7 +12,7 @@ indent_size=4
 max_line_length=120
 
 [{*.kt,*.kts}]
-ktlint_code_style=ktlint_official
+ktlint_code_style=android_studio
 
 kotlin_imports_layout=ascii
 
@@ -26,6 +26,7 @@ ktlint_standard_chain-wrapping=disabled
 ktlint_standard_multiline-expression-wrapping=disabled
 ktlint_standard_class-signature=disabled
 ktlint_standard_function-signature=disabled
+ktlint_function_signature_body_expression_wrapping=default
 ktlint_standard_function-expression-body=disabled
 
 disabled_rules=import-ordering

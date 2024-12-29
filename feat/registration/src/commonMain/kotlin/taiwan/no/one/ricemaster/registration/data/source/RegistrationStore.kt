@@ -9,4 +9,8 @@ interface RegistrationStore {
     fun updateEmail(value: String)
 
     fun updatePassword(value: String)
+
+    suspend fun createUser(email: String, password: String): Result<Unit>
+
+    suspend fun signIn(email: String, password: String): Result<Unit>
 }

@@ -38,28 +38,18 @@ class LoginViewModel(
 
     override fun handleEvent(event: LoginEvent) {
         when (event) {
-            DebugPrintData -> {
-                viewModelScope.launch {
-                    println("=================================================")
-                    println(registrationRepo.observeLoginFlow().first().toString())
-                    println("=================================================")
-                }
+            DebugPrintData -> viewModelScope.launch {
+                println("=================================================")
+                println(registrationRepo.observeLoginFlow().first().toString())
+                println("=================================================")
             }
-            SignUp -> {
-                TODO()
-            }
-            Login -> {
-                TODO()
-            }
-            is UpdateEmail -> {
+            SignUp -> viewModelScope.launch { registrationRepo.createUser() }
+            Login -> viewModelScope.launch { registrationRepo.signIn() }
+            is UpdateEmail ->
                 registrationRepo.updateEmail(event.email)
-            }
-            is UpdatePassword -> {
+            is UpdatePassword ->
                 registrationRepo.updatePassword(event.password)
-            }
-            is Execute -> {
-                TODO()
-            }
+            is Execute -> TODO()
         }
     }
 }

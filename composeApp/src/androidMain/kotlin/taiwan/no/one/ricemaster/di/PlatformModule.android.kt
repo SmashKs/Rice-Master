@@ -4,6 +4,6 @@ import org.koin.core.module.Module
 import org.koin.dsl.module
 import taiwan.no.one.ricemaster.registration.presentation.di.googleAuthModule
 
-actual val platformModuleProvider: Module = module {
+actual val platformModule: Module = module {
     includes(googleAuthModule)
 }

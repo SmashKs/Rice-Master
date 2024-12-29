@@ -505,17 +505,17 @@ potential-bugs:
 style:
   active: true
   AlsoCouldBeApply:
-    active: false
+    active: true
   BracesOnIfStatements:
-    active: false
+    active: true
     singleLine: 'never'
     multiLine: 'always'
   BracesOnWhenStatements:
-    active: false
-    singleLine: 'necessary'
-    multiLine: 'consistent'
+    active: true
+    singleLine: 'never'
+    multiLine: 'necessary'
   CanBeNonNullable:
-    active: false
+    active: true
   CascadingCallWrapping:
     active: false
     includeElvis: true
@@ -529,12 +529,12 @@ style:
       - 'to'
     allowOperators: false
   DataClassShouldBeImmutable:
-    active: false
+    active: true
   DestructuringDeclarationWithTooManyEntries:
     active: true
     maxDestructuringEntries: 3
   DoubleNegativeLambda:
-    active: false
+    active: true
     negativeFunctions:
       - reason: 'Use `takeIf` instead.'
         value: 'takeUnless'
@@ -546,13 +546,13 @@ style:
   EqualsNullCall:
     active: true
   EqualsOnSignatureLine:
-    active: false
+    active: true
   ExplicitCollectionElementAccessMethod:
     active: false
   ExplicitItLambdaParameter:
     active: true
   ExpressionBodySyntax:
-    active: false
+    active: true
     includeLineWrapping: false
   ForbiddenAnnotation:
     active: false
@@ -628,7 +628,7 @@ style:
   MandatoryBracesLoops:
     active: false
   MaxChainedCallsOnSameLine:
-    active: false
+    active: true
     maxChainedCalls: 5
   MaxLineLength:
     active: true
@@ -642,7 +642,7 @@ style:
   ModifierOrder:
     active: true
   MultilineLambdaItParameter:
-    active: false
+    active: true
   MultilineRawStringIndentation:
     active: false
     indentSize: 4
@@ -654,9 +654,9 @@ style:
   NewLineAtEndOfFile:
     active: true
   NoTabs:
-    active: false
+    active: true
   NullableBooleanCheck:
-    active: false
+    active: true
   ObjectLiteralToLambda:
     active: true
   OptionalAbstractKeyword:
@@ -672,7 +672,7 @@ style:
   RedundantHigherOrderMapUsage:
     active: true
   RedundantVisibilityModifierRule:
-    active: false
+    active: true
   ReturnCount:
     active: true
     max: 2
@@ -686,7 +686,7 @@ style:
   SerialVersionUIDInSerializableClass:
     active: true
   SpacingBetweenPackageAndImports:
-    active: false
+    active: true
   StringShouldBeRawString:
     active: false
     maxEscapedCharacterCount: 2
@@ -696,9 +696,9 @@ style:
     max: 2
     excludeGuardClauses: false
   TrailingWhitespace:
-    active: false
+    active: true
   TrimMultilineRawString:
-    active: false
+    active: true
     trimmingMethods:
       - 'trimIndent'
       - 'trimMargin'
@@ -709,7 +709,7 @@ style:
   UnnecessaryAbstractClass:
     active: true
   UnnecessaryAnnotationUseSiteTarget:
-    active: false
+    active: true
   UnnecessaryApply:
     active: true
   UnnecessaryBackticks:
@@ -721,16 +721,16 @@ style:
   UnnecessaryInheritance:
     active: true
   UnnecessaryInnerClass:
-    active: false
+    active: true
   UnnecessaryLet:
-    active: false
+    active: true
   UnnecessaryParentheses:
-    active: false
+    active: true
     allowForUnclearPrecedence: false
   UntilInsteadOfRangeTo:
-    active: false
+    active: true
   UnusedImports:
-    active: false
+    active: true
   UnusedParameter:
     active: true
     allowedNames: 'ignored|expected'
@@ -751,19 +751,19 @@ style:
   UseCheckOrError:
     active: true
   UseDataClass:
-    active: false
+    active: true
     allowVars: false
   UseEmptyCounterpart:
-    active: false
+    active: true
   UseIfEmptyOrIfBlank:
-    active: false
+    active: true
   UseIfInsteadOfWhen:
-    active: false
+    active: true
     ignoreWhenContainingVariableDeclaration: false
   UseIsNullOrEmpty:
     active: true
   UseLet:
-    active: false
+    active: true
   UseOrEmpty:
     active: true
   UseRequire:
@@ -771,7 +771,7 @@ style:
   UseRequireNotNull:
     active: true
   UseSumOfInsteadOfFlatMapSize:
-    active: false
+    active: true
   UselessCallOnNotNull:
     active: true
   UtilityClassWithPublicConstructor:

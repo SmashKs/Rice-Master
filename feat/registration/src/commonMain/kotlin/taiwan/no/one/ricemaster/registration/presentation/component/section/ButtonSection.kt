@@ -25,24 +25,22 @@ internal fun ButtonSection(
 
     Column {
         Button(
-//            onClick = onLoginClick,
-            onClick = {
-            },
+            onClick = onLoginClick,
             content = {
                 Text(text = "Login")
 
-                firebaseAuth.signInWithTwitter(
-                    onSuccess = {
-                        println("#################################################")
-                        println(it)
-                        println("#################################################")
-                    },
-                    onError = {
-                        println("=================================================")
-                        println(it)
-                        println("=================================================")
-                    },
-                )
+//                firebaseAuth.signInWithTwitter(
+//                    onSuccess = {
+//                        println("#################################################")
+//                        println(it)
+//                        println("#################################################")
+//                    },
+//                    onError = {
+//                        println("=================================================")
+//                        println(it)
+//                        println("=================================================")
+//                    },
+//                )
             },
         )
 

@@ -25,7 +25,7 @@ internal val jsonProvider = module {
 
 internal val TIMEOUT = 15_000L // 15s
 
-val networkModuleProvider = module {
+val networkModule = module {
     includes(jsonProvider)
 
     single {

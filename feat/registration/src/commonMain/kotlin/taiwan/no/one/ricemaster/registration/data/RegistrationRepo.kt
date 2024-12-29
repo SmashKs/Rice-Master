@@ -9,4 +9,8 @@ interface RegistrationRepo {
     fun updateEmail(email: String)
 
     fun updatePassword(password: String)
+
+    suspend fun createUser(): Result<Unit>
+
+    suspend fun signIn(): Result<Unit>
 }

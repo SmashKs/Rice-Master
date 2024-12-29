@@ -6,5 +6,5 @@ interface GoogleAuthUiProvider {
      *
      * @return returns GoogleUser
      */
-    suspend fun signIn(): GoogleUser?
+    suspend fun signIn(): User?
 }

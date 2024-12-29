@@ -40,6 +40,8 @@ include(":core:network")
 include(":core:navigation")
 include(":core:util")
 
+include(":data:user")
+
 include(":feat:search")
 include(":feat:identity")
 include(":feat:profile")
