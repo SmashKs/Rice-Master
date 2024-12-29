@@ -74,8 +74,6 @@ kotlinx-atmoicfu = "0.26.1"
 
 koin-bom = "4.1.0-Beta1"
 
-koin = "4.1.0-Beta1"
-
 koin-annotation = "2.0.0-Beta3"
 
 ktor = "3.0.3"

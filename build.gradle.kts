@@ -17,3 +17,7 @@ allprojects {
             resolutionStrategy.activateDependencyLocking()
         }
 }
+
+// pre-requirement: brew install graphviz
+// ./gradlew projectDependencyGraph
+apply(file("gradle/projectDependencyGraph.gradle"))
