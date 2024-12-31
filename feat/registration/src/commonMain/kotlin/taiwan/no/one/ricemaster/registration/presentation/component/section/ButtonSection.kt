@@ -8,6 +8,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.core.bundle.Bundle
+import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 import taiwan.no.one.ricemaster.registration.presentation.auth.FirebaseAuth
 import taiwan.no.one.ricemaster.ui.Sizing
@@ -25,7 +27,23 @@ internal fun ButtonSection(
 
     Column {
         Button(
-            onClick = onLoginClick,
+            onClick = {
+                coroutineScope.launch {
+                    firebaseAuth.signInWithGoogle(
+                        onSuccess = { s: String, bundle: Bundle ->
+                            println("=================================================")
+                            println(s)
+                            println(bundle)
+                            println("=================================================")
+                        },
+                        onError = {
+                            println("=================================================")
+                            println(it)
+                            println("=================================================")
+                        },
+                    )
+                }
+            },
             content = {
                 Text(text = "Login")
 
