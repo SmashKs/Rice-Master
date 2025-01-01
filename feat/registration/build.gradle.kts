@@ -71,6 +71,7 @@ kotlin {
             implementation(libs.androidx.auth.credentials)
             implementation(libs.androidx.auth.playstore)
             implementation("com.google.android.libraries.identity.googleid:googleid:1.1.0")
+            implementation("com.google.android.gms:play-services-auth:21.3.0")
         }
 
         iosMain.dependencies {

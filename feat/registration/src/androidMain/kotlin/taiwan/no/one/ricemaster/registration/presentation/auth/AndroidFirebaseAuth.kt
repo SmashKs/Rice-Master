@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Bundle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import androidx.credentials.CreatePasswordRequest
 import androidx.credentials.CredentialManager
 import androidx.credentials.GetCredentialRequest
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
@@ -13,12 +14,16 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.OAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import org.koin.core.qualifier.named
 import taiwan.no.one.ricemaster.user.model.UserModel
 
 internal class AndroidFirebaseAuth(
     private val context: Context,
-) : FirebaseAuth {
+) : FirebaseAuth, KoinComponent {
     private val auth = AndroidFirebaseAuth.getInstance()
+    private val webClientId: String by inject(named("web_client_id"))
 
     override suspend fun signInWithGoogle(
         onSuccess: (String, Bundle) -> Unit,
@@ -27,15 +32,19 @@ internal class AndroidFirebaseAuth(
         val credentialManager = CredentialManager.create(context)
         val googleIdOption = GetGoogleIdOption.Builder()
             .setFilterByAuthorizedAccounts(false)
-            .setServerClientId("1036229269056-87dvegl957sad1nuka44uj391qos14lu.apps.googleusercontent.com")
-            .setAutoSelectEnabled(false)
+            .setServerClientId("1036229269056-4q0ct27vldb9t7b1bhl5ecsipcq859hl.apps.googleusercontent.com")
+            //            .setAutoSelectEnabled(false)
             .build()
         val request = GetCredentialRequest.Builder()
             .addCredentialOption(googleIdOption)
             .build()
 
         try {
-            val credential = credentialManager.getCredential(context = context, request = request).credential
+            //            val credential = credentialManager.getCredential(context = context, request = request).credential
+            val credential = credentialManager.createCredential(
+                context,
+                CreatePasswordRequest("test@test.test", "test"),
+            )
             onSuccess(credential.type, credential.data)
         } catch (e: Exception) {
             onError(e)
