@@ -42,16 +42,10 @@ kotlin {
 
         framework {
             baseName = "composeApp"
-            // Optional properties
-            // Specify the framework linking type. It's dynamic by default.
-            isStatic = true
+            isStatic = false
         }
 
 //        pod("FirebaseCore") { linkOnly = true }
-
-        // Maps custom Xcode configuration to NativeBuildType
-//        xcodeConfigurationToNativeBuildType["Debug"] = NativeBuildType.DEBUG
-//        xcodeConfigurationToNativeBuildType["Release"] = NativeBuildType.RELEASE
     }
 
     sourceSets {
