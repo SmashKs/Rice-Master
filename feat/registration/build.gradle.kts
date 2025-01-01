@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.androidKotlinMultiplatformLibrary)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.kotlinCocoapods)
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.googleKsp)
@@ -29,6 +30,27 @@ kotlin {
             baseName = "registration"
             isStatic = true
         }
+    }
+
+    cocoapods {
+        // Required properties
+        // Specify the required Pod version here. Otherwise, the Gradle project version is used.
+        version = "1.0"
+        summary = "Some description for a Kotlin/Native module"
+        homepage = "Link to a Kotlin/Native module homepage"
+
+        ios.deploymentTarget = "16.0"
+
+        noPodspec()
+
+        framework {
+            baseName = "registration"
+            // Optional properties
+            // Specify the framework linking type. It's dynamic by default.
+            isStatic = false
+        }
+
+//        pod("GoogleSignIn")
     }
 
 // Source set declarations.
@@ -75,6 +97,8 @@ kotlin {
         }
 
         iosMain.dependencies {
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.core)
         }
 
         // KSP Common sourceSet

@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.kotlinCocoapods)
     alias(libs.plugins.googleKsp)
     alias(libs.plugins.googleplayServices)
     alias(libs.plugins.firebaseCrashlytics)
@@ -27,6 +28,30 @@ kotlin {
             baseName = "ComposeApp"
             isStatic = true
         }
+    }
+
+    cocoapods {
+        // Required properties
+        // Specify the required Pod version here. Otherwise, the Gradle project version is used.
+        version = "1.0"
+        summary = "Some description for a Kotlin/Native module"
+        homepage = "Link to a Kotlin/Native module homepage"
+
+        ios.deploymentTarget = "16.0"
+        podfile = project.file("../iosApp/Podfile")
+
+        framework {
+            baseName = "composeApp"
+            // Optional properties
+            // Specify the framework linking type. It's dynamic by default.
+            isStatic = true
+        }
+
+//        pod("FirebaseCore") { linkOnly = true }
+
+        // Maps custom Xcode configuration to NativeBuildType
+//        xcodeConfigurationToNativeBuildType["Debug"] = NativeBuildType.DEBUG
+//        xcodeConfigurationToNativeBuildType["Release"] = NativeBuildType.RELEASE
     }
 
     sourceSets {

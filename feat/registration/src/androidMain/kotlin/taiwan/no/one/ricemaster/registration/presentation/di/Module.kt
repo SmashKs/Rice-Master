@@ -6,6 +6,6 @@ import org.koin.dsl.module
 import taiwan.no.one.ricemaster.registration.presentation.auth.AndroidFirebaseAuth
 import taiwan.no.one.ricemaster.registration.presentation.auth.FirebaseAuth
 
-val googleAuthModule = module {
+val registrationModuleProvider = module {
     factoryOf(::AndroidFirebaseAuth) bind FirebaseAuth::class
 }
