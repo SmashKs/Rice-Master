@@ -13,4 +13,6 @@ interface RegistrationStore {
     suspend fun createUser(email: String, password: String): Result<Unit>
 
     suspend fun signIn(email: String, password: String): Result<Unit>
+
+    suspend fun signIn(token: String): Result<Unit>
 }

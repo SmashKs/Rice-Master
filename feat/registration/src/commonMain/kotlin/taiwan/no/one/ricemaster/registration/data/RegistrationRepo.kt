@@ -13,4 +13,6 @@ interface RegistrationRepo {
     suspend fun createUser(): Result<Unit>
 
     suspend fun signIn(): Result<Unit>
+
+    suspend fun signIn(token: String): Result<Unit>
 }

@@ -36,6 +36,9 @@ kotlin {
             implementation(libs.kotlin.stdlib)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.atmoicfu)
+
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.core)
         }
     }
 }

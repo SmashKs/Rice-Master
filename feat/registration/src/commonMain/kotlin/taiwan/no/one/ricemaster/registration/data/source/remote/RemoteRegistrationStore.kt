@@ -6,8 +6,8 @@ import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import taiwan.no.one.ricemaster.registration.data.auth.FirebaseAuth
 import taiwan.no.one.ricemaster.registration.data.source.RegistrationStore
-import taiwan.no.one.ricemaster.registration.presentation.auth.FirebaseAuth
 
 @Single
 @Named("remote")
@@ -43,6 +43,18 @@ internal class RemoteRegistrationStore : RegistrationStore, KoinComponent {
         firebaseAuth.signIn(
             email = email,
             password = password,
+            onSuccess = { continuation.resume(Result.success(Unit)) },
+            onError = { continuation.resume(Result.failure(it)) },
+        )
+        continuation.invokeOnCancellation {
+            // The task can't be cancelled, but we can ensure we don't call resume if cancelled
+            // This is already handled by the isActive checks above, but we keep this for clarity
+        }
+    }
+
+    override suspend fun signIn(token: String): Result<Unit> = suspendCancellableCoroutine { continuation ->
+        firebaseAuth.signInWithGoogle(
+            authToken = token,
             onSuccess = { continuation.resume(Result.success(Unit)) },
             onError = { continuation.resume(Result.failure(it)) },
         )

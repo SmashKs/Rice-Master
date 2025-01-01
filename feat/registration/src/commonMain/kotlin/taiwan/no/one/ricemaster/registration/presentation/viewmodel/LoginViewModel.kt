@@ -8,7 +8,11 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import taiwan.no.one.ricemaster.registration.data.RegistrationRepo
+import taiwan.no.one.ricemaster.registration.domain.usecase.GoogleLoginUseCase
+import taiwan.no.one.ricemaster.registration.presentation.auth.CredentialHandler
 import taiwan.no.one.ricemaster.registration.presentation.entity.LoginUiState
 import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent.DebugPrintData
 import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent.Execute
@@ -19,22 +23,23 @@ import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent.U
 import taiwan.no.one.ricemaster.ui.event.EventHandler
 
 @KoinViewModel
-class LoginViewModel(
+internal class LoginViewModel(
     private val registrationRepo: RegistrationRepo,
-) : ViewModel(), EventHandler<LoginEvent> {
-    val state =
-        registrationRepo
-            .observeLoginFlow()
-            .map {
-                LoginUiState.Input(
-                    email = it.email,
-                    password = it.password,
-                )
-            }.stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.Eagerly,
-                initialValue = LoginUiState.Init(),
+    private val googleLoginUseCase: GoogleLoginUseCase,
+) : ViewModel(), EventHandler<LoginEvent>, KoinComponent {
+    private val credentialHandler: CredentialHandler by inject()
+    val state = registrationRepo
+        .observeLoginFlow()
+        .map {
+            LoginUiState.Input(
+                email = it.email,
+                password = it.password,
             )
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.Eagerly,
+            initialValue = LoginUiState.Init(),
+        )
 
     override fun handleEvent(event: LoginEvent) {
         when (event) {
@@ -44,7 +49,17 @@ class LoginViewModel(
                 println("=================================================")
             }
             SignUp -> viewModelScope.launch { registrationRepo.createUser() }
-            Login -> viewModelScope.launch { registrationRepo.signIn() }
+            Login -> viewModelScope.launch {
+                googleLoginUseCase.invoke().onSuccess {
+                    println("=================================================")
+                    println("doneeeeeeeeeeeeeeeeeeeeeeee")
+                    println("=================================================")
+                }.onFailure {
+                    println("=================================================")
+                    println(it)
+                    println("=================================================")
+                }
+            }
             is UpdateEmail ->
                 registrationRepo.updateEmail(event.email)
             is UpdatePassword ->

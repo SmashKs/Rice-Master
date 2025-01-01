@@ -27,4 +27,6 @@ internal class RegistrationRepository(
         val (email, password) = localStore.fetchLoginDataFlow().first()
         return remoteStore.signIn(email = email, password = password)
     }
+
+    override suspend fun signIn(token: String): Result<Unit> = remoteStore.signIn(token)
 }
