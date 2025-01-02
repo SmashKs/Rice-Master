@@ -9,10 +9,8 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import taiwan.no.one.ricemaster.registration.data.RegistrationRepo
 import taiwan.no.one.ricemaster.registration.domain.usecase.GoogleLoginUseCase
-import taiwan.no.one.ricemaster.registration.presentation.auth.CredentialHandler
 import taiwan.no.one.ricemaster.registration.presentation.entity.LoginUiState
 import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent.DebugPrintData
 import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent.Execute
@@ -27,7 +25,6 @@ internal class LoginViewModel(
     private val registrationRepo: RegistrationRepo,
     private val googleLoginUseCase: GoogleLoginUseCase,
 ) : ViewModel(), EventHandler<LoginEvent>, KoinComponent {
-    private val credentialHandler: CredentialHandler by inject()
     val state = registrationRepo
         .observeLoginFlow()
         .map {

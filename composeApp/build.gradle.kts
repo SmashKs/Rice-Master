@@ -148,6 +148,7 @@ android {
     }
 }
 
+// KSP Tasks
 dependencies {
     add("kspCommonMainMetadata", libs.koin.ksp.compiler)
     add("kspAndroid", libs.koin.ksp.compiler)
