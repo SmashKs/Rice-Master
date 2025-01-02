@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
-
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidKotlinMultiplatformLibrary)
@@ -59,8 +57,11 @@ dependencies {
     add("kspIosSimulatorArm64", libs.koin.ksp.compiler)
 }
 
-// Trigger Common Metadata Generation from Native tasks
-project.tasks.withType(KotlinCompilationTask::class.java).configureEach {
+ksp {
+    arg("KOIN_CONFIG_CHECK", "true")
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask<*>>().configureEach {
     if (name != "kspCommonMainKotlinMetadata") {
         dependsOn("kspCommonMainKotlinMetadata")
     }

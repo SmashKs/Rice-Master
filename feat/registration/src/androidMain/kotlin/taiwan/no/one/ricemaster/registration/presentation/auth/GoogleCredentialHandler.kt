@@ -6,15 +6,13 @@ import androidx.credentials.GetCredentialRequest
 import com.google.android.libraries.identity.googleid.GetSignInWithGoogleOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import org.koin.core.annotation.Factory
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
-import org.koin.core.qualifier.named
+import org.koin.core.annotation.Named
 
 @Factory
 internal class GoogleCredentialHandler(
     private val context: Context,
-) : CredentialHandler, KoinComponent {
-    private val webClientId: String by inject(named("web_client_id"))
+    @Named("web_client_id") private val webClientId: String,
+) : CredentialHandler {
 
     @Throws(Exception::class)
     override suspend fun loginInWithGoogle(): String {

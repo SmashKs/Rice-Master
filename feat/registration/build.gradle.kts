@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
-
 plugins {
     alias(libs.plugins.androidKotlinMultiplatformLibrary)
     alias(libs.plugins.composeMultiplatform)
@@ -121,8 +119,7 @@ ksp {
     arg("KOIN_CONFIG_CHECK", "true")
 }
 
-// Trigger Common Metadata Generation from Native tasks
-project.tasks.withType(KotlinCompilationTask::class.java).configureEach {
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask<*>>().configureEach {
     if (name != "kspCommonMainKotlinMetadata") {
         dependsOn("kspCommonMainKotlinMetadata")
     }

@@ -4,8 +4,6 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import org.koin.core.annotation.Factory
 import org.koin.core.annotation.Named
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import taiwan.no.one.ricemaster.registration.data.RegistrationRepository
 import taiwan.no.one.ricemaster.registration.presentation.auth.CredentialHandler
 
@@ -16,9 +14,9 @@ interface GoogleLoginUseCase {
 @Factory
 internal class GoogleLoginUseCaseImpl(
     private val repository: RegistrationRepository,
+    private val credentialHandler: CredentialHandler,
     @Named("io") private val ioDispatcher: CoroutineDispatcher,
-) : GoogleLoginUseCase, KoinComponent {
-    private val credentialHandler: CredentialHandler by inject()
+) : GoogleLoginUseCase {
 
     override suspend operator fun invoke(): Result<Unit> = withContext(ioDispatcher) {
         try {

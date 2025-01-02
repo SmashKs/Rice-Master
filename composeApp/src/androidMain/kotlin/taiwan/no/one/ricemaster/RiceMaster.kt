@@ -4,7 +4,8 @@ import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
-import taiwan.no.one.ricemaster.di.provideAppModule
+import org.koin.ksp.generated.module
+import taiwan.no.one.ricemaster.di.AppModule
 
 class RiceMaster : Application() {
     override fun onCreate() {
@@ -13,7 +14,7 @@ class RiceMaster : Application() {
             androidLogger()
             androidContext(this@RiceMaster)
 
-            modules(provideAppModule)
+            modules(AppModule().module)
         }
     }
 }
