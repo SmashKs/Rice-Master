@@ -2,15 +2,7 @@ package taiwan.no.one.ricemaster.registration.di
 
 import org.koin.core.annotation.ComponentScan
 import org.koin.core.annotation.Module
-import taiwan.no.one.ricemaster.registration.data.auth.FirebaseAuth
-import taiwan.no.one.ricemaster.registration.presentation.auth.CredentialHandler
 
 @Module
 @ComponentScan("taiwan.no.one.ricemaster.registration")
 class RegistrationModule
-
-internal expect class PlatformModule {
-    fun getFirebaseAuth(): FirebaseAuth
-
-    fun getCredentialHandler(): CredentialHandler
-}

@@ -101,6 +101,10 @@ kotlin {
             implementation(libs.koin.core)
         }
     }
+
+    compilerOptions {
+        freeCompilerArgs.add("-Xexpect-actual-classes")
+    }
 }
 
 // KSP Tasks
