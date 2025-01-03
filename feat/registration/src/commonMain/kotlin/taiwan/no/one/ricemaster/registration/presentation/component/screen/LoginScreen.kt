@@ -52,7 +52,7 @@ internal fun LoginScreen(
 private fun PreviewLoginScreen() {
     MaterialTheme {
         LoginScreen(
-            uiState = LoginUiState.Init(),
+            uiState = LoginUiState.Init,
         )
     }
 }

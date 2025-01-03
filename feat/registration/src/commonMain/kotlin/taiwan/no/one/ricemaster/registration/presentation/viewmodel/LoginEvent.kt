@@ -15,4 +15,6 @@ sealed interface LoginEvent : Event {
     data class UpdatePassword(val password: String) : LoginEvent
 
     data class Execute(val icon: SocialIcon) : LoginEvent
+
+    data object DoneLoginMethod : LoginEvent
 }

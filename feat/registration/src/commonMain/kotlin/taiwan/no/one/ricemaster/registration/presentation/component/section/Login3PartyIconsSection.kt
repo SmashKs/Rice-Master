@@ -15,8 +15,8 @@ import taiwan.no.one.ricemaster.registration.presentation.entity.SocialIcon
 
 @Composable
 internal fun Login3PartyIconsSection(
-    modifier: Modifier = Modifier,
     icons: ImmutableList<SocialIcon>,
+    modifier: Modifier = Modifier,
     onClick: (SocialIcon) -> Unit = {},
 ) {
     LazyRow(

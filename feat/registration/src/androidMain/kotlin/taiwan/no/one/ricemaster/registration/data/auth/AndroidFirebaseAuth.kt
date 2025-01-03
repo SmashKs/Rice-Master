@@ -1,8 +1,12 @@
 package taiwan.no.one.ricemaster.registration.data.auth
 
+import android.app.Activity
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.OAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import org.koin.core.annotation.Factory
@@ -12,23 +16,25 @@ import taiwan.no.one.ricemaster.user.model.UserModel
 internal class AndroidFirebaseAuth : FirebaseAuth {
     private val auth = Firebase.auth
 
-//    @Composable
-//    override fun signInWithTwitter(
-//        onSuccess: (UserModel) -> Unit,
-//        onError: (Exception) -> Unit,
-//    ) {
-//        val provider = OAuthProvider
-//            .newBuilder("twitter.com")
-//            .addCustomParameter("lang", "en")
-//            // Force re-consent.
-//            .addCustomParameter("prompt", "consent")
-//            .build()
-//        val activity = LocalContext.current as Activity
-//
-//        auth.startActivityForSignInWithProvider(activity, provider)
-//            .addOnSuccessListener { result -> successBlock(result, onError, onSuccess) }
-//            .addOnFailureListener(onError)
-//    }
+    @Composable
+    override fun signInWithTwitter(
+        onSuccess: (UserModel) -> Unit,
+        onError: (Exception) -> Unit,
+        onComplete: () -> Unit,
+    ) {
+        val provider = OAuthProvider
+            .newBuilder("twitter.com")
+            .addCustomParameter("lang", "en")
+            // Force re-consent.
+            .addCustomParameter("prompt", "consent")
+            .build()
+        val activity = LocalContext.current as Activity
+
+        auth.startActivityForSignInWithProvider(activity, provider)
+            .addOnSuccessListener { result -> successBlock(result, onError, onSuccess) }
+            .addOnFailureListener(onError)
+            .addOnCompleteListener { onComplete() }
+    }
 
     override fun createUser(
         email: String,

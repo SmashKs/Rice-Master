@@ -1,13 +1,15 @@
 package taiwan.no.one.ricemaster.registration.data.auth
 
+import androidx.compose.runtime.Composable
 import taiwan.no.one.ricemaster.user.model.UserModel
 
 interface FirebaseAuth {
-//    @Composable
-//    fun signInWithTwitter(
-//        onSuccess: (UserModel) -> Unit,
-//        onError: (Exception) -> Unit,
-//    )
+    @Composable
+    fun signInWithTwitter(
+        onSuccess: (UserModel) -> Unit,
+        onError: (Exception) -> Unit,
+        onComplete: () -> Unit,
+    )
 
     fun createUser(
         email: String,
