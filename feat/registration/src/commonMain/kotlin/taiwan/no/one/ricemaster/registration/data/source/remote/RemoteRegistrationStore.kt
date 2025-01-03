@@ -4,15 +4,14 @@ import kotlin.coroutines.resume
 import kotlinx.coroutines.suspendCancellableCoroutine
 import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
+import org.koin.mp.KoinPlatform
 import taiwan.no.one.ricemaster.registration.data.auth.FirebaseAuth
 import taiwan.no.one.ricemaster.registration.data.source.RegistrationStore
 
 @Single
 @Named("remote")
-internal class RemoteRegistrationStore : RegistrationStore, KoinComponent {
-    private val firebaseAuth by inject<FirebaseAuth>()
+internal class RemoteRegistrationStore : RegistrationStore {
+    private val firebaseAuth: FirebaseAuth by KoinPlatform.getKoin().inject()
 
     override fun fetchLoginDataFlow() = throw UnsupportedOperationException()
 

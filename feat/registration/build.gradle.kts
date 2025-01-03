@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
+
 plugins {
     alias(libs.plugins.androidKotlinMultiplatformLibrary)
     alias(libs.plugins.composeMultiplatform)
@@ -75,7 +77,7 @@ kotlin {
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.mm.compose)
             implementation(libs.koin.mm.viewmodel.navigation)
-            api(libs.koin.annotations)
+            implementation(libs.koin.annotations)
 
 //            implementation(project.dependencies.platform(libs.firebase.bom))
 //            implementation(libs.firebase.auth)
@@ -85,8 +87,8 @@ kotlin {
             implementation(project.dependencies.platform(libs.firebase.bom))
             implementation(libs.firebase.authKtx)
 
-            implementation(project.dependencies.platform(libs.koin.bom))
-            implementation(libs.koin.android)
+//            implementation(project.dependencies.platform(libs.koin.bom))
+//            implementation(libs.koin.android)
 
             implementation(libs.androidx.auth.credentials)
             implementation(libs.androidx.auth.playstore)
@@ -95,23 +97,17 @@ kotlin {
         }
 
         iosMain.dependencies {
-            implementation(project.dependencies.platform(libs.koin.bom))
-            implementation(libs.koin.core)
         }
-    }
 
-    compilerOptions {
-        freeCompilerArgs.add("-Xexpect-actual-classes")
+        named("commonMain").configure {
+            kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
+        }
     }
 }
 
 // KSP Tasks
 dependencies {
     add("kspCommonMainMetadata", libs.koin.ksp.compiler)
-    add("kspAndroid", libs.koin.ksp.compiler)
-    add("kspIosX64", libs.koin.ksp.compiler)
-    add("kspIosArm64", libs.koin.ksp.compiler)
-    add("kspIosSimulatorArm64", libs.koin.ksp.compiler)
 }
 
 ksp {
@@ -119,7 +115,7 @@ ksp {
     arg("KOIN_CONFIG_CHECK", "true")
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask<*>>().configureEach {
+tasks.withType<KotlinCompilationTask<*>>().configureEach {
     if (name != "kspCommonMainKotlinMetadata") {
         dependsOn("kspCommonMainKotlinMetadata")
     }

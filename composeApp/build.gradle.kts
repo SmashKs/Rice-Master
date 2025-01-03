@@ -7,9 +7,9 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinCocoapods)
-    alias(libs.plugins.googleKsp)
     alias(libs.plugins.googleplayServices)
     alias(libs.plugins.firebaseCrashlytics)
+    alias(libs.plugins.googleKsp)
 }
 
 kotlin {
@@ -82,18 +82,15 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.koin.mm.compose)
             implementation(libs.koin.mm.viewmodel.navigation)
-            api(libs.koin.annotations)
+            implementation(libs.koin.annotations)
         }
 
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
 
-            implementation(libs.kotlinx.coroutines.android)
-
             implementation(libs.ktor.client.android)
 
-            implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.android)
 
             implementation(project.dependencies.platform(libs.firebase.bom))
@@ -108,6 +105,10 @@ kotlin {
         named("commonMain").configure {
             kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
         }
+    }
+
+    compilerOptions {
+        freeCompilerArgs.add("-Xexpect-actual-classes")
     }
 }
 
@@ -149,6 +150,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+
+    dependencies {
+//        debugImplementation(libs.androidx.compose.ui.tooling)
+    }
 }
 
 // KSP Tasks
@@ -158,10 +163,10 @@ dependencies {
     add("kspIosX64", libs.koin.ksp.compiler)
     add("kspIosArm64", libs.koin.ksp.compiler)
     add("kspIosSimulatorArm64", libs.koin.ksp.compiler)
-    debugImplementation(compose.uiTooling)
 }
 
 ksp {
+    arg("KOIN_USE_COMPOSE_VIEWMODEL", "true")
     arg("KOIN_CONFIG_CHECK", "true")
 }
 

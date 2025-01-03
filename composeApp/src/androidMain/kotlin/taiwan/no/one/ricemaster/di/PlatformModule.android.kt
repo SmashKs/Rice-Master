@@ -1,14 +1,11 @@
 package taiwan.no.one.ricemaster.di
 
 import android.content.Context
-import org.koin.core.annotation.Named
-import org.koin.core.annotation.Single
+import org.koin.core.module.Module
+import org.koin.core.qualifier.named
+import org.koin.dsl.module
 import taiwan.no.one.ricemaster.R
 
-@Single
-internal actual class PlatformModule(
-    private val context: Context,
-) {
-    @Named("web_client_id")
-    actual fun getWebClientId(): String = context.getString(R.string.default_web_client_id)
+actual val platformModule: Module = module {
+    factory(named("web_client_id")) { get<Context>().getString(R.string.default_web_client_id) }
 }

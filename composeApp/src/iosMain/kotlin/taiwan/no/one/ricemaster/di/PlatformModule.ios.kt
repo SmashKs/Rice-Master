@@ -1,10 +1,6 @@
 package taiwan.no.one.ricemaster.di
 
-import org.koin.core.annotation.Named
-import org.koin.core.annotation.Single
+import org.koin.core.module.Module
+import org.koin.dsl.module
 
-@Single
-internal actual class PlatformModule {
-    @Named("web_client_id")
-    actual fun getWebClientId(): String = "test"
-}
+actual val platformModule: Module = module {}

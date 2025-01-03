@@ -6,13 +6,12 @@ import androidx.credentials.GetCredentialRequest
 import com.google.android.libraries.identity.googleid.GetSignInWithGoogleOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import org.koin.core.annotation.Factory
-import org.koin.core.annotation.Named
+import org.koin.core.qualifier.named
+import org.koin.mp.KoinPlatform
 
 @Factory
-internal class GoogleCredentialHandler(
-    private val context: Context,
-    @Named("web_client_id") private val webClientId: String,
-) : CredentialHandler {
+internal class GoogleCredentialHandler(private val context: Context) : CredentialHandler {
+    private val webClientId: String by KoinPlatform.getKoin().inject(named("web_client_id"))
 
     @Throws(Exception::class)
     override suspend fun loginInWithGoogle(): String {
@@ -23,7 +22,6 @@ internal class GoogleCredentialHandler(
 //            .setAutoSelectEnabled(false)
 //            .build()
         val signInWithGoogleOption = GetSignInWithGoogleOption
-//            .Builder("1036229269056-4q0ct27vldb9t7b1bhl5ecsipcq859hl.apps.googleusercontent.com")
             .Builder(webClientId)
             .build()
         val request = GetCredentialRequest.Builder()
