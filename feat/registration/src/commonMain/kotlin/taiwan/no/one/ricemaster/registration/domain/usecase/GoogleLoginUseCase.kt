@@ -6,7 +6,7 @@ import org.koin.core.annotation.Factory
 import org.koin.core.annotation.Named
 import org.koin.mp.KoinPlatform
 import taiwan.no.one.ricemaster.registration.data.RegistrationRepository
-import taiwan.no.one.ricemaster.registration.presentation.auth.CredentialHandler
+import taiwan.no.one.ricemaster.registration.domain.handler.CredentialHandler
 
 interface GoogleLoginUseCase {
     suspend operator fun invoke(): Result<Unit>

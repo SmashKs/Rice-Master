@@ -6,8 +6,8 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 import taiwan.no.one.ricemaster.registration.data.auth.AndroidFirebaseAuth
 import taiwan.no.one.ricemaster.registration.data.auth.FirebaseAuth
-import taiwan.no.one.ricemaster.registration.presentation.auth.CredentialHandler
-import taiwan.no.one.ricemaster.registration.presentation.auth.GoogleCredentialHandler
+import taiwan.no.one.ricemaster.registration.domain.handler.CredentialHandler
+import taiwan.no.one.ricemaster.registration.domain.handler.GoogleCredentialHandler
 
 actual val registrationPlatformModule: Module = module {
     factoryOf(::GoogleCredentialHandler) bind CredentialHandler::class

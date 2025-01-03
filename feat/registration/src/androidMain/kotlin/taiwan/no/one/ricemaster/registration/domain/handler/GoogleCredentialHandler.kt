@@ -1,4 +1,4 @@
-package taiwan.no.one.ricemaster.registration.presentation.auth
+package taiwan.no.one.ricemaster.registration.domain.handler
 
 import android.content.Context
 import androidx.credentials.CredentialManager
