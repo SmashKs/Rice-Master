@@ -4,6 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import org.koin.core.annotation.Factory
 import org.koin.core.annotation.Named
+import taiwan.no.one.ricemaster.registration.data.model.LoginMethodModel
 import taiwan.no.one.ricemaster.registration.data.model.LoginModel
 import taiwan.no.one.ricemaster.registration.data.source.RegistrationStore
 
@@ -28,5 +29,8 @@ internal class RegistrationRepository(
         return remoteStore.signIn(email = email, password = password)
     }
 
-    override suspend fun signIn(token: String): Result<Unit> = remoteStore.signIn(token)
+    override suspend fun signIn(method: LoginMethodModel): Result<Unit> = when (method) {
+        is LoginMethodModel.Google -> remoteStore.signInWithGoogle(method.token)
+        is LoginMethodModel.Facebook -> remoteStore.signInWithFacebook(method.token)
+    }
 }

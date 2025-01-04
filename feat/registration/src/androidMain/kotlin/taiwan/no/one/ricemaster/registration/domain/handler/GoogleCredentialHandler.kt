@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.activity.ComponentActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.platform.LocalContext
 import androidx.credentials.CredentialManager
 import androidx.credentials.GetCredentialRequest
@@ -26,7 +28,12 @@ internal class GoogleCredentialHandler(private val context: Context) : Credentia
     override fun loginInWithFacebook(
         onSuccess: (String) -> Unit,
         onError: (Exception) -> Unit,
+        onComplete: () -> Unit,
     ) {
+        val latestOnSuccess by rememberUpdatedState(onSuccess)
+        val latestOnError by rememberUpdatedState(onError)
+        val latestOnComplete by rememberUpdatedState(onComplete)
+
         val activity = LocalContext.current as ComponentActivity
         val loginManager = LoginManager.getInstance()
         val callbackManager = CallbackManager.Factory.create()
@@ -43,14 +50,17 @@ internal class GoogleCredentialHandler(private val context: Context) : Credentia
                 object : FacebookCallback<LoginResult> {
                     override fun onCancel() {
                         // do nothing
+                        latestOnComplete()
                     }
 
                     override fun onError(error: FacebookException) {
-                        onError(error)
+                        latestOnError(error)
+                        latestOnComplete()
                     }
 
                     override fun onSuccess(result: LoginResult) {
-                        onSuccess(result.accessToken.token)
+                        latestOnSuccess(result.accessToken.token)
+                        latestOnComplete()
                     }
                 },
             )

@@ -7,6 +7,7 @@ interface CredentialHandler {
     fun loginInWithFacebook(
         onSuccess: (String) -> Unit,
         onError: (Exception) -> Unit,
+        onComplete: () -> Unit,
     )
 
     suspend fun loginInWithGoogle(): String

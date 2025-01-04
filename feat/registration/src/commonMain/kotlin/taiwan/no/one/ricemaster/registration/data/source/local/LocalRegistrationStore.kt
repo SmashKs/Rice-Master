@@ -34,7 +34,9 @@ internal class LocalRegistrationStore : RegistrationStore {
 
     override suspend fun signIn(email: String, password: String) = throw UnsupportedOperationException()
 
-    override suspend fun signIn(token: String) = throw UnsupportedOperationException()
+    override suspend fun signInWithGoogle(token: String) = throw UnsupportedOperationException()
+
+    override suspend fun signInWithFacebook(token: String) = throw UnsupportedOperationException()
 
     companion object {
         private const val KEY = "fdkaj32+#!#frefi2r)FafdFDa" // random fixed key

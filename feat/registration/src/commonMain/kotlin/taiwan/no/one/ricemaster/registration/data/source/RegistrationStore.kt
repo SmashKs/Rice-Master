@@ -14,5 +14,7 @@ interface RegistrationStore {
 
     suspend fun signIn(email: String, password: String): Result<Unit>
 
-    suspend fun signIn(token: String): Result<Unit>
+    suspend fun signInWithGoogle(token: String): Result<Unit>
+
+    suspend fun signInWithFacebook(token: String): Result<Unit>
 }

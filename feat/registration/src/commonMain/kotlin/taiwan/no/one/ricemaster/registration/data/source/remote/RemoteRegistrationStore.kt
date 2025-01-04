@@ -51,8 +51,20 @@ internal class RemoteRegistrationStore : RegistrationStore {
         }
     }
 
-    override suspend fun signIn(token: String): Result<Unit> = suspendCancellableCoroutine { continuation ->
+    override suspend fun signInWithGoogle(token: String): Result<Unit> = suspendCancellableCoroutine { continuation ->
         firebaseAuth.signInWithGoogle(
+            authToken = token,
+            onSuccess = { continuation.resume(Result.success(Unit)) },
+            onError = { continuation.resume(Result.failure(it)) },
+        )
+        continuation.invokeOnCancellation {
+            // The task can't be cancelled, but we can ensure we don't call resume if cancelled
+            // This is already handled by the isActive checks above, but we keep this for clarity
+        }
+    }
+
+    override suspend fun signInWithFacebook(token: String): Result<Unit> = suspendCancellableCoroutine { continuation ->
+        firebaseAuth.signInWithFacebook(
             authToken = token,
             onSuccess = { continuation.resume(Result.success(Unit)) },
             onError = { continuation.resume(Result.failure(it)) },

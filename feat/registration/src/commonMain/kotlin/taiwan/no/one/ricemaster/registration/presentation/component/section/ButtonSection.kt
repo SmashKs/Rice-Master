@@ -15,7 +15,7 @@ internal fun ButtonSection(
     onLoginClick: () -> Unit = {},
     onSignUpClick: () -> Unit = {},
 ) {
-    Column {
+    Column(modifier = modifier) {
         Button(
             onClick = onLoginClick,
             content = { Text(text = "Login") },

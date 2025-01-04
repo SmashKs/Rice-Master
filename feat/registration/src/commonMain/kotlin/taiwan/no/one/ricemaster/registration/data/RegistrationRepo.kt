@@ -1,6 +1,7 @@
 package taiwan.no.one.ricemaster.registration.data
 
 import kotlinx.coroutines.flow.Flow
+import taiwan.no.one.ricemaster.registration.data.model.LoginMethodModel
 import taiwan.no.one.ricemaster.registration.data.model.LoginModel
 
 interface RegistrationRepo {
@@ -14,5 +15,5 @@ interface RegistrationRepo {
 
     suspend fun signIn(): Result<Unit>
 
-    suspend fun signIn(token: String): Result<Unit>
+    suspend fun signIn(method: LoginMethodModel): Result<Unit>
 }

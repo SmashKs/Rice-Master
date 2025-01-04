@@ -14,13 +14,20 @@ sealed interface LoginUiState {
         override val password: String,
     ) : LoginUiState
 
-    data object Twitter : LoginUiState {
-        override val email: String = ""
-        override val password: String = ""
-    }
+    sealed interface ThirdPartyMethod : LoginUiState {
+        data object Google : ThirdPartyMethod {
+            override val email: String = ""
+            override val password: String = ""
+        }
 
-    data object Facebook : LoginUiState {
-        override val email: String = ""
-        override val password: String = ""
+        data object Twitter : ThirdPartyMethod {
+            override val email: String = ""
+            override val password: String = ""
+        }
+
+        data object Facebook : ThirdPartyMethod {
+            override val email: String = ""
+            override val password: String = ""
+        }
     }
 }
