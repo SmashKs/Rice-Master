@@ -1,8 +1,17 @@
 package taiwan.no.one.ricemaster.registration.domain.handler
 
 import android.content.Context
+import androidx.activity.ComponentActivity
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.ui.platform.LocalContext
 import androidx.credentials.CredentialManager
 import androidx.credentials.GetCredentialRequest
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
 import com.google.android.libraries.identity.googleid.GetSignInWithGoogleOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import org.koin.core.annotation.Factory
@@ -12,6 +21,43 @@ import org.koin.mp.KoinPlatform
 @Factory
 internal class GoogleCredentialHandler(private val context: Context) : CredentialHandler {
     private val webClientId: String by KoinPlatform.getKoin().inject(named("web_client_id"))
+
+    @Composable
+    override fun loginInWithFacebook(
+        onSuccess: (String) -> Unit,
+        onError: (Exception) -> Unit,
+    ) {
+        val activity = LocalContext.current as ComponentActivity
+        val loginManager = LoginManager.getInstance()
+        val callbackManager = CallbackManager.Factory.create()
+
+        loginManager.logIn(
+            activityResultRegistryOwner = activity,
+            callbackManager = callbackManager,
+            permissions = listOf("email", "public_profile"),
+        )
+
+        DisposableEffect(Unit) {
+            loginManager.registerCallback(
+                callbackManager,
+                object : FacebookCallback<LoginResult> {
+                    override fun onCancel() {
+                        // do nothing
+                    }
+
+                    override fun onError(error: FacebookException) {
+                        onError(error)
+                    }
+
+                    override fun onSuccess(result: LoginResult) {
+                        onSuccess(result.accessToken.token)
+                    }
+                },
+            )
+
+            onDispose { loginManager.unregisterCallback(callbackManager) }
+        }
+    }
 
     @Throws(Exception::class)
     override suspend fun loginInWithGoogle(): String {

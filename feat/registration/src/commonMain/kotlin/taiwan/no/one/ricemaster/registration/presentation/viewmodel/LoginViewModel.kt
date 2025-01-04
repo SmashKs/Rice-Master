@@ -13,6 +13,7 @@ import org.koin.core.component.KoinComponent
 import taiwan.no.one.ricemaster.registration.data.RegistrationRepo
 import taiwan.no.one.ricemaster.registration.domain.usecase.GoogleLoginUseCase
 import taiwan.no.one.ricemaster.registration.presentation.entity.LoginUiState
+import taiwan.no.one.ricemaster.registration.presentation.entity.LoginUiState.Facebook
 import taiwan.no.one.ricemaster.registration.presentation.entity.LoginUiState.Input
 import taiwan.no.one.ricemaster.registration.presentation.entity.LoginUiState.Twitter
 import taiwan.no.one.ricemaster.registration.presentation.entity.SocialIcon
@@ -40,7 +41,7 @@ internal class LoginViewModel(
         when (socialIcon) {
             TWITTER -> Twitter
             GOOGLE -> TODO()
-            FACEBOOK -> TODO()
+            FACEBOOK -> Facebook
             INSTAGRAM -> TODO()
             else -> Input(
                 email = model.email,

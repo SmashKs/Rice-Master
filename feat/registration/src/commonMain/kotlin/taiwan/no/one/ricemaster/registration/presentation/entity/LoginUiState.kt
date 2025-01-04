@@ -18,4 +18,9 @@ sealed interface LoginUiState {
         override val email: String = ""
         override val password: String = ""
     }
+
+    data object Facebook : LoginUiState {
+        override val email: String = ""
+        override val password: String = ""
+    }
 }

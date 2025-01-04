@@ -78,7 +78,7 @@ internal fun LoginFieldsSection(
             placeholder = { Text("Enter your password") },
             leadingIcon = { Icon(Icons.Default.Lock, contentDescription = "Password") },
             trailingIcon = {
-                if (emailFieldVal.text.isNotEmpty()) {
+                if (passwordFieldVal.text.isNotEmpty()) {
                     IconButton(
                         onClick = {
                             passwordFieldVal = TextFieldValue()

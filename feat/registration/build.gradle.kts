@@ -94,6 +94,7 @@ kotlin {
             implementation(libs.androidx.auth.playstore)
             implementation(libs.google.id)
             implementation(libs.play.services.auth)
+            implementation(libs.facebook.login)
         }
 
         iosMain.dependencies {

@@ -95,6 +95,8 @@ kotlin {
 
             implementation(project.dependencies.platform(libs.firebase.bom))
             implementation(libs.firebase.crashlyticsKtx)
+
+            implementation(libs.facebook.login)
         }
 
         iosMain.dependencies {

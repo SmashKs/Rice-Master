@@ -1,9 +1,10 @@
 package taiwan.no.one.ricemaster.registration.data.auth
 
-import android.app.Activity
+import androidx.activity.ComponentActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.OAuthProvider
@@ -28,12 +29,35 @@ internal class AndroidFirebaseAuth : FirebaseAuth {
             // Force re-consent.
             .addCustomParameter("prompt", "consent")
             .build()
-        val activity = LocalContext.current as Activity
+        val activity = LocalContext.current as ComponentActivity
 
         auth.startActivityForSignInWithProvider(activity, provider)
             .addOnSuccessListener { result -> successBlock(result, onError, onSuccess) }
             .addOnFailureListener(onError)
             .addOnCompleteListener { onComplete() }
+    }
+
+    override fun signInWithFacebook(
+        authToken: String,
+        onSuccess: (UserModel) -> Unit,
+        onError: (Exception) -> Unit,
+    ) {
+        val credential = FacebookAuthProvider.getCredential(authToken)
+
+        auth.signInWithCredential(credential)
+            .addOnSuccessListener { result -> successBlock(result, onError, onSuccess) }
+            .addOnFailureListener(onError)
+    }
+
+    override fun signInWithGoogle(
+        authToken: String,
+        onSuccess: (UserModel) -> Unit,
+        onError: (Exception) -> Unit,
+    ) {
+        val credential = GoogleAuthProvider.getCredential(authToken, null)
+        auth.signInWithCredential(credential)
+            .addOnSuccessListener { result -> successBlock(result, onError, onSuccess) }
+            .addOnFailureListener(onError)
     }
 
     override fun createUser(
@@ -54,17 +78,6 @@ internal class AndroidFirebaseAuth : FirebaseAuth {
         onError: (Exception) -> Unit,
     ) {
         auth.signInWithEmailAndPassword(email, password)
-            .addOnSuccessListener { result -> successBlock(result, onError, onSuccess) }
-            .addOnFailureListener(onError)
-    }
-
-    override fun signInWithGoogle(
-        authToken: String,
-        onSuccess: (UserModel) -> Unit,
-        onError: (Exception) -> Unit,
-    ) {
-        val credential = GoogleAuthProvider.getCredential(authToken, null)
-        auth.signInWithCredential(credential)
             .addOnSuccessListener { result -> successBlock(result, onError, onSuccess) }
             .addOnFailureListener(onError)
     }
