@@ -1,9 +1,9 @@
 package taiwan.no.one.ricemaster.registration.domain.handler
 
-import android.content.Context
 import androidx.activity.ComponentActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.platform.LocalContext
@@ -21,7 +21,7 @@ import org.koin.core.qualifier.named
 import org.koin.mp.KoinPlatform
 
 @Factory
-internal class GoogleCredentialHandler(private val context: Context) : CredentialHandler {
+internal class GoogleCredentialHandler : CredentialHandler {
     private val webClientId: String by KoinPlatform.getKoin().inject(named("web_client_id"))
 
     @Composable
@@ -70,12 +70,27 @@ internal class GoogleCredentialHandler(private val context: Context) : Credentia
     }
 
     @Throws(Exception::class)
-    override suspend fun loginInWithGoogle(): String {
-        val credentialManager = CredentialManager.create(context)
+    @Composable
+    override fun loginInWithGoogle(
+        onSuccess: (String) -> Unit,
+        onError: (Exception) -> Unit,
+        onComplete: () -> Unit,
+    ) {
+        val latestOnSuccess by rememberUpdatedState(onSuccess)
+        val latestOnError by rememberUpdatedState(onError)
+        val latestOnComplete by rememberUpdatedState(onComplete)
+
+        val activity = LocalContext.current as ComponentActivity
+        val credentialManager = CredentialManager.create(activity)
+
+        // NOTE(jieyi): 2025/01/06 this is the recommend way. However, it doesn't work well
 //        val googleIdOption = GetGoogleIdOption.Builder()
 //            .setFilterByAuthorizedAccounts(false)
-//            .setServerClientId("1036229269056-4q0ct27vldb9t7b1bhl5ecsipcq859hl.apps.googleusercontent.com")
+//            .setServerClientId(webClientId)
 //            .setAutoSelectEnabled(false)
+//            .build()
+//        val request: GetCredentialRequest = GetCredentialRequest.Builder()
+//            .addCredentialOption(googleIdOption)
 //            .build()
         val signInWithGoogleOption = GetSignInWithGoogleOption
             .Builder(webClientId)
@@ -84,13 +99,16 @@ internal class GoogleCredentialHandler(private val context: Context) : Credentia
             .addCredentialOption(signInWithGoogleOption)
             .build()
 
-//            val credential = credentialManager.createCredential(
-//                context,
-//                CreatePasswordRequest("test@test.test", "test"),
-//            )
-        val credential = credentialManager.getCredential(context = context, request = request).credential
-        val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
+        LaunchedEffect(Unit) {
+            try {
+                val credential = credentialManager.getCredential(context = activity, request = request).credential
+                val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
 
-        return googleIdTokenCredential.idToken
+                latestOnSuccess(googleIdTokenCredential.idToken)
+            } catch (e: Exception) {
+                latestOnError(e)
+            }
+            latestOnComplete()
+        }
     }
 }

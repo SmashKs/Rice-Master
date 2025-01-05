@@ -18,6 +18,31 @@ internal class AndroidFirebaseAuth : FirebaseAuth {
     private val auth = Firebase.auth
 
     @Composable
+    override fun signInWithInstagram(
+        onSuccess: (UserModel) -> Unit,
+        onError: (Exception) -> Unit,
+        onComplete: () -> Unit,
+    ) {
+        val provider = OAuthProvider
+            .newBuilder("instagram.com")
+            .addCustomParameter("lang", "en")
+            // Force re-consent.
+            .addCustomParameter("prompt", "consent")
+            .build()
+        val activity = LocalContext.current as ComponentActivity
+
+        val task = if (auth.pendingAuthResult != null) {
+            auth.pendingAuthResult
+        } else {
+            auth.startActivityForSignInWithProvider(activity, provider)
+        }
+
+        task?.addOnSuccessListener { result -> successBlock(result, onError, onSuccess) }
+            ?.addOnFailureListener(onError)
+            ?.addOnCompleteListener { onComplete() }
+    }
+
+    @Composable
     override fun signInWithTwitter(
         onSuccess: (UserModel) -> Unit,
         onError: (Exception) -> Unit,
@@ -31,10 +56,15 @@ internal class AndroidFirebaseAuth : FirebaseAuth {
             .build()
         val activity = LocalContext.current as ComponentActivity
 
-        auth.startActivityForSignInWithProvider(activity, provider)
-            .addOnSuccessListener { result -> successBlock(result, onError, onSuccess) }
-            .addOnFailureListener(onError)
-            .addOnCompleteListener { onComplete() }
+        val task = if (auth.pendingAuthResult != null) {
+            auth.pendingAuthResult
+        } else {
+            auth.startActivityForSignInWithProvider(activity, provider)
+        }
+
+        task?.addOnSuccessListener { result -> successBlock(result, onError, onSuccess) }
+            ?.addOnFailureListener(onError)
+            ?.addOnCompleteListener { onComplete() }
     }
 
     override fun signInWithFacebook(

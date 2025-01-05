@@ -1,7 +1,6 @@
 package taiwan.no.one.ricemaster.registration.presentation.component
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import org.koin.compose.koinInject
 import taiwan.no.one.ricemaster.registration.data.auth.FirebaseAuth
@@ -11,6 +10,7 @@ import taiwan.no.one.ricemaster.registration.presentation.entity.LoginUiState
 import taiwan.no.one.ricemaster.registration.presentation.entity.LoginUiState.ThirdPartyMethod
 import taiwan.no.one.ricemaster.registration.presentation.entity.LoginUiState.ThirdPartyMethod.Facebook
 import taiwan.no.one.ricemaster.registration.presentation.entity.LoginUiState.ThirdPartyMethod.Google
+import taiwan.no.one.ricemaster.registration.presentation.entity.LoginUiState.ThirdPartyMethod.Instagram
 import taiwan.no.one.ricemaster.registration.presentation.entity.LoginUiState.ThirdPartyMethod.Twitter
 import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent
 
@@ -29,11 +29,16 @@ internal fun LoginRoute(
     when (uiState as? ThirdPartyMethod ?: return) {
         is Google -> {
             val credentialHandler = koinInject<CredentialHandler>()
-            LaunchedEffect(Unit) {
-                val token = credentialHandler.loginInWithGoogle()
-                eventHandler.invoke(LoginEvent.LoginWith(token))
-                eventHandler.invoke(LoginEvent.DoneLoginMethod)
-            }
+
+            credentialHandler.loginInWithGoogle(
+                onSuccess = { eventHandler.invoke(LoginEvent.LoginWith(it)) },
+                onError = {
+                    println("=================================================")
+                    println(it)
+                    println("=================================================")
+                },
+                onComplete = { eventHandler.invoke(LoginEvent.DoneLoginMethod) },
+            )
         }
         is Twitter -> {
             val firebaseAuth = koinInject<FirebaseAuth>()
@@ -66,6 +71,23 @@ internal fun LoginRoute(
                     println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
                     println(it)
                     println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+                },
+                onComplete = { eventHandler.invoke(LoginEvent.DoneLoginMethod) },
+            )
+        }
+        is Instagram -> {
+            val firebaseAuth = koinInject<FirebaseAuth>()
+
+            firebaseAuth.signInWithInstagram(
+                onSuccess = {
+                    println("#################################################")
+                    println(it)
+                    println("#################################################")
+                },
+                onError = {
+                    println("=================================================")
+                    println(it)
+                    println("=================================================")
                 },
                 onComplete = { eventHandler.invoke(LoginEvent.DoneLoginMethod) },
             )

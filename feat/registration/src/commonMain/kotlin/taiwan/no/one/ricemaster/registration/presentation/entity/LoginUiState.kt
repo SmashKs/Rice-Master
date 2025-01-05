@@ -29,5 +29,10 @@ sealed interface LoginUiState {
             override val email: String = ""
             override val password: String = ""
         }
+
+        data object Instagram : ThirdPartyMethod {
+            override val email: String = ""
+            override val password: String = ""
+        }
     }
 }

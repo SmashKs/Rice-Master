@@ -10,5 +10,10 @@ interface CredentialHandler {
         onComplete: () -> Unit,
     )
 
-    suspend fun loginInWithGoogle(): String
+    @Composable
+    fun loginInWithGoogle(
+        onSuccess: (String) -> Unit,
+        onError: (Exception) -> Unit,
+        onComplete: () -> Unit,
+    )
 }

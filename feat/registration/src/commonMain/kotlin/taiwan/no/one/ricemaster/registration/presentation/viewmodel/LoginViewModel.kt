@@ -41,7 +41,7 @@ internal class LoginViewModel(
             TWITTER -> ThirdPartyMethod.Twitter
             GOOGLE -> ThirdPartyMethod.Google
             FACEBOOK -> ThirdPartyMethod.Facebook
-            INSTAGRAM -> TODO()
+            INSTAGRAM -> ThirdPartyMethod.Instagram
             else -> Input(
                 email = model.email,
                 password = model.password,
@@ -66,6 +66,7 @@ internal class LoginViewModel(
                 when (loginMethodFlow.value) {
                     GOOGLE -> registrationRepo.signIn(LoginMethodModel.Google(event.token))
                     FACEBOOK -> registrationRepo.signIn(LoginMethodModel.Facebook(event.token))
+                    INSTAGRAM -> {}
                     else -> TODO()
                 }
             }

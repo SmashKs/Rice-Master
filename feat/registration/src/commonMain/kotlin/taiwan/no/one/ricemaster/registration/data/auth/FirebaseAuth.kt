@@ -7,6 +7,13 @@ import taiwan.no.one.ricemaster.user.model.UserModel
 @Stable
 interface FirebaseAuth {
     @Composable
+    fun signInWithInstagram(
+        onSuccess: (UserModel) -> Unit,
+        onError: (Exception) -> Unit,
+        onComplete: () -> Unit,
+    )
+
+    @Composable
     fun signInWithTwitter(
         onSuccess: (UserModel) -> Unit,
         onError: (Exception) -> Unit,
