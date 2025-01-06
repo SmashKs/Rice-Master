@@ -111,6 +111,9 @@ kotlin {
 
     compilerOptions {
         freeCompilerArgs.add("-Xexpect-actual-classes")
+        if (System.getProperty("idea.active") == "true") {
+            freeCompilerArgs.add("-Xdebug")
+        }
     }
 }
 
