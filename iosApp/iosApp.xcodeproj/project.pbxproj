@@ -11,6 +11,7 @@
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
+		8CC7A0E1611962ACC7FB73F4 /* libPods-iosApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DD9DE6CC30DAA00DB99B51E /* libPods-iosApp.a */; };
 		944A95802D1D2CC9002F6255 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 944A957F2D1D2CC9002F6255 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CC7A0E1611962ACC7FB73F4 /* libPods-iosApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
