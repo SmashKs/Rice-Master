@@ -19,6 +19,20 @@ allprojects {
         }
 }
 
+subprojects {
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+        compilerOptions {
+            freeCompilerArgs.addAll(
+                "-Xexpect-actual-classes",
+                "-Xcontext-receivers",
+            )
+            if (System.getProperty("idea.active") == "true") {
+                freeCompilerArgs.add("-Xdebug")
+            }
+        }
+    }
+}
+
 // pre-requirement: brew install graphviz
 // ./gradlew projectDependencyGraph
 apply(file("gradle/projectDependencyGraph.gradle"))

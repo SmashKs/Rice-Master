@@ -107,12 +107,9 @@ kotlin {
         named("commonMain").configure {
             kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
         }
-    }
 
-    compilerOptions {
-        freeCompilerArgs.add("-Xexpect-actual-classes")
-        if (System.getProperty("idea.active") == "true") {
-            freeCompilerArgs.add("-Xdebug")
+        all {
+            languageSettings.enableLanguageFeature("ExplicitBackingFields")
         }
     }
 }
