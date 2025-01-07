@@ -45,7 +45,7 @@ kotlin {
             isStatic = true
         }
 
-//        pod("FirebaseCore") { linkOnly = true }
+        pod("FirebaseCore") { linkOnly = true }
     }
 
     sourceSets {

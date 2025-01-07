@@ -50,7 +50,7 @@ kotlin {
             isStatic = false
         }
 
-//        pod("GoogleSignIn")
+        pod("GoogleSignIn")
     }
 
 // Source set declarations.
