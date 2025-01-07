@@ -10,10 +10,8 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.OAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import org.koin.core.annotation.Factory
 import taiwan.no.one.ricemaster.user.model.UserModel
 
-@Factory
 internal class AndroidFirebaseAuth : FirebaseAuth {
     private val auth = Firebase.auth
 

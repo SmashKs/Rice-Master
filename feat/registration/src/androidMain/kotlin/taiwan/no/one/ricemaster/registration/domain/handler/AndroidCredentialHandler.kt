@@ -16,12 +16,10 @@ import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.android.libraries.identity.googleid.GetSignInWithGoogleOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
-import org.koin.core.annotation.Factory
 import org.koin.core.qualifier.named
 import org.koin.mp.KoinPlatform
 
-@Factory
-internal class GoogleCredentialHandler : CredentialHandler {
+internal class AndroidCredentialHandler : CredentialHandler {
     private val webClientId: String by KoinPlatform.getKoin().inject(named("web_client_id"))
 
     @Composable

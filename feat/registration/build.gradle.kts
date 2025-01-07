@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
@@ -40,8 +41,7 @@ kotlin {
         homepage = "Link to a Kotlin/Native module homepage"
 
         ios.deploymentTarget = "16.0"
-
-        noPodspec()
+        podfile = project.file("../../iosApp/Podfile")
 
         framework {
             baseName = "registration"
@@ -50,7 +50,11 @@ kotlin {
             isStatic = false
         }
 
-        pod("GoogleSignIn")
+//        pod("GoogleSignIn")
+//        pod("FirebaseAuth")
+
+        xcodeConfigurationToNativeBuildType["CUSTOM_DEBUG"] = NativeBuildType.DEBUG
+        xcodeConfigurationToNativeBuildType["CUSTOM_RELEASE"] = NativeBuildType.RELEASE
     }
 
 // Source set declarations.
@@ -98,6 +102,7 @@ kotlin {
         }
 
         iosMain.dependencies {
+            implementation(compose.runtime)
         }
 
         named("commonMain").configure {
