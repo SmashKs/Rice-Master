@@ -42,7 +42,7 @@ kotlin {
 
         framework {
             baseName = "composeApp"
-            isStatic = false
+            isStatic = true
         }
 
 //        pod("FirebaseCore") { linkOnly = true }

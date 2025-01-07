@@ -1,8 +1,8 @@
 # install! 'cocoapods', :disable_input_output_paths => true
 
 target 'iosApp' do
-    platform :ios, '16.0'
     use_frameworks!
+    platform :ios, '16.0'
 #   pod 'FirebaseAuth'
   pod 'composeApp', :path => '../composeApp'
 end
