@@ -5,8 +5,8 @@ target 'iosApp' do
   platform :ios, '16.0'
 
   # Pods for iosApp
-  pod 'Firebase/Firestore'
+  pod 'Firebase/Core'
+  pod 'Firebase/Auth'
 
   pod 'composeApp', :path => '../composeApp'
-  pod 'registration', :path => '../feat/registration'
 end

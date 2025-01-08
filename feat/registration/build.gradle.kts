@@ -41,7 +41,7 @@ kotlin {
         homepage = "Link to a Kotlin/Native module homepage"
 
         ios.deploymentTarget = "16.0"
-        podfile = project.file("../../iosApp/Podfile")
+        noPodspec()
 
         framework {
             baseName = "registration"
@@ -51,7 +51,9 @@ kotlin {
         }
 
 //        pod("GoogleSignIn")
-//        pod("FirebaseAuth")
+//        pod("FirebaseAuth") {
+//            extraOpts += listOf("-compiler-option", "-fmodules")
+//        }
 
         xcodeConfigurationToNativeBuildType["CUSTOM_DEBUG"] = NativeBuildType.DEBUG
         xcodeConfigurationToNativeBuildType["CUSTOM_RELEASE"] = NativeBuildType.RELEASE
