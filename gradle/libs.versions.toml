@@ -22,8 +22,6 @@ kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref =
 
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
-kotlinCocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
-
 kotlinAtmoic = { id = "org.jetbrains.kotlinx.atomicfu", version.ref = "kotlinx-atmoicfu" }
 
 googleplayServices = { id = "com.google.gms.google-services", version.ref = "google-play-services" }

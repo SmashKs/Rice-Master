@@ -1,11 +1,9 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
     alias(libs.plugins.androidKotlinMultiplatformLibrary)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
-    alias(libs.plugins.kotlinCocoapods)
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.googleKsp)
@@ -33,32 +31,6 @@ kotlin {
         }
     }
 
-    cocoapods {
-        // Required properties
-        // Specify the required Pod version here. Otherwise, the Gradle project version is used.
-        version = "1.0"
-        summary = "Some description for a Kotlin/Native module"
-        homepage = "Link to a Kotlin/Native module homepage"
-
-        ios.deploymentTarget = "16.0"
-        noPodspec()
-
-        framework {
-            baseName = "registration"
-            // Optional properties
-            // Specify the framework linking type. It's dynamic by default.
-            isStatic = false
-        }
-
-//        pod("GoogleSignIn")
-//        pod("FirebaseAuth") {
-//            extraOpts += listOf("-compiler-option", "-fmodules")
-//        }
-
-        xcodeConfigurationToNativeBuildType["CUSTOM_DEBUG"] = NativeBuildType.DEBUG
-        xcodeConfigurationToNativeBuildType["CUSTOM_RELEASE"] = NativeBuildType.RELEASE
-    }
-
 // Source set declarations.
 // Declaring a target automatically creates a source set with the same name. By default, the
 // Kotlin Gradle Plugin creates additional source sets that depend on each other, since it is
@@ -84,9 +56,6 @@ kotlin {
             implementation(libs.koin.mm.compose)
             implementation(libs.koin.mm.viewmodel.navigation)
             implementation(libs.koin.annotations)
-
-//            implementation(project.dependencies.platform(libs.firebase.bom))
-//            implementation(libs.firebase.auth)
         }
 
         androidMain.dependencies {
