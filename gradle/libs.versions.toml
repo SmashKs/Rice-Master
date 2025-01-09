@@ -95,6 +95,8 @@ firebase-bom = "33.7.0"
 
 firebase-crashlytics-plugin = "3.0.2"
 
+firebase-multiplateform = "2.1.0"
+
 google-play-services = "4.4.2"
 
 google-id = "1.1.1"
@@ -190,6 +192,8 @@ firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "fir
 firebase-authKtx = { group = "com.google.firebase", name = "firebase-auth-ktx" }
 
 firebase-crashlyticsKtx = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
+
+firebase-multiplatform-auth = { group = "dev.gitlive", name = "firebase-auth", version.ref = "firebase-multiplateform" }
 
 facebook-login = { group = "com.facebook.android", name = "facebook-login", version.ref = "facebook-android" }
 

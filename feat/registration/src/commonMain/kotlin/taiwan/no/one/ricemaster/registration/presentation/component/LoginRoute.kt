@@ -41,21 +41,21 @@ internal fun LoginRoute(
             )
         }
         is Twitter -> {
-            val firebaseAuth = koinInject<FirebaseAuth>()
-
-            firebaseAuth.signInWithTwitter(
-                onSuccess = {
-                    println("#################################################")
-                    println(it)
-                    println("#################################################")
-                },
-                onError = {
-                    println("=================================================")
-                    println(it)
-                    println("=================================================")
-                },
-                onComplete = { eventHandler.invoke(LoginEvent.DoneLoginMethod) },
-            )
+//            val firebaseAuth = koinInject<FirebaseAuth>()
+//
+//            firebaseAuth.signInWithTwitter(
+//                onSuccess = {
+//                    println("#################################################")
+//                    println(it)
+//                    println("#################################################")
+//                },
+//                onError = {
+//                    println("=================================================")
+//                    println(it)
+//                    println("=================================================")
+//                },
+//                onComplete = { eventHandler.invoke(LoginEvent.DoneLoginMethod) },
+//            )
         }
         is Facebook -> {
             val credentialHandler = koinInject<CredentialHandler>()

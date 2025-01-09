@@ -43,27 +43,35 @@ kotlin {
             implementation(project(":feat:photo"))
             implementation(project(":feat:registration"))
 
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.ui)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
+            with(compose) {
+                implementation(runtime)
+                implementation(foundation)
+                implementation(material3)
+                implementation(ui)
+                implementation(components.resources)
+                implementation(components.uiToolingPreview)
+            }
             // android
-            implementation(libs.androidx.lifecycle.viewmodel)
-            implementation(libs.androidx.lifecycle.runtime.compose)
-            implementation(libs.androidx.navigation.compose)
+            with(libs.androidx) {
+                implementation(lifecycle.viewmodel)
+                implementation(lifecycle.runtime.compose)
+                implementation(navigation.compose)
+            }
             // kotlin
-            implementation(libs.kotlinx.datetime)
-            implementation(libs.kotlinx.collections.immutable)
+            with(libs.kotlinx) {
+                implementation(datetime)
+                implementation(collections.immutable)
+            }
             // internet
             implementation(libs.ktor.client.core)
             // dependency injection
-            implementation(project.dependencies.platform(libs.koin.bom))
-            implementation(libs.koin.core)
-            implementation(libs.koin.mm.compose)
-            implementation(libs.koin.mm.viewmodel.navigation)
-            implementation(libs.koin.annotations)
+            with(libs.koin) {
+                implementation(project.dependencies.platform(bom))
+                implementation(core)
+                implementation(mm.compose)
+                implementation(mm.viewmodel.navigation)
+                implementation(annotations)
+            }
         }
 
         androidMain.dependencies {
@@ -74,8 +82,10 @@ kotlin {
 
             implementation(libs.koin.android)
 
-            implementation(project.dependencies.platform(libs.firebase.bom))
-            implementation(libs.firebase.crashlyticsKtx)
+            with(libs.firebase) {
+                implementation(project.dependencies.platform(bom))
+                implementation(crashlyticsKtx)
+            }
 
             implementation(libs.facebook.login)
         }

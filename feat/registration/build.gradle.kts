@@ -42,20 +42,28 @@ kotlin {
             implementation(project(":core:navigation"))
             implementation(project(":core:util"))
             implementation(project(":data:user"))
-            implementation(compose.material3)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
+            with(compose) {
+                implementation(material3)
+                implementation(components.resources)
+                implementation(components.uiToolingPreview)
+            }
 
             implementation(libs.kotlin.stdlib)
-            implementation(libs.kotlinx.coroutines.core)
-            implementation(libs.kotlinx.serialization.json)
-            implementation(libs.kotlinx.collections.immutable)
+            with(libs.kotlinx) {
+                implementation(coroutines.core)
+                implementation(serialization.json)
+                implementation(collections.immutable)
+            }
             implementation(libs.androidx.navigation.compose)
 
-            implementation(project.dependencies.platform(libs.koin.bom))
-            implementation(libs.koin.mm.compose)
-            implementation(libs.koin.mm.viewmodel.navigation)
-            implementation(libs.koin.annotations)
+            with(libs.koin) {
+                implementation(project.dependencies.platform(bom))
+                implementation(mm.compose)
+                implementation(mm.viewmodel.navigation)
+                implementation(annotations)
+            }
+
+            implementation(libs.firebase.multiplatform.auth)
         }
 
         androidMain.dependencies {
