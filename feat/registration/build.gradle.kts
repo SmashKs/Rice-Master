@@ -44,6 +44,8 @@ kotlin {
             baseName = "resgistration"
             isStatic = false
         }
+
+        pod("GoogleSignIn")
     }
 
 // Source set declarations.

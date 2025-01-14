@@ -33,9 +33,9 @@ internal fun LoginRoute(
             credentialHandler.loginInWithGoogle(
                 onSuccess = { eventHandler.invoke(LoginEvent.LoginWith(it)) },
                 onError = {
-                    println("=================================================")
+                    println("#################################################")
                     println(it)
-                    println("=================================================")
+                    println("#################################################")
                 },
                 onComplete = { eventHandler.invoke(LoginEvent.DoneLoginMethod) },
             )
