@@ -1,8 +1,13 @@
 package taiwan.no.one.ricemaster.registration.domain.handler
 
 import androidx.compose.runtime.Composable
+import dev.gitlive.firebase.Firebase
+import dev.gitlive.firebase.auth.auth
+import dev.gitlive.firebase.auth.ios
+import kotlinx.cinterop.ExperimentalForeignApi
 
 internal class IosCredentialHandler : CredentialHandler {
+    @OptIn(ExperimentalForeignApi::class)
     @Composable
     override fun loginInWithFacebook(
         onSuccess: (String) -> Unit,
@@ -10,7 +15,7 @@ internal class IosCredentialHandler : CredentialHandler {
         onComplete: () -> Unit,
     ) {
         println("=================================================")
-        println("facebook")
+        println("facebook ${Firebase.auth.ios}")
         println("=================================================")
     }
 
