@@ -87,9 +87,6 @@ kotlin {
             implementation(project.dependencies.platform(libs.firebase.bom))
             implementation(libs.firebase.authKtx)
 
-//            implementation(project.dependencies.platform(libs.koin.bom))
-//            implementation(libs.koin.android)
-
             implementation(libs.androidx.auth.credentials)
             implementation(libs.androidx.auth.playstore)
             implementation(libs.google.id)

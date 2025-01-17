@@ -11,6 +11,13 @@ interface CredentialHandler {
     )
 
     @Composable
+    fun loginInWithTwitter(
+        onSuccess: (String) -> Unit,
+        onError: (Exception) -> Unit,
+        onComplete: () -> Unit,
+    )
+
+    @Composable
     fun loginInWithGoogle(
         onSuccess: (String) -> Unit,
         onError: (Exception) -> Unit,

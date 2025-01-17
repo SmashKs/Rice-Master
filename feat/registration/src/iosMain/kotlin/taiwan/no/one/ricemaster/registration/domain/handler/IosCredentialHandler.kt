@@ -5,12 +5,12 @@ import androidx.compose.ui.interop.LocalUIViewController
 import cocoapods.FirebaseCore.FIRApp
 import cocoapods.GoogleSignIn.GIDConfiguration
 import cocoapods.GoogleSignIn.GIDSignIn
+import dev.gitlive.firebase.auth.OAuthProvider
+import dev.gitlive.firebase.auth.ios
 import kotlinx.cinterop.ExperimentalForeignApi
 
 @OptIn(ExperimentalForeignApi::class)
-internal class IosCredentialHandler(
-    private val googleGIDSignInMethod: GIDSignIn,
-) : CredentialHandler {
+internal class IosCredentialHandler : CredentialHandler {
     @Composable
     override fun loginInWithFacebook(
         onSuccess: (String) -> Unit,
@@ -23,12 +23,34 @@ internal class IosCredentialHandler(
     }
 
     @Composable
+    override fun loginInWithTwitter(
+        onSuccess: (String) -> Unit,
+        onError: (Exception) -> Unit,
+        onComplete: () -> Unit,
+    ) {
+        val provider = OAuthProvider("twitter.com").ios.apply {
+            setCustomParameters(mapOf("lang" to "en"))
+        }
+
+        provider.getCredentialWithUIDelegate(
+            uiDelegate = null,
+            completion = { credential, error ->
+                println("=================================================")
+                println(error)
+                println(credential)
+                println("=================================================")
+            },
+        )
+    }
+
+    @Composable
     override fun loginInWithGoogle(
         onSuccess: (String) -> Unit,
         onError: (Exception) -> Unit,
         onComplete: () -> Unit,
     ) {
         val viewController = LocalUIViewController.current
+        val googleGIDSignInMethod = GIDSignIn.sharedInstance
 
         kotlin.runCatching { requireNotNull(FIRApp.defaultApp()?.options?.clientID) }
             .mapCatching { clientId ->
@@ -41,6 +63,6 @@ internal class IosCredentialHandler(
                     },
                 )
             }
-            .onFailure { onError(it as Exception) }
+            .onFailure { onError(Exception(it)) }
     }
 }

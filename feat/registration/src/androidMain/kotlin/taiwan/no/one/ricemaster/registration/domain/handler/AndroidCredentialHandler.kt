@@ -16,6 +16,11 @@ import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.android.libraries.identity.googleid.GetSignInWithGoogleOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
+import com.google.firebase.auth.OAuthCredential
+import dev.gitlive.firebase.Firebase
+import dev.gitlive.firebase.auth.OAuthProvider
+import dev.gitlive.firebase.auth.android
+import dev.gitlive.firebase.auth.auth
 import org.koin.core.qualifier.named
 import org.koin.mp.KoinPlatform
 
@@ -65,6 +70,26 @@ internal class AndroidCredentialHandler : CredentialHandler {
 
             onDispose { loginManager.unregisterCallback(callbackManager) }
         }
+    }
+
+    @Composable
+    override fun loginInWithTwitter(
+        onSuccess: (String) -> Unit,
+        onError: (Exception) -> Unit,
+        onComplete: () -> Unit,
+    ) {
+        val activity = LocalContext.current as ComponentActivity
+        val provider = OAuthProvider("twitter.com").android
+
+        Firebase.auth.android.startActivityForSignInWithProvider(activity, provider)
+            .addOnSuccessListener {
+                (it.credential as? OAuthCredential)
+                    ?.accessToken
+                    ?.run(onSuccess)
+                    ?: onError(NullPointerException())
+            }
+            .addOnFailureListener(onError)
+            .addOnCompleteListener { onComplete() }
     }
 
     @Throws(Exception::class)
