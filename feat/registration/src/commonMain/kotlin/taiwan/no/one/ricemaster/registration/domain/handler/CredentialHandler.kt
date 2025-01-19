@@ -1,6 +1,7 @@
 package taiwan.no.one.ricemaster.registration.domain.handler
 
 import androidx.compose.runtime.Composable
+import dev.gitlive.firebase.auth.AuthCredential
 
 interface CredentialHandler {
     @Composable
@@ -12,7 +13,7 @@ interface CredentialHandler {
 
     @Composable
     fun loginInWithTwitter(
-        onSuccess: (String) -> Unit,
+        onSuccess: (AuthCredential) -> Unit,
         onError: (Exception) -> Unit,
         onComplete: () -> Unit,
     )

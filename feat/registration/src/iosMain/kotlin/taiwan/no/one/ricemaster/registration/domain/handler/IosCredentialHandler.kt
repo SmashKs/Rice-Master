@@ -2,10 +2,10 @@ package taiwan.no.one.ricemaster.registration.domain.handler
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.interop.LocalUIViewController
-import cocoapods.FirebaseAuth.FIROAuthCredential
 import cocoapods.FirebaseCore.FIRApp
 import cocoapods.GoogleSignIn.GIDConfiguration
 import cocoapods.GoogleSignIn.GIDSignIn
+import dev.gitlive.firebase.auth.AuthCredential
 import dev.gitlive.firebase.auth.OAuthProvider
 import dev.gitlive.firebase.auth.ios
 import kotlinx.cinterop.ExperimentalForeignApi
@@ -25,7 +25,7 @@ internal class IosCredentialHandler : CredentialHandler {
 
     @Composable
     override fun loginInWithTwitter(
-        onSuccess: (String) -> Unit,
+        onSuccess: (AuthCredential) -> Unit,
         onError: (Exception) -> Unit,
         onComplete: () -> Unit,
     ) {
@@ -39,15 +39,9 @@ internal class IosCredentialHandler : CredentialHandler {
                 if (error != null) {
                     onError(Exception(error.toString()))
                 }
-                if (credential != null) {
-                    println("=================================================")
-                    println(credential as? FIROAuthCredential)
-                    println((credential as? FIROAuthCredential)?.accessToken())
-                    println((credential as? FIROAuthCredential)?.IDToken())
-                    println((credential as? FIROAuthCredential)?.secret())
-                    println((credential as? FIROAuthCredential)?.provider())
-                    println("=================================================")
-                }
+                credential?.let(::AuthCredential)
+                    ?.let(onSuccess)
+                    ?: onError(NullPointerException())
             },
         )
     }

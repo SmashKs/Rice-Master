@@ -1,4 +1,4 @@
-package taiwan.no.one.ricemaster.registration.domain.handler
+package taiwan.no.one.ricemaster.registration.presentation.handler
 
 import androidx.activity.ComponentActivity
 import androidx.compose.runtime.Composable
@@ -11,20 +11,15 @@ import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
+import com.google.firebase.auth.FacebookAuthProvider
 import dev.gitlive.firebase.Firebase
-import dev.gitlive.firebase.auth.AuthCredential
-import dev.gitlive.firebase.auth.OAuthProvider
 import dev.gitlive.firebase.auth.android
 import dev.gitlive.firebase.auth.auth
-import org.koin.core.qualifier.named
-import org.koin.mp.KoinPlatform
 
-internal class AndroidCredentialHandler : CredentialHandler {
-    private val webClientId: String by KoinPlatform.getKoin().inject(named("web_client_id"))
-
+internal class FacebookSignIn : SignInHandler {
     @Composable
-    override fun loginInWithFacebook(
-        onSuccess: (String) -> Unit,
+    override fun SignIn(
+        onSuccess: () -> Unit,
         onError: (Exception) -> Unit,
         onComplete: () -> Unit,
     ) {
@@ -57,42 +52,17 @@ internal class AndroidCredentialHandler : CredentialHandler {
                     }
 
                     override fun onSuccess(result: LoginResult) {
-                        latestOnSuccess(result.accessToken.token)
-                        latestOnComplete()
+                        val credential = FacebookAuthProvider.getCredential(result.accessToken.token)
+
+                        Firebase.auth.android.signInWithCredential(credential)
+                            .addOnSuccessListener { latestOnSuccess() }
+                            .addOnFailureListener(latestOnError)
+                            .addOnCompleteListener { latestOnComplete() }
                     }
                 },
             )
 
             onDispose { loginManager.unregisterCallback(callbackManager) }
         }
-    }
-
-    @Composable
-    override fun loginInWithTwitter(
-        onSuccess: (AuthCredential) -> Unit,
-        onError: (Exception) -> Unit,
-        onComplete: () -> Unit,
-    ) {
-        val activity = LocalContext.current as ComponentActivity
-        val provider = OAuthProvider("twitter.com").android
-
-        Firebase.auth.android.startActivityForSignInWithProvider(activity, provider)
-            .addOnSuccessListener {
-                it.credential
-                    ?.let(::AuthCredential)
-                    ?.run(onSuccess)
-                    ?: onError(NullPointerException())
-            }
-            .addOnFailureListener(onError)
-            .addOnCompleteListener { onComplete() }
-    }
-
-    @Throws(Exception::class)
-    @Composable
-    override fun loginInWithGoogle(
-        onSuccess: (String) -> Unit,
-        onError: (Exception) -> Unit,
-        onComplete: () -> Unit,
-    ) {
     }
 }

@@ -11,6 +11,7 @@ import taiwan.no.one.ricemaster.registration.presentation.entity.LoginUiState.Th
 import taiwan.no.one.ricemaster.registration.presentation.entity.LoginUiState.ThirdPartyMethod.Google
 import taiwan.no.one.ricemaster.registration.presentation.entity.LoginUiState.ThirdPartyMethod.Instagram
 import taiwan.no.one.ricemaster.registration.presentation.entity.LoginUiState.ThirdPartyMethod.Twitter
+import taiwan.no.one.ricemaster.registration.presentation.handler.SignInHandler
 import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent
 
 @Composable
@@ -27,14 +28,24 @@ internal fun LoginRoute(
 
     when (uiState as? ThirdPartyMethod ?: return) {
         is Google -> {
-            val credentialHandler = koinInject<CredentialHandler>()
-
-            credentialHandler.loginInWithGoogle(
-                onSuccess = { eventHandler.invoke(LoginEvent.LoginWith(it)) },
+//            val credentialHandler = koinInject<CredentialHandler>()
+//
+//            credentialHandler.loginInWithGoogle(
+//                onSuccess = { eventHandler.invoke(LoginEvent.LoginWith(it)) },
+//                onError = {
+//                    println("#################################################")
+//                    println(it)
+//                    println("#################################################")
+//                },
+//                onComplete = { eventHandler.invoke(LoginEvent.DoneLoginMethod) },
+//            )
+            val signInHandler = koinInject<SignInHandler>()
+            signInHandler.SignIn(
+                onSuccess = {
+                    println("success")
+                },
                 onError = {
-                    println("#################################################")
                     println(it)
-                    println("#################################################")
                 },
                 onComplete = { eventHandler.invoke(LoginEvent.DoneLoginMethod) },
             )
@@ -42,7 +53,7 @@ internal fun LoginRoute(
         is Twitter -> {
             val credentialHandler = koinInject<CredentialHandler>()
             credentialHandler.loginInWithTwitter(
-                onSuccess = { eventHandler.invoke(LoginEvent.LoginWith(it)) },
+                onSuccess = { },
                 onError = {
                     println("=================================================")
                     println(it)
