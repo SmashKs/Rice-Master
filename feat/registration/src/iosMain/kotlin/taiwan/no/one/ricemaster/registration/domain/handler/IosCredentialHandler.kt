@@ -2,6 +2,7 @@ package taiwan.no.one.ricemaster.registration.domain.handler
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.interop.LocalUIViewController
+import cocoapods.FirebaseAuth.FIROAuthCredential
 import cocoapods.FirebaseCore.FIRApp
 import cocoapods.GoogleSignIn.GIDConfiguration
 import cocoapods.GoogleSignIn.GIDSignIn
@@ -35,10 +36,18 @@ internal class IosCredentialHandler : CredentialHandler {
         provider.getCredentialWithUIDelegate(
             uiDelegate = null,
             completion = { credential, error ->
-                println("=================================================")
-                println(error)
-                println(credential)
-                println("=================================================")
+                if (error != null) {
+                    onError(Exception(error.toString()))
+                }
+                if (credential != null) {
+                    println("=================================================")
+                    println(credential as? FIROAuthCredential)
+                    println((credential as? FIROAuthCredential)?.accessToken())
+                    println((credential as? FIROAuthCredential)?.IDToken())
+                    println((credential as? FIROAuthCredential)?.secret())
+                    println((credential as? FIROAuthCredential)?.provider())
+                    println("=================================================")
+                }
             },
         )
     }
