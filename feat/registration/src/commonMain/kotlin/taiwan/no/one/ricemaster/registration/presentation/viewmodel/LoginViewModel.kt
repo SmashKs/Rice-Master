@@ -10,6 +10,8 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import org.koin.core.qualifier.named
 import taiwan.no.one.ricemaster.registration.data.RegistrationRepo
 import taiwan.no.one.ricemaster.registration.data.model.LoginMethodModel
 import taiwan.no.one.ricemaster.registration.presentation.entity.LoginUiState
@@ -18,8 +20,8 @@ import taiwan.no.one.ricemaster.registration.presentation.entity.LoginUiState.Th
 import taiwan.no.one.ricemaster.registration.presentation.entity.SocialIcon
 import taiwan.no.one.ricemaster.registration.presentation.entity.SocialIcon.FACEBOOK
 import taiwan.no.one.ricemaster.registration.presentation.entity.SocialIcon.GOOGLE
-import taiwan.no.one.ricemaster.registration.presentation.entity.SocialIcon.INSTAGRAM
 import taiwan.no.one.ricemaster.registration.presentation.entity.SocialIcon.TWITTER
+import taiwan.no.one.ricemaster.registration.presentation.handler.SignInHandler
 import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent.DebugPrintData
 import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent.DoneLoginMethod
 import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent.Execute
@@ -34,14 +36,17 @@ import taiwan.no.one.ricemaster.ui.event.EventHandler
 internal class LoginViewModel(
     private val registrationRepo: RegistrationRepo,
 ) : ViewModel(), EventHandler<LoginEvent>, KoinComponent {
+    private val googleSignInHandler: SignInHandler by inject(qualifier = named("google"))
+    private val facebookSignInHandler: SignInHandler by inject(qualifier = named("facebook"))
+    private val twitterSignInHandler: SignInHandler by inject(qualifier = named("twitter"))
     private val loginMethodFlow: MutableStateFlow<SocialIcon?> = MutableStateFlow(null)
     private val registrationFlow = registrationRepo.observeLoginFlow()
+
     val state = combine(registrationFlow, loginMethodFlow) { model, socialIcon ->
         when (socialIcon) {
-            TWITTER -> ThirdPartyMethod.Twitter
-            GOOGLE -> ThirdPartyMethod.Google
-            FACEBOOK -> ThirdPartyMethod.Facebook
-            INSTAGRAM -> ThirdPartyMethod.Instagram
+            TWITTER -> ThirdPartyMethod.Twitter(twitterSignInHandler)
+            GOOGLE -> ThirdPartyMethod.Google(googleSignInHandler)
+            FACEBOOK -> ThirdPartyMethod.Facebook(facebookSignInHandler)
             else -> Input(
                 email = model.email,
                 password = model.password,
@@ -66,7 +71,6 @@ internal class LoginViewModel(
                 when (loginMethodFlow.value) {
                     GOOGLE -> registrationRepo.signIn(LoginMethodModel.Google(event.token))
                     FACEBOOK -> registrationRepo.signIn(LoginMethodModel.Facebook(event.token))
-                    INSTAGRAM -> {}
                     else -> TODO()
                 }
             }

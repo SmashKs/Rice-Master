@@ -1,5 +1,7 @@
 package taiwan.no.one.ricemaster.registration.presentation.entity
 
+import taiwan.no.one.ricemaster.registration.presentation.handler.SignInHandler
+
 sealed interface LoginUiState {
     val email: String
     val password: String
@@ -15,22 +17,25 @@ sealed interface LoginUiState {
     ) : LoginUiState
 
     sealed interface ThirdPartyMethod : LoginUiState {
-        data object Google : ThirdPartyMethod {
+        val signInHandler: SignInHandler
+
+        data class Google(
+            override val signInHandler: SignInHandler,
+        ) : ThirdPartyMethod {
             override val email: String = ""
             override val password: String = ""
         }
 
-        data object Twitter : ThirdPartyMethod {
+        data class Twitter(
+            override val signInHandler: SignInHandler,
+        ) : ThirdPartyMethod {
             override val email: String = ""
             override val password: String = ""
         }
 
-        data object Facebook : ThirdPartyMethod {
-            override val email: String = ""
-            override val password: String = ""
-        }
-
-        data object Instagram : ThirdPartyMethod {
+        data class Facebook(
+            override val signInHandler: SignInHandler,
+        ) : ThirdPartyMethod {
             override val email: String = ""
             override val password: String = ""
         }

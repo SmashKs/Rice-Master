@@ -4,7 +4,6 @@ import org.jetbrains.compose.resources.DrawableResource
 import ricemaster.feat.registration.generated.resources.Res
 import ricemaster.feat.registration.generated.resources.ic_facebook
 import ricemaster.feat.registration.generated.resources.ic_google
-import ricemaster.feat.registration.generated.resources.ic_instagram
 import ricemaster.feat.registration.generated.resources.ic_twitter
 
 enum class SocialIcon(
@@ -22,9 +21,5 @@ enum class SocialIcon(
     FACEBOOK(
         drawableRes = Res.drawable.ic_facebook,
         contentDesc = "Facebook",
-    ),
-    INSTAGRAM(
-        drawableRes = Res.drawable.ic_instagram,
-        contentDesc = "Instagram",
     ),
 }
