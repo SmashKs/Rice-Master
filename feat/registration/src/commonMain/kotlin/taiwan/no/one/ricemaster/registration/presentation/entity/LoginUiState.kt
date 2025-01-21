@@ -1,7 +1,9 @@
 package taiwan.no.one.ricemaster.registration.presentation.entity
 
+import androidx.compose.runtime.Stable
 import taiwan.no.one.ricemaster.registration.presentation.handler.SignInHandler
 
+@Stable
 sealed interface LoginUiState {
     val email: String
     val password: String
@@ -16,6 +18,7 @@ sealed interface LoginUiState {
         override val password: String,
     ) : LoginUiState
 
+    @Stable
     sealed interface ThirdPartyMethod : LoginUiState {
         val signInHandler: SignInHandler
 

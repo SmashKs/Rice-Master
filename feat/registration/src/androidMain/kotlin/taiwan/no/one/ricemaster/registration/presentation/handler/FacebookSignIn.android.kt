@@ -31,20 +31,12 @@ internal class FacebookSignIn : SignInHandler {
         val loginManager = LoginManager.getInstance()
         val callbackManager = CallbackManager.Factory.create()
 
-        loginManager.logIn(
-            activityResultRegistryOwner = activity,
-            callbackManager = callbackManager,
-            permissions = listOf("email", "public_profile"),
-        )
-
         DisposableEffect(Unit) {
             loginManager.registerCallback(
                 callbackManager,
                 object : FacebookCallback<LoginResult> {
-                    override fun onCancel() {
-                        // do nothing
-                        latestOnComplete()
-                    }
+                    // do nothing
+                    override fun onCancel() = latestOnComplete()
 
                     override fun onError(error: FacebookException) {
                         latestOnError(error)
@@ -60,6 +52,12 @@ internal class FacebookSignIn : SignInHandler {
                             .addOnCompleteListener { latestOnComplete() }
                     }
                 },
+            )
+
+            loginManager.logIn(
+                activityResultRegistryOwner = activity,
+                callbackManager = callbackManager,
+                permissions = listOf("email", "public_profile"),
             )
 
             onDispose { loginManager.unregisterCallback(callbackManager) }

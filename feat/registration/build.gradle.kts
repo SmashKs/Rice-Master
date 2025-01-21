@@ -46,6 +46,8 @@ kotlin {
         }
 
         pod("GoogleSignIn")
+//        pod("FBSDKCoreKit") { version = "~> 13.0.0" }
+        pod("FBSDKLoginKit") { version = "~> 13.0.0" }
     }
 
 // Source set declarations.
