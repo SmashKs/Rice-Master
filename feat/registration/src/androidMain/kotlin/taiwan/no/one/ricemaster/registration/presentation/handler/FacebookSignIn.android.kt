@@ -12,14 +12,16 @@ import com.facebook.FacebookException
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.firebase.auth.FacebookAuthProvider
+import com.google.firebase.auth.OAuthCredential
 import dev.gitlive.firebase.Firebase
+import dev.gitlive.firebase.auth.OAuthCredential as GitliveOAuthCredential
 import dev.gitlive.firebase.auth.android
 import dev.gitlive.firebase.auth.auth
 
 internal class FacebookSignIn : SignInHandler {
     @Composable
     override fun SignIn(
-        onSuccess: () -> Unit,
+        onSuccess: (GitliveOAuthCredential) -> Unit,
         onError: (Exception) -> Unit,
         onComplete: () -> Unit,
     ) {
@@ -47,7 +49,12 @@ internal class FacebookSignIn : SignInHandler {
                         val credential = FacebookAuthProvider.getCredential(result.accessToken.token)
 
                         Firebase.auth.android.signInWithCredential(credential)
-                            .addOnSuccessListener { latestOnSuccess() }
+                            .addOnSuccessListener {
+                                (it.credential as? OAuthCredential)
+                                    ?.let(::GitliveOAuthCredential)
+                                    ?.let(latestOnSuccess)
+                                    ?: latestOnError(Exception("Can't convert to GitliveOAuthCredential"))
+                            }
                             .addOnFailureListener(latestOnError)
                             .addOnCompleteListener { latestOnComplete() }
                     }

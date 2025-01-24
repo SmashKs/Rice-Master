@@ -22,10 +22,9 @@ internal fun LoginRoute(
     (uiState as? ThirdPartyMethod)?.signInHandler?.SignIn(
         onSuccess = {
             println("success")
-        },
-        onError = {
             println(it)
         },
+        onError = ::println,
         onComplete = { eventHandler.invoke(LoginEvent.DoneLoginMethod) },
     )
 }

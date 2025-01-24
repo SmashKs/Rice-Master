@@ -28,6 +28,12 @@
 				<string>com.googleusercontent.apps.1036229269056-gnjcs9op61v4g6bh4rg0tb61ifvvaugs</string>
 			</array>
 		</dict>
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>fb480789551311075</string>
+            </array>
+        </dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
@@ -57,15 +63,6 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>CFBundleURLTypes</key>
-    <array>
-      <dict>
-      <key>CFBundleURLSchemes</key>
-      <array>
-        <string>fb480789551311075</string>
-      </array>
-      </dict>
-    </array>
     <key>FacebookAppID</key>
     <string>480789551311075</string>
     <key>FacebookClientToken</key>

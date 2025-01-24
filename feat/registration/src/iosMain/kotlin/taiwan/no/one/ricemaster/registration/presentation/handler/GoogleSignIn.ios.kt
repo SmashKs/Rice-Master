@@ -8,6 +8,7 @@ import cocoapods.GoogleSignIn.GIDConfiguration
 import cocoapods.GoogleSignIn.GIDSignIn
 import cocoapods.GoogleSignIn.GIDSignInResult
 import dev.gitlive.firebase.Firebase
+import dev.gitlive.firebase.auth.OAuthCredential
 import dev.gitlive.firebase.auth.auth
 import dev.gitlive.firebase.auth.ios
 import kotlinx.cinterop.ExperimentalForeignApi
@@ -16,7 +17,7 @@ import kotlinx.cinterop.ExperimentalForeignApi
 class GoogleSignIn : SignInHandler {
     @Composable
     override fun SignIn(
-        onSuccess: () -> Unit,
+        onSuccess: (OAuthCredential) -> Unit,
         onError: (Exception) -> Unit,
         onComplete: () -> Unit,
     ) {
@@ -46,7 +47,7 @@ class GoogleSignIn : SignInHandler {
 
     private fun handleGoogleSignInResult(
         result: GIDSignInResult,
-        onSuccess: () -> Unit,
+        onSuccess: (OAuthCredential) -> Unit,
         onError: (Exception) -> Unit,
     ) {
         val idToken = result.user.idToken?.tokenString.orEmpty()
@@ -56,7 +57,10 @@ class GoogleSignIn : SignInHandler {
         Firebase.auth.ios.signInWithCredential(credential) { authResult, error ->
             when {
                 error != null -> onError(Exception(error.toString()))
-                authResult != null -> onSuccess()
+                authResult != null -> authResult.credential()
+                    ?.let(::OAuthCredential)
+                    ?.let(onSuccess)
+                    ?: onError(Exception("Can't convert to OAuthCredential"))
                 else -> onError(NullPointerException("Google Auth result is null"))
             }
         }

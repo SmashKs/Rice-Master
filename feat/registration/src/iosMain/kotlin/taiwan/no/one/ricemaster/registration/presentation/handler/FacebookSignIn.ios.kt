@@ -5,6 +5,7 @@ import androidx.compose.ui.interop.LocalUIViewController
 import cocoapods.FBSDKLoginKit.FBSDKLoginManager
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.auth.FacebookAuthProvider
+import dev.gitlive.firebase.auth.OAuthCredential
 import dev.gitlive.firebase.auth.auth
 import dev.gitlive.firebase.auth.ios
 import kotlinx.cinterop.ExperimentalForeignApi
@@ -13,7 +14,7 @@ import kotlinx.cinterop.ExperimentalForeignApi
 class FacebookSignIn : SignInHandler {
     @Composable
     override fun SignIn(
-        onSuccess: () -> Unit,
+        onSuccess: (OAuthCredential) -> Unit,
         onError: (Exception) -> Unit,
         onComplete: () -> Unit,
     ) {
@@ -36,12 +37,19 @@ class FacebookSignIn : SignInHandler {
         onComplete()
     }
 
-    private fun authenticateWithFirebase(token: String, onSuccess: () -> Unit, onError: (Exception) -> Unit) {
+    private fun authenticateWithFirebase(
+        token: String,
+        onSuccess: (OAuthCredential) -> Unit,
+        onError: (Exception) -> Unit,
+    ) {
         val credential = FacebookAuthProvider.credential(token).ios
         Firebase.auth.ios.signInWithCredential(credential) { result, error ->
             when {
                 error != null -> onError(Exception(error.toString()))
-                result != null -> onSuccess()
+                result != null -> result.credential()
+                    ?.let(::OAuthCredential)
+                    ?.let(onSuccess)
+                    ?: onError(Exception("Can't convert to OAuthCredential"))
                 else -> onError(NullPointerException("Facebook sign-in failed"))
             }
         }

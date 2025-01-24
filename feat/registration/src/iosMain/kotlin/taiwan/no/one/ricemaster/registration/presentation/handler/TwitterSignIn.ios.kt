@@ -1,7 +1,8 @@
 package taiwan.no.one.ricemaster.registration.presentation.handler
 
 import androidx.compose.runtime.Composable
-import dev.gitlive.firebase.auth.AuthCredential
+import cocoapods.FirebaseAuth.FIROAuthCredential
+import dev.gitlive.firebase.auth.OAuthCredential
 import dev.gitlive.firebase.auth.OAuthProvider
 import dev.gitlive.firebase.auth.ios
 import kotlinx.cinterop.ExperimentalForeignApi
@@ -10,7 +11,7 @@ import kotlinx.cinterop.ExperimentalForeignApi
 class TwitterSignIn : SignInHandler {
     @Composable
     override fun SignIn(
-        onSuccess: () -> Unit,
+        onSuccess: (OAuthCredential) -> Unit,
         onError: (Exception) -> Unit,
         onComplete: () -> Unit,
     ) {
@@ -23,7 +24,10 @@ class TwitterSignIn : SignInHandler {
             completion = { result, error ->
                 when {
                     error != null -> onError(Exception(error.toString()))
-                    result != null -> AuthCredential(result).let { onSuccess() }
+                    result != null -> (result as? FIROAuthCredential)
+                        ?.let(::OAuthCredential)
+                        ?.let(onSuccess)
+                        ?: onError(Exception("Can't convert to OAuthCredential"))
                     else -> onError(NullPointerException("X Auth result is null"))
                 }
             },

@@ -11,7 +11,9 @@ import androidx.credentials.GetCredentialRequest
 import com.google.android.libraries.identity.googleid.GetSignInWithGoogleOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.OAuthCredential
 import dev.gitlive.firebase.Firebase
+import dev.gitlive.firebase.auth.OAuthCredential as GitliveOAuthCredential
 import dev.gitlive.firebase.auth.android
 import dev.gitlive.firebase.auth.auth
 import org.koin.core.qualifier.named
@@ -22,7 +24,7 @@ internal class GoogleSignIn : SignInHandler {
 
     @Composable
     override fun SignIn(
-        onSuccess: () -> Unit,
+        onSuccess: (GitliveOAuthCredential) -> Unit,
         onError: (Exception) -> Unit,
         onComplete: () -> Unit,
     ) {
@@ -57,7 +59,12 @@ internal class GoogleSignIn : SignInHandler {
                 val authCredential = GoogleAuthProvider.getCredential(googleIdTokenCredential.idToken, null)
 
                 Firebase.auth.android.signInWithCredential(authCredential)
-                    .addOnSuccessListener { latestOnSuccess() }
+                    .addOnSuccessListener {
+                        (it.credential as? OAuthCredential)
+                            ?.let(::GitliveOAuthCredential)
+                            ?.let(latestOnSuccess)
+                            ?: latestOnError(Exception("Can't convert to GitliveOAuthCredential"))
+                    }
                     .addOnFailureListener(latestOnError)
                     .addOnCompleteListener { latestOnComplete() }
             } catch (e: Exception) {

@@ -19,6 +19,7 @@
 		94DA25D82D2F898E00601888 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 94DA25D72D2F898E00601888 /* FirebaseAuth */; };
 		94DA25DA2D2F898E00601888 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 94DA25D92D2F898E00601888 /* FirebaseCore */; };
 		94DA25DC2D2F898E00601888 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 94DA25DB2D2F898E00601888 /* FirebaseCrashlytics */; };
+		94E002E02D440AB3002C1B30 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 94E002DF2D440AB3002C1B30 /* FacebookLogin */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94E002E02D440AB3002C1B30 /* FacebookLogin in Frameworks */,
 				9459BFAF2D3205D00038AD16 /* GoogleSignInSwift in Frameworks */,
 				94DA25DC2D2F898E00601888 /* FirebaseCrashlytics in Frameworks */,
 				9459BFAD2D3205D00038AD16 /* GoogleSignIn in Frameworks */,
@@ -507,6 +509,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 94DA25D62D2F898E00601888 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
+		};
+		94E002DF2D440AB3002C1B30 /* FacebookLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 942A37392D43CBE800E17C26 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookLogin;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
