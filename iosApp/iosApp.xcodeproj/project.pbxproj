@@ -12,6 +12,7 @@
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		6EBADAEC2A29C67A5098C7EE /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1989AF4CA26B32B03DF5E7A /* Pods_iosApp.framework */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
+		942A373B2D43CBE800E17C26 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 942A373A2D43CBE800E17C26 /* FacebookLogin */; };
 		9459BFAA2D3205100038AD16 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9459BFA92D3205100038AD16 /* GoogleService-Info.plist */; };
 		9459BFAD2D3205D00038AD16 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 9459BFAC2D3205D00038AD16 /* GoogleSignIn */; };
 		9459BFAF2D3205D00038AD16 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9459BFAE2D3205D00038AD16 /* GoogleSignInSwift */; };
@@ -44,6 +45,7 @@
 				9459BFAD2D3205D00038AD16 /* GoogleSignIn in Frameworks */,
 				94DA25DA2D2F898E00601888 /* FirebaseCore in Frameworks */,
 				94DA25D82D2F898E00601888 /* FirebaseAuth in Frameworks */,
+				942A373B2D43CBE800E17C26 /* FacebookLogin in Frameworks */,
 				6EBADAEC2A29C67A5098C7EE /* Pods_iosApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -105,7 +107,6 @@
 				BEFF4930264021AB0D3B1541 /* Pods-iosApp.debug.xcconfig */,
 				A12F83F27BD54B45F8844C37 /* Pods-iosApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -167,6 +168,7 @@
 			packageReferences = (
 				94DA25D62D2F898E00601888 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				9459BFAB2D3205D00038AD16 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				942A37392D43CBE800E17C26 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
@@ -449,6 +451,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		942A37392D43CBE800E17C26 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 14.1.0;
+			};
+		};
 		9459BFAB2D3205D00038AD16 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
@@ -468,6 +478,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		942A373A2D43CBE800E17C26 /* FacebookLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 942A37392D43CBE800E17C26 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookLogin;
+		};
 		9459BFAC2D3205D00038AD16 /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9459BFAB2D3205D00038AD16 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;

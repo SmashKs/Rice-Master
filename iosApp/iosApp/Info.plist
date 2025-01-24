@@ -57,5 +57,20 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <string>fb480789551311075</string>
+      </array>
+      </dict>
+    </array>
+    <key>FacebookAppID</key>
+    <string>480789551311075</string>
+    <key>FacebookClientToken</key>
+    <string>fc3c5d38578c0d61bae0dfa96329af85</string>
+    <key>FacebookDisplayName</key>
+    <string>RiceMaster</string>
 </dict>
 </plist>

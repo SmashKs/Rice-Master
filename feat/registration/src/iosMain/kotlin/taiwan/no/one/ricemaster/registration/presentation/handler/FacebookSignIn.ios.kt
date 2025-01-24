@@ -3,6 +3,10 @@ package taiwan.no.one.ricemaster.registration.presentation.handler
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.interop.LocalUIViewController
 import cocoapods.FBSDKLoginKit.FBSDKLoginManager
+import dev.gitlive.firebase.Firebase
+import dev.gitlive.firebase.auth.FacebookAuthProvider
+import dev.gitlive.firebase.auth.auth
+import dev.gitlive.firebase.auth.ios
 import kotlinx.cinterop.ExperimentalForeignApi
 
 @OptIn(ExperimentalForeignApi::class)
@@ -14,14 +18,32 @@ class FacebookSignIn : SignInHandler {
         onComplete: () -> Unit,
     ) {
         val viewController = LocalUIViewController.current
+
         FBSDKLoginManager().logInWithPermissions(
             permissions = listOf("public_profile", "email"),
             fromViewController = viewController,
-            handler = { result, error ->
-                println("=================================================")
-                println(result)
-                println("=================================================")
-            },
-        )
+        ) { result, error ->
+            when {
+                error != null -> onError(Exception(error.toString()))
+                result != null -> authenticateWithFirebase(
+                    token = result.token?.tokenString()
+                        ?: return@logInWithPermissions onError(NullPointerException("Facebook Sign-in result is null")),
+                    onSuccess = onSuccess,
+                    onError = onError,
+                )
+            }
+        }
+        onComplete()
+    }
+
+    private fun authenticateWithFirebase(token: String, onSuccess: () -> Unit, onError: (Exception) -> Unit) {
+        val credential = FacebookAuthProvider.credential(token).ios
+        Firebase.auth.ios.signInWithCredential(credential) { result, error ->
+            when {
+                error != null -> onError(Exception(error.toString()))
+                result != null -> onSuccess()
+                else -> onError(NullPointerException("Facebook sign-in failed"))
+            }
+        }
     }
 }

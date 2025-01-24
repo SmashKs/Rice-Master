@@ -20,13 +20,11 @@ class TwitterSignIn : SignInHandler {
 
         provider.getCredentialWithUIDelegate(
             uiDelegate = null,
-            completion = { credential, error ->
-                if (error != null) {
-                    onError(Exception(error.toString()))
-                } else {
-                    credential?.let(::AuthCredential)
-                        ?.let { onSuccess() }
-                        ?: onError(NullPointerException())
+            completion = { result, error ->
+                when {
+                    error != null -> onError(Exception(error.toString()))
+                    result != null -> AuthCredential(result).let { onSuccess() }
+                    else -> onError(NullPointerException("X Auth result is null"))
                 }
             },
         )

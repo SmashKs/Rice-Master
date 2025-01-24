@@ -34,7 +34,7 @@ class GoogleSignIn : SignInHandler {
                 when {
                     error != null -> onError(Exception(error.toString()))
                     result != null -> handleGoogleSignInResult(result, onSuccess, onError)
-                    else -> onError(NullPointerException("Sign-in result is null"))
+                    else -> onError(NullPointerException("Google Sign-in result is null"))
                 }
                 onComplete()
             }
@@ -57,7 +57,7 @@ class GoogleSignIn : SignInHandler {
             when {
                 error != null -> onError(Exception(error.toString()))
                 authResult != null -> onSuccess()
-                else -> onError(NullPointerException("Auth result is null"))
+                else -> onError(NullPointerException("Google Auth result is null"))
             }
         }
     }
