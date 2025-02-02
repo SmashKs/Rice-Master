@@ -44,8 +44,7 @@ kotlin {
                 implementation(annotations)
             }
 
-//            implementation(libs.koin.ktor)
-            implementation(libs.bundles.ktor)
+            api(libs.bundles.ktor)
         }
 
         named("commonMain").configure {
