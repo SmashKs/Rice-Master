@@ -46,7 +46,6 @@ kotlin {
         }
 
         pod("GoogleSignIn")
-//        pod("FBSDKCoreKit") { version = "~> 13.0.0" }
         pod("FBSDKLoginKit") { version = "~> 13.0.0" }
     }
 
@@ -60,6 +59,7 @@ kotlin {
             implementation(project(":core:ui"))
             implementation(project(":core:navigation"))
             implementation(project(":core:util"))
+            implementation(project(":core:network"))
             implementation(project(":data:user"))
             with(compose) {
                 implementation(material3)

@@ -1,5 +1,6 @@
 package taiwan.no.one.ricemaster.profile.component.screen
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -18,23 +19,26 @@ internal fun ProfileScreen(
     modifier: Modifier = Modifier,
     onNavigate: (Graph) -> Unit = {},
 ) {
-    TopAppBar(
+    Column(
         modifier = modifier,
-        title = {
-            Text(text = "Profile")
-        },
-    )
-
-    Row {
-        Button(
-            modifier = Modifier,
-            onClick = { onNavigate(RegistrationGraph) },
-            content = {
-                Text(
-                    text = "Join us!",
-                )
+    ) {
+        TopAppBar(
+            title = {
+                Text(text = "Profile")
             },
         )
+
+        Row {
+            Button(
+                modifier = Modifier,
+                onClick = { onNavigate(RegistrationGraph) },
+                content = {
+                    Text(
+                        text = "Join us!",
+                    )
+                },
+            )
+        }
     }
 }
 

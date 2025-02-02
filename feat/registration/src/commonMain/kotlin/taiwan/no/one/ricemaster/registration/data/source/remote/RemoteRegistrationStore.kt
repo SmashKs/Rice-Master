@@ -4,13 +4,14 @@ import dev.gitlive.firebase.auth.FacebookAuthProvider
 import dev.gitlive.firebase.auth.FirebaseAuth
 import dev.gitlive.firebase.auth.GoogleAuthProvider
 import org.koin.core.annotation.Named
+import org.koin.core.annotation.Provided
 import org.koin.core.annotation.Single
 import taiwan.no.one.ricemaster.registration.data.source.RegistrationStore
 
 @Single
 @Named("remote")
 internal class RemoteRegistrationStore(
-    private val firebaseAuth: FirebaseAuth,
+    @Provided private val firebaseAuth: FirebaseAuth,
 ) : RegistrationStore {
     override fun fetchLoginDataFlow() = throw UnsupportedOperationException()
 
@@ -39,4 +40,6 @@ internal class RemoteRegistrationStore(
     override suspend fun signInWithFacebook(token: String): Result<Unit> =
         kotlin.runCatching { FacebookAuthProvider.credential(token) }
             .mapCatching { firebaseAuth.signInWithCredential(it).user ?: error("doesn't have an user info") }
+
+    override suspend fun logout(): Result<Unit> = kotlin.runCatching { firebaseAuth.signOut() }
 }

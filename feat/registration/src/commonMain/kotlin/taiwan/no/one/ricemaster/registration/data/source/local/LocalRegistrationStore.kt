@@ -38,6 +38,8 @@ internal class LocalRegistrationStore : RegistrationStore {
 
     override suspend fun signInWithFacebook(token: String) = throw UnsupportedOperationException()
 
+    override suspend fun logout(): Result<Unit> = throw UnsupportedOperationException()
+
     companion object {
         private const val KEY = "fdkaj32+#!#frefi2r)FafdFDa" // random fixed key
     }
