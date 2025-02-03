@@ -12,8 +12,8 @@ import org.koin.android.annotation.KoinViewModel
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.qualifier.named
-import taiwan.no.one.ricemaster.registration.data.RegistrationRepo
 import taiwan.no.one.ricemaster.registration.data.model.LoginMethodModel
+import taiwan.no.one.ricemaster.registration.data.repository.RegistrationRepo
 import taiwan.no.one.ricemaster.registration.presentation.entity.LoginUiState
 import taiwan.no.one.ricemaster.registration.presentation.entity.LoginUiState.Input
 import taiwan.no.one.ricemaster.registration.presentation.entity.LoginUiState.ThirdPartyMethod

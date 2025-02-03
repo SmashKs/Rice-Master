@@ -8,6 +8,7 @@ import org.koin.core.annotation.Single
 import taiwan.no.one.ricemaster.map.ConcurrentMap
 import taiwan.no.one.ricemaster.registration.data.model.LoginModel
 import taiwan.no.one.ricemaster.registration.data.source.RegistrationStore
+import taiwan.no.one.ricemaster.user.model.UserModel
 
 @Single
 @Named("local")
@@ -30,7 +31,8 @@ internal class LocalRegistrationStore : RegistrationStore {
         }
     }
 
-    override suspend fun createUser(email: String, password: String) = throw UnsupportedOperationException()
+    override suspend fun createUser(email: String, password: String): Result<UserModel> =
+        throw UnsupportedOperationException()
 
     override suspend fun signIn(email: String, password: String) = throw UnsupportedOperationException()
 

@@ -1,10 +1,12 @@
 package taiwan.no.one.ricemaster.registration.data.model.mapper
 
 import dev.gitlive.firebase.auth.FirebaseUser
+import kotlin.coroutines.cancellation.CancellationException
 import taiwan.no.one.ricemaster.user.model.UserModel
 
-private fun FirebaseUser.convertToUser() = UserModel(
-    idToken = uid,
+@Throws(IllegalArgumentException::class, CancellationException::class)
+internal suspend fun FirebaseUser.convertToUser() = UserModel(
+    idToken = requireNotNull(getIdToken(false)),
     displayName = displayName.orEmpty(),
     profilePicUrl = photoURL,
 )
