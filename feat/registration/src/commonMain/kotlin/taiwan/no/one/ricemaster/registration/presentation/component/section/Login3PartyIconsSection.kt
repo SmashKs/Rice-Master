@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
-import org.jetbrains.compose.resources.painterResource
 import taiwan.no.one.ricemaster.registration.presentation.entity.SocialIcon
 
 @Composable
@@ -31,7 +30,7 @@ internal fun Login3PartyIconsSection(
                     onClick = { onClick(icon) },
                     content = {
                         Icon(
-                            painter = painterResource(icon.drawableRes),
+                            imageVector = icon.drawableRes,
                             contentDescription = icon.contentDesc,
                             tint = Color.Unspecified,
                         )

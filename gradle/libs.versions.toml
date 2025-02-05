@@ -40,9 +40,9 @@ android-targetSdk = "34"
 
 agp = "8.8.0"
 
-kotlin = "2.1.20-Beta1"
+kotlin = "2.1.20-Beta2"
 
-ksp = "2.1.20-Beta1-1.0.29"
+ksp = "2.1.20-Beta2-1.0.29"
 
 androidx-activityCompose = "1.10.0"
 

@@ -7,12 +7,11 @@ import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
 import taiwan.no.one.ricemaster.map.ConcurrentMap
 import taiwan.no.one.ricemaster.registration.data.model.LoginModel
-import taiwan.no.one.ricemaster.registration.data.source.RegistrationStore
-import taiwan.no.one.ricemaster.user.model.UserModel
+import taiwan.no.one.ricemaster.registration.data.source.UserFormStore
 
 @Single
 @Named("local")
-internal class LocalRegistrationStore : RegistrationStore {
+internal class LocalUserFormStore : UserFormStore {
     private val flowMap: ConcurrentMap<String, MutableStateFlow<LoginModel>> = ConcurrentMap()
 
     override fun fetchLoginDataFlow(): Flow<LoginModel> = flowMap.getOrPut(KEY) {
@@ -30,17 +29,6 @@ internal class LocalRegistrationStore : RegistrationStore {
             it.copy(password = value)
         }
     }
-
-    override suspend fun createUser(email: String, password: String): Result<UserModel> =
-        throw UnsupportedOperationException()
-
-    override suspend fun signIn(email: String, password: String) = throw UnsupportedOperationException()
-
-    override suspend fun signInWithGoogle(token: String) = throw UnsupportedOperationException()
-
-    override suspend fun signInWithFacebook(token: String) = throw UnsupportedOperationException()
-
-    override suspend fun logout(): Result<Unit> = throw UnsupportedOperationException()
 
     companion object {
         private const val KEY = "fdkaj32+#!#frefi2r)FafdFDa" // random fixed key

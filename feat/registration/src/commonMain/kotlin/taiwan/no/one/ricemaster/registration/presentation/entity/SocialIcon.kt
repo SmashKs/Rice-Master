@@ -1,25 +1,26 @@
 package taiwan.no.one.ricemaster.registration.presentation.entity
 
-import org.jetbrains.compose.resources.DrawableResource
-import ricemaster.feat.registration.generated.resources.Res
-import ricemaster.feat.registration.generated.resources.ic_facebook
-import ricemaster.feat.registration.generated.resources.ic_google
-import ricemaster.feat.registration.generated.resources.ic_twitter
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.filled.Face
+import androidx.compose.ui.graphics.vector.ImageVector
 
 enum class SocialIcon(
-    val drawableRes: DrawableResource,
+//    val drawableRes: DrawableResource,
+    val drawableRes: ImageVector,
     val contentDesc: String? = null,
 ) {
     GOOGLE(
-        drawableRes = Res.drawable.ic_google,
+        drawableRes = Icons.Default.Face,
         contentDesc = "Google",
     ),
     TWITTER(
-        drawableRes = Res.drawable.ic_twitter,
+        drawableRes = Icons.Default.AccountCircle,
         contentDesc = "Twitter",
     ),
     FACEBOOK(
-        drawableRes = Res.drawable.ic_facebook,
+        drawableRes = Icons.Default.Create,
         contentDesc = "Facebook",
     ),
 }

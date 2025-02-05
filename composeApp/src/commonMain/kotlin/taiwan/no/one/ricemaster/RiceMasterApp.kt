@@ -35,43 +35,46 @@ import taiwan.no.one.ricemaster.state.rememberAppState
 fun RiceMasterApp(
     appState: AppState = rememberAppState(),
 ) {
-    KoinContext {
-        val rootNavController: NavHostController = appState.navController
-        val currentTopLevelItem = appState.currentTopLevelDestination()
+    val rootNavController: NavHostController = appState.navController
+    val currentTopLevelItem = appState.currentTopLevelDestination()
 
+    KoinContext {
         MaterialTheme {
             Scaffold(
                 topBar = {},
                 bottomBar = {
-                    BottomNavBarComponent { topLevelItem ->
-                        if (topLevelItem == currentTopLevelItem) {
-                            // press the same button and do scroll up to the top, ...etc
-                            return@BottomNavBarComponent
-                        }
-                        val topLevelNavOptions = navOptions {
-                            // Pop up to the start destination of the graph to avoid building up a large
-                            // stack of destinations on the back stack as users select items.
-                            popUpTo(
-                                rootNavController.graph.findStartDestination().id,
-                            ) {
-                                saveState = true
+                    BottomNavBarComponent(
+                        onNavigateTopLevelScreen = { topLevelItem ->
+//                            if (currentTopLevelItem == topLevelItem) {
+//                                // press the same button and do scroll up to the top, ...etc
+//                                // note: it crashes now if we access [currentTopLevelItem] with a null pointer
+//                                return@BottomNavBarComponent
+//                            }
+                            val topLevelNavOptions = navOptions {
+                                // Pop up to the start destination of the graph to avoid building up a large
+                                // stack of destinations on the back stack as users select items.
+                                popUpTo(
+                                    rootNavController.graph.findStartDestination().id,
+                                ) {
+                                    saveState = true
+                                }
+
+                                // Avoid multiple copies of the same destination when reselecting the same item.
+                                launchSingleTop = true
+                                // Restore state when reselecting a previously selected item.
+                                restoreState = true
                             }
 
-                            // Avoid multiple copies of the same destination when reselecting the same item.
-                            launchSingleTop = true
-                            // Restore state when reselecting a previously selected item.
-                            restoreState = true
-                        }
-
-                        with(rootNavController) {
-                            when (topLevelItem) {
-                                EXPLORE -> navigate(SearchTopGraph, topLevelNavOptions)
-                                IDENTITY -> navigate(IdentityTopGraph, topLevelNavOptions)
-                                FAVORITE -> navigate(FavoriteTopGraph, topLevelNavOptions)
-                                PROFILE -> navigate(ProfileTopGraph, topLevelNavOptions)
+                            with(rootNavController) {
+                                when (topLevelItem) {
+                                    EXPLORE -> navigate(SearchTopGraph, topLevelNavOptions)
+                                    IDENTITY -> navigate(IdentityTopGraph, topLevelNavOptions)
+                                    FAVORITE -> navigate(FavoriteTopGraph, topLevelNavOptions)
+                                    PROFILE -> navigate(ProfileTopGraph, topLevelNavOptions)
+                                }
                             }
-                        }
-                    }
+                        },
+                    )
                 },
                 content = { paddingValues ->
                     NavHost(

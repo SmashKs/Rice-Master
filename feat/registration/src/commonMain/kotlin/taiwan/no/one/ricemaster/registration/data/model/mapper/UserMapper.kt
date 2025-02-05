@@ -6,7 +6,9 @@ import taiwan.no.one.ricemaster.user.model.UserModel
 
 @Throws(IllegalArgumentException::class, CancellationException::class)
 internal suspend fun FirebaseUser.convertToUser() = UserModel(
+    uid = uid,
     idToken = requireNotNull(getIdToken(false)),
     displayName = displayName.orEmpty(),
+    email = email.orEmpty(),
     profilePicUrl = photoURL,
 )

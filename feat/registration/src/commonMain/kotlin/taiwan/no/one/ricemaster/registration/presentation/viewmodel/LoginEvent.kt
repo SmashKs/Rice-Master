@@ -4,13 +4,9 @@ import taiwan.no.one.ricemaster.registration.presentation.entity.SocialIcon
 import taiwan.no.one.ricemaster.ui.event.Event
 
 sealed interface LoginEvent : Event {
-    data object DebugPrintData : LoginEvent
-
     data object SignUp : LoginEvent
 
     data object Login : LoginEvent
-
-    data class LoginWith(val token: String) : LoginEvent
 
     data class UpdateEmail(val email: String) : LoginEvent
 

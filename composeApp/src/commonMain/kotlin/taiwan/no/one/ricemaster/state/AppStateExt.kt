@@ -29,6 +29,6 @@ fun AppState.currentDestination(): NavDestination? = navController.currentBackSt
     ?.destination
 
 @Composable
-fun AppState.currentTopLevelDestination(): TopLevelNavigationItem? = topLevelDestinationItems.firstOrNull {
+fun AppState.currentTopLevelDestination(): TopLevelNavigationItem? = TopLevelNavigationItem.entries.firstOrNull {
     currentDestination()?.hasRoute(it.route) == true
 }
