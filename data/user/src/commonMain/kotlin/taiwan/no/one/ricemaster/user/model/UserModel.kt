@@ -5,5 +5,7 @@ data class UserModel(
     val idToken: String,
     val displayName: String = "",
     val email: String = "",
-    val profilePicUrl: String? = null,
+    val profilePicUrl: String = "",
+    val createdTime: Double = 0.0,
+    val lastSignInTime: Double = 0.0,
 )

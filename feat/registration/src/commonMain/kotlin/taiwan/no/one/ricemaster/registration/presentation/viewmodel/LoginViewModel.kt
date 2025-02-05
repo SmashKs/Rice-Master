@@ -11,7 +11,7 @@ import org.koin.android.annotation.KoinViewModel
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.qualifier.named
-import taiwan.no.one.ricemaster.registration.data.repository.RegistrationRepo
+import taiwan.no.one.ricemaster.registration.data.repository.AuthRepo
 import taiwan.no.one.ricemaster.registration.data.repository.UserFormRepo
 import taiwan.no.one.ricemaster.registration.presentation.entity.LoginUiState
 import taiwan.no.one.ricemaster.registration.presentation.entity.LoginUiState.Input
@@ -32,7 +32,7 @@ import taiwan.no.one.ricemaster.ui.event.EventHandler
 @KoinViewModel
 internal class LoginViewModel(
     private val userFormRepo: UserFormRepo,
-    private val registrationRepo: RegistrationRepo,
+    private val registrationRepo: AuthRepo,
 ) : ViewModel(), EventHandler<LoginEvent>, KoinComponent {
     private val googleSignInHandler: SignInHandler by inject(qualifier = named("google"))
     private val facebookSignInHandler: SignInHandler by inject(qualifier = named("facebook"))

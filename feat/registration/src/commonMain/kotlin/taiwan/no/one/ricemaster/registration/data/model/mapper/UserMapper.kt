@@ -10,5 +10,7 @@ internal suspend fun FirebaseUser.convertToUser() = UserModel(
     idToken = requireNotNull(getIdToken(false)),
     displayName = displayName.orEmpty(),
     email = email.orEmpty(),
-    profilePicUrl = photoURL,
+    profilePicUrl = photoURL.orEmpty(),
+    createdTime = metaData?.creationTime ?: 0.0,
+    lastSignInTime = metaData?.lastSignInTime ?: 0.0,
 )

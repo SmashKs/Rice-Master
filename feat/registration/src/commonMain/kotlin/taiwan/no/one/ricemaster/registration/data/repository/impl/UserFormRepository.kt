@@ -1,10 +1,11 @@
-package taiwan.no.one.ricemaster.registration.data.repository
+package taiwan.no.one.ricemaster.registration.data.repository.impl
 
 import kotlinx.coroutines.flow.Flow
 import org.koin.core.annotation.Factory
 import org.koin.core.annotation.Named
 import org.koin.core.annotation.Provided
 import taiwan.no.one.ricemaster.registration.data.model.LoginModel
+import taiwan.no.one.ricemaster.registration.data.repository.UserFormRepo
 import taiwan.no.one.ricemaster.registration.data.source.UserFormStore
 
 @Factory
