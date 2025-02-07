@@ -14,6 +14,8 @@ import taiwan.no.one.ricemaster.registration.presentation.component.section.Logi
 import taiwan.no.one.ricemaster.registration.presentation.entity.LoginUiState
 import taiwan.no.one.ricemaster.registration.presentation.entity.SocialIcon
 import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent
+import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent.Login
+import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent.SignUp
 import taiwan.no.one.ricemaster.ui.Sizing
 
 @Composable
@@ -41,8 +43,10 @@ internal fun LoginScreen(
 
         ButtonSection(
             modifier = Modifier,
-            onLoginClick = { eventHandler.invoke(LoginEvent.Login) },
-            onSignUpClick = { eventHandler.invoke(LoginEvent.SignUp) },
+            onLoginClick = { eventHandler.invoke(Login) },
+            onSignUpClick = { eventHandler.invoke(SignUp) },
+            onUpdatePassword = { eventHandler.invoke(LoginEvent.UpdateUserPassword) },
+            onUpdateEmail = { eventHandler.invoke(LoginEvent.UpdateUserEmail) },
         )
     }
 }

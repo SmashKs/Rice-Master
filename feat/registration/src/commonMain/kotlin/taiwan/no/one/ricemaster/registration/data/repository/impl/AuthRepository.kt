@@ -10,8 +10,6 @@ import org.koin.core.annotation.Provided
 import taiwan.no.one.ricemaster.registration.data.model.mapper.convertToUser
 import taiwan.no.one.ricemaster.registration.data.repository.AuthRepo
 import taiwan.no.one.ricemaster.registration.data.source.UserFormStore
-import taiwan.no.one.ricemaster.registration.presentation.entity.LoginUiState.Init.email
-import taiwan.no.one.ricemaster.registration.presentation.entity.LoginUiState.Init.password
 import taiwan.no.one.ricemaster.user.model.UserModel
 
 @Factory
@@ -21,12 +19,12 @@ internal class AuthRepository(
 ) : AuthRepo {
     override suspend fun createUser(): Result<UserModel> =
         kotlin.runCatching { localUserFormStore.fetchLoginDataFlow().first() }
-            .mapCatching { firebaseAuth.createUserWithEmailAndPassword(email, password) }
+            .mapCatching { firebaseAuth.createUserWithEmailAndPassword(it.email, it.password) }
             .mapCatching { authResult -> toUserModel(authResult) }
 
     override suspend fun signIn(): Result<UserModel> =
         kotlin.runCatching { localUserFormStore.fetchLoginDataFlow().first() }
-            .mapCatching { firebaseAuth.signInWithEmailAndPassword(email, password) }
+            .mapCatching { firebaseAuth.signInWithEmailAndPassword(it.email, it.password) }
             .mapCatching { authResult -> toUserModel(authResult) }
 
     override suspend fun refreshToken(): Result<String> = kotlin.runCatching {

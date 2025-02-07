@@ -8,6 +8,10 @@ sealed interface LoginEvent : Event {
 
     data object Login : LoginEvent
 
+    data object UpdateUserEmail : LoginEvent
+
+    data object UpdateUserPassword : LoginEvent
+
     data class UpdateEmail(val email: String) : LoginEvent
 
     data class UpdatePassword(val password: String) : LoginEvent
