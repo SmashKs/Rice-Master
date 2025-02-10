@@ -1,9 +1,9 @@
-package taiwan.no.one.ricemaster.profile.component
+package taiwan.no.one.ricemaster.profile.presentation.component
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import taiwan.no.one.ricemaster.navigation.Graph
-import taiwan.no.one.ricemaster.profile.component.screen.ProfileScreen
+import taiwan.no.one.ricemaster.profile.presentation.component.screen.ProfileScreen
 
 @Composable
 internal fun ProfileRoute(

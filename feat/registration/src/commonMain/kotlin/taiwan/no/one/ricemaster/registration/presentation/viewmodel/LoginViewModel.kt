@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
+import org.koin.core.annotation.Provided
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.qualifier.named
@@ -27,8 +28,6 @@ import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent.L
 import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent.SignUp
 import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent.UpdateEmail
 import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent.UpdatePassword
-import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent.UpdateUserEmail
-import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent.UpdateUserPassword
 import taiwan.no.one.ricemaster.ui.event.EventHandler
 import taiwan.no.one.ricemaster.user.repository.UserRepo
 
@@ -36,7 +35,7 @@ import taiwan.no.one.ricemaster.user.repository.UserRepo
 internal class LoginViewModel(
     private val userFormRepo: UserFormRepo,
     private val registrationRepo: AuthRepo,
-    private val userRepo: UserRepo,
+    @Provided private val userRepo: UserRepo,
 ) : ViewModel(), EventHandler<LoginEvent>, KoinComponent {
     private val googleSignInHandler: SignInHandler by inject(qualifier = named("google"))
     private val facebookSignInHandler: SignInHandler by inject(qualifier = named("facebook"))
@@ -68,8 +67,6 @@ internal class LoginViewModel(
             is UpdatePassword -> userFormRepo.updatePassword(event.password)
             is Execute -> viewModelScope.launch { loginMethodFlow.emit(event.icon) }
             DoneLoginMethod -> viewModelScope.launch { loginMethodFlow.emit(null) }
-            UpdateUserEmail -> viewModelScope.launch { userRepo.updateEmail("pokkbaby+jp@gmail.com") }
-            UpdateUserPassword -> viewModelScope.launch { userRepo.updatePassword("000000") }
         }
     }
 }

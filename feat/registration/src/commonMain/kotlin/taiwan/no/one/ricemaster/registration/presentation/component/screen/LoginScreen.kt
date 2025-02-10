@@ -45,8 +45,6 @@ internal fun LoginScreen(
             modifier = Modifier,
             onLoginClick = { eventHandler.invoke(Login) },
             onSignUpClick = { eventHandler.invoke(SignUp) },
-            onUpdatePassword = { eventHandler.invoke(LoginEvent.UpdateUserPassword) },
-            onUpdateEmail = { eventHandler.invoke(LoginEvent.UpdateUserEmail) },
         )
     }
 }

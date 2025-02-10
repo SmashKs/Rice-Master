@@ -1,9 +1,9 @@
-package taiwan.no.one.ricemaster.registration.data.repository.impl
+package taiwan.no.one.ricemaster.profile.data.repository.impl
 
 import dev.gitlive.firebase.auth.FirebaseAuth
 import org.koin.core.annotation.Factory
 import org.koin.core.annotation.Provided
-import taiwan.no.one.ricemaster.registration.data.model.mapper.convertToUser
+import taiwan.no.one.ricemaster.profile.data.model.mapper.convertToUser
 import taiwan.no.one.ricemaster.user.model.UserModel
 import taiwan.no.one.ricemaster.user.repository.UserRepo
 

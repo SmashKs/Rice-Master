@@ -1,4 +1,4 @@
-package taiwan.no.one.ricemaster.registration.data.model.mapper
+package taiwan.no.one.ricemaster.profile.data.model.mapper
 
 import dev.gitlive.firebase.auth.FirebaseUser
 import kotlin.coroutines.cancellation.CancellationException
@@ -11,7 +11,7 @@ import taiwan.no.one.ricemaster.user.model.UserModel
  * retrieved and non-null, and provides default values for optional fields.
  *
  * They are the same, please don't forget modifying both places
- * [taiwan.no.one.ricemaster.profile.data.model.mapper.convertToUser]
+ * [taiwan.no.one.ricemaster.registration.data.model.mapper.convertToUser]
  *
  * @return UserModel object containing user data.
  * @throws IllegalArgumentException if any required field is invalid.

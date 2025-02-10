@@ -14,8 +14,6 @@ internal fun ButtonSection(
     modifier: Modifier = Modifier,
     onLoginClick: () -> Unit = {},
     onSignUpClick: () -> Unit = {},
-    onUpdatePassword: () -> Unit = {},
-    onUpdateEmail: () -> Unit = {},
 ) {
     Column(modifier = modifier) {
         Button(
@@ -28,20 +26,6 @@ internal fun ButtonSection(
         Button(
             onClick = onSignUpClick,
             content = { Text(text = "Sign Up") },
-        )
-
-        Spacer(modifier = Modifier.size(size = Sizing.spacing8))
-
-        Button(
-            onClick = onUpdatePassword,
-            content = { Text(text = "Update Password") },
-        )
-
-        Spacer(modifier = Modifier.size(size = Sizing.spacing8))
-
-        Button(
-            onClick = onUpdateEmail,
-            content = { Text(text = "Updated Email") },
         )
     }
 }

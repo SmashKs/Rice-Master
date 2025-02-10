@@ -1,4 +1,4 @@
-package taiwan.no.one.ricemaster.profile.component.screen
+package taiwan.no.one.ricemaster.profile.presentation.component.screen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
