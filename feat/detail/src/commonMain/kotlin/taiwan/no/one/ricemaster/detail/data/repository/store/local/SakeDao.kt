@@ -2,14 +2,14 @@ package taiwan.no.one.ricemaster.detail.data.repository.store.local
 
 import androidx.room.Dao
 import androidx.room.Query
-import taiwan.no.one.ricemaster.detail.data.model.Sake
+import taiwan.no.one.ricemaster.detail.data.model.SakeModel
 import taiwan.no.one.ricemaster.persistence.data.BaseDao
 
 @Dao
-interface SakeDao : BaseDao<Sake> {
+interface SakeDao : BaseDao<SakeModel> {
     @Query("SELECT * FROM sake WHERE id = :id LIMIT 1")
-    suspend fun getSakeById(id: Long): Sake?
+    suspend fun getSakeById(id: Long): SakeModel?
 
     @Query("SELECT * FROM sake")
-    suspend fun getAllSakes(): List<Sake>
+    suspend fun getAllSakes(): List<SakeModel>
 }

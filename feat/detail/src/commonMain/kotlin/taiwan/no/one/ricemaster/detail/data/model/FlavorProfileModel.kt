@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "flavor_profiles")
-data class FlavorProfile(
+data class FlavorProfileModel(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
     val name: String,

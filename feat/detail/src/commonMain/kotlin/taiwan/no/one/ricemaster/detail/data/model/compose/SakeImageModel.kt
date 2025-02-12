@@ -3,18 +3,17 @@ package taiwan.no.one.ricemaster.detail.data.model.compose
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import taiwan.no.one.ricemaster.detail.data.model.Sake
+import taiwan.no.one.ricemaster.detail.data.model.SakeModel
 
 @Entity(
-    tableName = "sake_awards",
+    tableName = "sake_images",
     foreignKeys = [
-        ForeignKey(entity = Sake::class, parentColumns = ["id"], childColumns = ["sakeId"]),
+        ForeignKey(entity = SakeModel::class, parentColumns = ["id"], childColumns = ["sakeId"]),
     ],
 )
-data class SakeAward(
+data class SakeImageModel(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
     val sakeId: Long,
-    val awardName: String,
-    val year: Int,
+    val imageUrl: String,
 )
