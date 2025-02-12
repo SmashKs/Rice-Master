@@ -42,6 +42,7 @@ include(":core:util")
 
 include(":data:user")
 
+include(":feat:detail")
 include(":feat:search")
 include(":feat:identity")
 include(":feat:profile")
