@@ -1,18 +1,14 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
-
 plugins {
+    alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidKotlinMultiplatformLibrary)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
-    alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.kotlinSerialization)
-    alias(libs.plugins.googleKsp)
-    alias(libs.plugins.room)
 }
 
 kotlin {
     androidLibrary {
-        namespace = "taiwan.no.one.ricemaster.detail"
+        namespace = "taiwan.no.one.ricemaster.persistence"
         compileSdk = libs.versions.android.compileSdk
             .get()
             .toInt()
@@ -27,7 +23,7 @@ kotlin {
         iosSimulatorArm64(),
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "detail"
+            baseName = "persistence"
             isStatic = true
         }
     }
@@ -39,29 +35,9 @@ kotlin {
 // See: https://kotlinlang.org/docs/multiplatform-hierarchy.html
     sourceSets {
         commonMain.dependencies {
-            implementation(project(":core:navigation"))
-            implementation(project(":core:persistence"))
-            with(compose) {
-                implementation(material3)
-                implementation(components.resources)
-                implementation(components.uiToolingPreview)
-            }
-
+            implementation(compose.foundation)
             implementation(libs.kotlin.stdlib)
-            implementation(libs.kotlinx.serialization.json)
-            implementation(libs.kotlinx.datetime)
-
-            implementation(libs.androidx.navigation.compose)
             implementation(libs.androidx.room.runtime)
-
-            implementation(libs.sqlite.bundled)
-
-            with(libs.koin) {
-                implementation(project.dependencies.platform(bom))
-                implementation(mm.compose)
-                implementation(mm.viewmodel.navigation)
-                implementation(annotations)
-            }
         }
 
         androidMain.dependencies {
@@ -77,36 +53,5 @@ kotlin {
             // on common by default and will correctly pull the iOS artifacts of any
             // KMP dependencies declared in commonMain.
         }
-
-        named("commonMain").configure {
-            kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
-        }
-
-        all {
-            languageSettings.enableLanguageFeature("ExplicitBackingFields")
-        }
-    }
-}
-
-// KSP Tasks
-dependencies {
-    add("kspCommonMainMetadata", libs.koin.ksp.compiler)
-    add("kspIosSimulatorArm64", libs.androidx.room.compiler)
-    add("kspIosX64", libs.androidx.room.compiler)
-    add("kspIosArm64", libs.androidx.room.compiler)
-}
-
-ksp {
-    arg("KOIN_USE_COMPOSE_VIEWMODEL", "true")
-    arg("KOIN_CONFIG_CHECK", "true")
-}
-
-room {
-    schemaDirectory("$projectDir/schemas")
-}
-
-tasks.withType<KotlinCompilationTask<*>>().configureEach {
-    if (name != "kspCommonMainKotlinMetadata") {
-        dependsOn("kspCommonMainKotlinMetadata")
     }
 }

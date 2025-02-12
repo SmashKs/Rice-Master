@@ -35,7 +35,9 @@ kotlin {
             implementation(project(":core:ui"))
             implementation(project(":core:util"))
             implementation(project(":core:navigation"))
+            implementation(project(":core:persistence"))
 
+            implementation(project(":feat:detail"))
             implementation(project(":feat:search"))
             implementation(project(":feat:profile"))
             implementation(project(":feat:identity"))

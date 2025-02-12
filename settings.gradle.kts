@@ -39,6 +39,7 @@ include(":core:ui")
 include(":core:network")
 include(":core:navigation")
 include(":core:util")
+include(":core:persistence")
 
 include(":data:user")
 
