@@ -4,11 +4,11 @@ import androidx.compose.runtime.Stable
 import taiwan.no.one.ricemaster.registration.presentation.handler.SignInHandler
 
 @Stable
-sealed interface LoginUiState {
+sealed interface SignInUiState {
     val email: String
     val password: String
 
-    data object Init : LoginUiState {
+    data object Init : SignInUiState {
         override val email: String = ""
         override val password: String = ""
     }
@@ -16,10 +16,10 @@ sealed interface LoginUiState {
     data class Input(
         override val email: String,
         override val password: String,
-    ) : LoginUiState
+    ) : SignInUiState
 
     @Stable
-    sealed interface ThirdPartyMethod : LoginUiState {
+    sealed interface ThirdPartyMethod : SignInUiState {
         val signInHandler: SignInHandler
 
         data class Google(

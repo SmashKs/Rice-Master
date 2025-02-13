@@ -14,29 +14,29 @@ import org.koin.core.component.inject
 import org.koin.core.qualifier.named
 import taiwan.no.one.ricemaster.registration.data.repository.AuthRepo
 import taiwan.no.one.ricemaster.registration.data.repository.UserFormRepo
-import taiwan.no.one.ricemaster.registration.presentation.entity.LoginUiState
-import taiwan.no.one.ricemaster.registration.presentation.entity.LoginUiState.Input
-import taiwan.no.one.ricemaster.registration.presentation.entity.LoginUiState.ThirdPartyMethod
+import taiwan.no.one.ricemaster.registration.presentation.entity.SignInUiState
+import taiwan.no.one.ricemaster.registration.presentation.entity.SignInUiState.Input
+import taiwan.no.one.ricemaster.registration.presentation.entity.SignInUiState.ThirdPartyMethod
 import taiwan.no.one.ricemaster.registration.presentation.entity.SocialIcon
 import taiwan.no.one.ricemaster.registration.presentation.entity.SocialIcon.FACEBOOK
 import taiwan.no.one.ricemaster.registration.presentation.entity.SocialIcon.GOOGLE
 import taiwan.no.one.ricemaster.registration.presentation.entity.SocialIcon.TWITTER
 import taiwan.no.one.ricemaster.registration.presentation.handler.SignInHandler
-import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent.DoneLoginMethod
-import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent.Execute
-import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent.Login
-import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent.SignUp
-import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent.UpdateEmail
-import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginEvent.UpdatePassword
+import taiwan.no.one.ricemaster.registration.presentation.viewmodel.SignInEvent.DoneLoginMethod
+import taiwan.no.one.ricemaster.registration.presentation.viewmodel.SignInEvent.Execute
+import taiwan.no.one.ricemaster.registration.presentation.viewmodel.SignInEvent.Login
+import taiwan.no.one.ricemaster.registration.presentation.viewmodel.SignInEvent.SignUp
+import taiwan.no.one.ricemaster.registration.presentation.viewmodel.SignInEvent.UpdateEmail
+import taiwan.no.one.ricemaster.registration.presentation.viewmodel.SignInEvent.UpdatePassword
 import taiwan.no.one.ricemaster.ui.event.EventHandler
 import taiwan.no.one.ricemaster.user.repository.UserRepo
 
 @KoinViewModel
-internal class LoginViewModel(
+internal class SignInViewModel(
     private val userFormRepo: UserFormRepo,
     private val registrationRepo: AuthRepo,
     @Provided private val userRepo: UserRepo,
-) : ViewModel(), EventHandler<LoginEvent>, KoinComponent {
+) : ViewModel(), EventHandler<SignInEvent>, KoinComponent {
     private val googleSignInHandler: SignInHandler by inject(qualifier = named("google"))
     private val facebookSignInHandler: SignInHandler by inject(qualifier = named("facebook"))
     private val twitterSignInHandler: SignInHandler by inject(qualifier = named("twitter"))
@@ -56,10 +56,10 @@ internal class LoginViewModel(
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.Eagerly,
-        initialValue = LoginUiState.Init,
+        initialValue = SignInUiState.Init,
     )
 
-    override fun handleEvent(event: LoginEvent) {
+    override fun handleEvent(event: SignInEvent) {
         when (event) {
             SignUp -> viewModelScope.launch { registrationRepo.createUser() }
             is Login -> viewModelScope.launch { registrationRepo.signIn() }

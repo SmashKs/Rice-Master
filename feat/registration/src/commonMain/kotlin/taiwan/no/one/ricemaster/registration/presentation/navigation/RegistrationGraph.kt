@@ -6,31 +6,31 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import kotlinx.serialization.Serializable
-import org.koin.compose.viewmodel.koinNavViewModel
+import org.koin.compose.viewmodel.koinViewModel
 import taiwan.no.one.ricemaster.navigation.Graph.RegistrationGraph
-import taiwan.no.one.ricemaster.registration.presentation.component.LoginRoute
 import taiwan.no.one.ricemaster.registration.presentation.component.SignInRoute
-import taiwan.no.one.ricemaster.registration.presentation.viewmodel.LoginViewModel
-
-@Serializable
-private data object LoginRoute
+import taiwan.no.one.ricemaster.registration.presentation.component.SignUpRoute
+import taiwan.no.one.ricemaster.registration.presentation.viewmodel.SignInViewModel
 
 @Serializable
 private data object SignInRoute
 
+@Serializable
+private data object SignUpRoute
+
 fun NavGraphBuilder.RegistrationGraph() {
-    navigation<RegistrationGraph>(startDestination = LoginRoute) {
-        composable<LoginRoute> {
-            val vm = koinNavViewModel<LoginViewModel>()
+    navigation<RegistrationGraph>(startDestination = SignInRoute) {
+        composable<SignInRoute> {
+            val vm = koinViewModel<SignInViewModel>()
             val state = vm.state.collectAsStateWithLifecycle().value
 
-            LoginRoute(
+            SignInRoute(
                 modifier = Modifier,
                 uiState = state,
                 eventHandler = vm::handleEvent,
             )
         }
 
-        composable<SignInRoute> { SignInRoute() }
+        composable<SignUpRoute> { SignUpRoute() }
     }
 }
