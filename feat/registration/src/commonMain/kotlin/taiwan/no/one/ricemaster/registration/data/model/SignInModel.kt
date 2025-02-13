@@ -1,6 +1,6 @@
 package taiwan.no.one.ricemaster.registration.data.model
 
-data class LoginModel(
+data class SignInModel(
     val email: String = "",
     val password: String = "",
 )

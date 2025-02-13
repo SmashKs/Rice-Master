@@ -2,35 +2,43 @@ package taiwan.no.one.ricemaster.registration.presentation.navigation
 
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import kotlinx.serialization.Serializable
 import org.koin.compose.viewmodel.koinViewModel
 import taiwan.no.one.ricemaster.navigation.Graph.RegistrationGraph
+import taiwan.no.one.ricemaster.navigation.handler.handleNavigationEvents
 import taiwan.no.one.ricemaster.registration.presentation.component.SignInRoute
 import taiwan.no.one.ricemaster.registration.presentation.component.SignUpRoute
 import taiwan.no.one.ricemaster.registration.presentation.viewmodel.SignInViewModel
 
 @Serializable
-private data object SignInRoute
+internal data object SignInRoute
 
 @Serializable
-private data object SignUpRoute
+internal data object SignUpRoute
 
-fun NavGraphBuilder.RegistrationGraph() {
+fun NavGraphBuilder.RegistrationGraph(
+    navController: NavController,
+) {
     navigation<RegistrationGraph>(startDestination = SignInRoute) {
         composable<SignInRoute> {
             val vm = koinViewModel<SignInViewModel>()
             val state = vm.state.collectAsStateWithLifecycle().value
 
+            vm.navSharedFlow.handleNavigationEvents { event -> with(event) { navController.navigate() } }
+
             SignInRoute(
                 modifier = Modifier,
                 uiState = state,
-                eventHandler = vm::handleEvent,
+                eventHandler = { vm.handleEvent(it) },
             )
         }
 
-        composable<SignUpRoute> { SignUpRoute() }
+        composable<SignUpRoute> {
+            SignUpRoute()
+        }
     }
 }

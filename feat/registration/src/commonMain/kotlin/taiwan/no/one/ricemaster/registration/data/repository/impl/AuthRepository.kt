@@ -18,12 +18,12 @@ internal class AuthRepository(
     @Provided private val firebaseAuth: FirebaseAuth,
 ) : AuthRepo {
     override suspend fun createUser(): Result<UserModel> =
-        kotlin.runCatching { localUserFormStore.fetchLoginDataFlow().first() }
+        kotlin.runCatching { localUserFormStore.fetchSignInDataFlow().first() }
             .mapCatching { firebaseAuth.createUserWithEmailAndPassword(it.email, it.password) }
             .mapCatching { authResult -> toUserModel(authResult) }
 
     override suspend fun signIn(): Result<UserModel> =
-        kotlin.runCatching { localUserFormStore.fetchLoginDataFlow().first() }
+        kotlin.runCatching { localUserFormStore.fetchSignInDataFlow().first() }
             .mapCatching { firebaseAuth.signInWithEmailAndPassword(it.email, it.password) }
             .mapCatching { authResult -> toUserModel(authResult) }
 

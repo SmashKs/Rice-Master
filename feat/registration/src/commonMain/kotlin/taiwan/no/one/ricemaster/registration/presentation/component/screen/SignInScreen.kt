@@ -10,7 +10,7 @@ import kotlinx.collections.immutable.toPersistentList
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import taiwan.no.one.ricemaster.registration.presentation.component.section.ButtonSection
 import taiwan.no.one.ricemaster.registration.presentation.component.section.Login3PartyIconsSection
-import taiwan.no.one.ricemaster.registration.presentation.component.section.LoginFieldsSection
+import taiwan.no.one.ricemaster.registration.presentation.component.section.SignInFieldsSection
 import taiwan.no.one.ricemaster.registration.presentation.entity.SignInUiState
 import taiwan.no.one.ricemaster.registration.presentation.entity.SocialIcon
 import taiwan.no.one.ricemaster.registration.presentation.viewmodel.SignInEvent
@@ -27,7 +27,7 @@ internal fun SignInScreen(
     Column(
         modifier = modifier.padding(horizontal = Sizing.spacing16),
     ) {
-        LoginFieldsSection(
+        SignInFieldsSection(
             modifier = Modifier,
             email = uiState.email,
             password = uiState.password,
@@ -35,16 +35,16 @@ internal fun SignInScreen(
             onPassValChange = { eventHandler.invoke(SignInEvent.UpdatePassword(it)) },
         )
 
+        ButtonSection(
+            modifier = Modifier,
+            onSignInClick = { eventHandler.invoke(Login) },
+            onSignUpClick = { eventHandler.invoke(SignUp) },
+        )
+
         Login3PartyIconsSection(
             modifier = Modifier.align(Alignment.CenterHorizontally),
             icons = SocialIcon.entries.toPersistentList(),
             onClick = { eventHandler.invoke(SignInEvent.Execute(it)) },
-        )
-
-        ButtonSection(
-            modifier = Modifier,
-            onLoginClick = { eventHandler.invoke(Login) },
-            onSignUpClick = { eventHandler.invoke(SignUp) },
         )
     }
 }

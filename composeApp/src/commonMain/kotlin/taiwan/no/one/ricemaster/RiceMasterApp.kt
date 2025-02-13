@@ -90,8 +90,8 @@ fun RiceMasterApp(
 
                         composable<ProfileTopGraph> {
                             ProfileNavHost(
-                                subgraphBuilder = {
-                                    RegistrationGraph()
+                                subgraphBuilder = { navController ->
+                                    RegistrationGraph(navController)
                                 },
                             )
                         }

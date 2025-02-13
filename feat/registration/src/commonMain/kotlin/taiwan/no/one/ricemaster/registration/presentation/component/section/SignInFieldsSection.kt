@@ -25,7 +25,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import taiwan.no.one.ricemaster.registration.presentation.component.textFieldValueSaver
 
 @Composable
-internal fun LoginFieldsSection(
+internal fun SignInFieldsSection(
     email: String,
     password: String,
     modifier: Modifier = Modifier,

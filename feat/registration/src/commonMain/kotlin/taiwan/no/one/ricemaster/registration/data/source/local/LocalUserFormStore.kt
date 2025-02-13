@@ -6,16 +6,16 @@ import kotlinx.coroutines.flow.update
 import org.koin.core.annotation.Named
 import org.koin.core.annotation.Single
 import taiwan.no.one.ricemaster.map.ConcurrentMap
-import taiwan.no.one.ricemaster.registration.data.model.LoginModel
+import taiwan.no.one.ricemaster.registration.data.model.SignInModel
 import taiwan.no.one.ricemaster.registration.data.source.UserFormStore
 
 @Single
 @Named("local")
 internal class LocalUserFormStore : UserFormStore {
-    private val flowMap: ConcurrentMap<String, MutableStateFlow<LoginModel>> = ConcurrentMap()
+    private val flowMap: ConcurrentMap<String, MutableStateFlow<SignInModel>> = ConcurrentMap()
 
-    override fun fetchLoginDataFlow(): Flow<LoginModel> = flowMap.getOrPut(KEY) {
-        MutableStateFlow(LoginModel())
+    override fun fetchSignInDataFlow(): Flow<SignInModel> = flowMap.getOrPut(KEY) {
+        MutableStateFlow(SignInModel())
     }
 
     override fun updateEmail(value: String) {

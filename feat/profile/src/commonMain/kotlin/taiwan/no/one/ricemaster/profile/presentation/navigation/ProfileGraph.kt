@@ -2,6 +2,7 @@ package taiwan.no.one.ricemaster.profile.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -15,9 +16,10 @@ private data object ProfileRoute
 @Composable
 fun ProfileNavHost(
     modifier: Modifier = Modifier,
-    subgraphBuilder: NavGraphBuilder.() -> Unit = {},
+    subgraphBuilder: NavGraphBuilder.(NavController) -> Unit = {},
 ) {
     val navController = rememberNavController()
+
     NavHost(
         modifier = modifier,
         navController = navController,
@@ -29,6 +31,6 @@ fun ProfileNavHost(
             )
         }
 
-        subgraphBuilder.invoke(this)
+        subgraphBuilder.invoke(this, navController)
     }
 }

@@ -12,13 +12,13 @@ import taiwan.no.one.ricemaster.ui.Sizing
 @Composable
 internal fun ButtonSection(
     modifier: Modifier = Modifier,
-    onLoginClick: () -> Unit = {},
+    onSignInClick: () -> Unit = {},
     onSignUpClick: () -> Unit = {},
 ) {
     Column(modifier = modifier) {
         Button(
-            onClick = onLoginClick,
-            content = { Text(text = "Login") },
+            onClick = onSignInClick,
+            content = { Text(text = "Sign In") },
         )
 
         Spacer(modifier = Modifier.size(size = Sizing.spacing8))
