@@ -1,4 +1,4 @@
-package taiwan.no.one.ricemaster.registration.presentation.viewmodel
+package taiwan.no.one.ricemaster.registration.presentation.viewmodel.signin
 
 import taiwan.no.one.ricemaster.registration.presentation.entity.SocialIcon
 import taiwan.no.one.ricemaster.ui.event.Event
@@ -6,7 +6,7 @@ import taiwan.no.one.ricemaster.ui.event.Event
 sealed interface SignInEvent : Event {
     data object SignUp : SignInEvent
 
-    data object Login : SignInEvent
+    data object SignIn : SignInEvent
 
     data class UpdateEmail(val email: String) : SignInEvent
 

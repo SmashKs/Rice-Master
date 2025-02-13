@@ -12,7 +12,8 @@ import taiwan.no.one.ricemaster.navigation.Graph.RegistrationGraph
 import taiwan.no.one.ricemaster.navigation.handler.handleNavigationEvents
 import taiwan.no.one.ricemaster.registration.presentation.component.SignInRoute
 import taiwan.no.one.ricemaster.registration.presentation.component.SignUpRoute
-import taiwan.no.one.ricemaster.registration.presentation.viewmodel.SignInViewModel
+import taiwan.no.one.ricemaster.registration.presentation.viewmodel.signin.SignInViewModel
+import taiwan.no.one.ricemaster.registration.presentation.viewmodel.signup.SignUpViewModel
 
 @Serializable
 internal data object SignInRoute
@@ -38,7 +39,13 @@ fun NavGraphBuilder.RegistrationGraph(
         }
 
         composable<SignUpRoute> {
-            SignUpRoute()
+            val vm = koinViewModel<SignUpViewModel>()
+
+            vm.navSharedFlow.handleNavigationEvents { event -> with(event) { navController.navigate() } }
+
+            SignUpRoute(
+                modifier = Modifier,
+            )
         }
     }
 }

@@ -1,4 +1,4 @@
-package taiwan.no.one.ricemaster.registration.presentation.viewmodel
+package taiwan.no.one.ricemaster.registration.presentation.viewmodel.signin
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -25,12 +25,12 @@ import taiwan.no.one.ricemaster.registration.presentation.entity.SocialIcon.GOOG
 import taiwan.no.one.ricemaster.registration.presentation.entity.SocialIcon.TWITTER
 import taiwan.no.one.ricemaster.registration.presentation.handler.SignInHandler
 import taiwan.no.one.ricemaster.registration.presentation.navigation.SingInNavEvent
-import taiwan.no.one.ricemaster.registration.presentation.viewmodel.SignInEvent.DoneLoginMethod
-import taiwan.no.one.ricemaster.registration.presentation.viewmodel.SignInEvent.Execute
-import taiwan.no.one.ricemaster.registration.presentation.viewmodel.SignInEvent.Login
-import taiwan.no.one.ricemaster.registration.presentation.viewmodel.SignInEvent.SignUp
-import taiwan.no.one.ricemaster.registration.presentation.viewmodel.SignInEvent.UpdateEmail
-import taiwan.no.one.ricemaster.registration.presentation.viewmodel.SignInEvent.UpdatePassword
+import taiwan.no.one.ricemaster.registration.presentation.viewmodel.signin.SignInEvent.DoneLoginMethod
+import taiwan.no.one.ricemaster.registration.presentation.viewmodel.signin.SignInEvent.Execute
+import taiwan.no.one.ricemaster.registration.presentation.viewmodel.signin.SignInEvent.SignIn
+import taiwan.no.one.ricemaster.registration.presentation.viewmodel.signin.SignInEvent.SignUp
+import taiwan.no.one.ricemaster.registration.presentation.viewmodel.signin.SignInEvent.UpdateEmail
+import taiwan.no.one.ricemaster.registration.presentation.viewmodel.signin.SignInEvent.UpdatePassword
 import taiwan.no.one.ricemaster.ui.event.EventHandler
 import taiwan.no.one.ricemaster.user.repository.UserRepo
 
@@ -44,11 +44,11 @@ internal class SignInViewModel(
     private val facebookSignInHandler: SignInHandler by inject(qualifier = named("facebook"))
     private val twitterSignInHandler: SignInHandler by inject(qualifier = named("twitter"))
     private val loginMethodFlow: MutableStateFlow<SocialIcon?> = MutableStateFlow(null)
-    private val registrationFlow = userFormRepo.observeSignInFlow()
+    private val signInFlow = userFormRepo.observeSignInFlow()
     private val _navSharedFlow: MutableSharedFlow<SingInNavEvent> = MutableSharedFlow()
     val navSharedFlow: SharedFlow<SingInNavEvent> = _navSharedFlow
 
-    val state = combine(registrationFlow, loginMethodFlow) { model, socialIcon ->
+    val state = combine(signInFlow, loginMethodFlow) { model, socialIcon ->
         when (socialIcon) {
             TWITTER -> ThirdPartyMethod.Twitter(twitterSignInHandler)
             GOOGLE -> ThirdPartyMethod.Google(googleSignInHandler)
@@ -67,7 +67,7 @@ internal class SignInViewModel(
     override fun handleEvent(event: SignInEvent) {
         when (event) {
             SignUp -> viewModelScope.launch { _navSharedFlow.emit(SingInNavEvent.NavigateToSingUp) }
-            is Login -> viewModelScope.launch { authRepo.signIn() }
+            is SignIn -> viewModelScope.launch { authRepo.signIn() }
             is UpdateEmail -> userFormRepo.updateEmail(event.email)
             is UpdatePassword -> userFormRepo.updatePassword(event.password)
             is Execute -> viewModelScope.launch { loginMethodFlow.emit(event.icon) }

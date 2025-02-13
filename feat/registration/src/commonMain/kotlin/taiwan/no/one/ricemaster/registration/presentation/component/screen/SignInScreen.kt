@@ -13,9 +13,9 @@ import taiwan.no.one.ricemaster.registration.presentation.component.section.Logi
 import taiwan.no.one.ricemaster.registration.presentation.component.section.SignInFieldsSection
 import taiwan.no.one.ricemaster.registration.presentation.entity.SignInUiState
 import taiwan.no.one.ricemaster.registration.presentation.entity.SocialIcon
-import taiwan.no.one.ricemaster.registration.presentation.viewmodel.SignInEvent
-import taiwan.no.one.ricemaster.registration.presentation.viewmodel.SignInEvent.Login
-import taiwan.no.one.ricemaster.registration.presentation.viewmodel.SignInEvent.SignUp
+import taiwan.no.one.ricemaster.registration.presentation.viewmodel.signin.SignInEvent
+import taiwan.no.one.ricemaster.registration.presentation.viewmodel.signin.SignInEvent.SignIn
+import taiwan.no.one.ricemaster.registration.presentation.viewmodel.signin.SignInEvent.SignUp
 import taiwan.no.one.ricemaster.ui.Sizing
 
 @Composable
@@ -37,7 +37,7 @@ internal fun SignInScreen(
 
         ButtonSection(
             modifier = Modifier,
-            onSignInClick = { eventHandler.invoke(Login) },
+            onSignInClick = { eventHandler.invoke(SignIn) },
             onSignUpClick = { eventHandler.invoke(SignUp) },
         )
 

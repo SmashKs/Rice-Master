@@ -16,7 +16,7 @@ internal fun SignUpScreen(
     TopAppBar(
         modifier = modifier,
         title = {
-            Text(text = "SignIn")
+            Text(text = "Sign Up")
         },
     )
 }

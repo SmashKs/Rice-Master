@@ -5,7 +5,7 @@ import androidx.compose.ui.Modifier
 import taiwan.no.one.ricemaster.registration.presentation.component.screen.SignInScreen
 import taiwan.no.one.ricemaster.registration.presentation.entity.SignInUiState
 import taiwan.no.one.ricemaster.registration.presentation.entity.SignInUiState.ThirdPartyMethod
-import taiwan.no.one.ricemaster.registration.presentation.viewmodel.SignInEvent
+import taiwan.no.one.ricemaster.registration.presentation.viewmodel.signin.SignInEvent
 
 @Composable
 internal fun SignInRoute(
