@@ -28,6 +28,7 @@ ktlint_standard_class-signature=disabled
 ktlint_standard_function-signature=disabled
 ktlint_function_signature_body_expression_wrapping=default
 ktlint_standard_function-expression-body=disabled
+ktlint_standard_no-blank-line-in-list=enabled
 
 disabled_rules=import-ordering
 
