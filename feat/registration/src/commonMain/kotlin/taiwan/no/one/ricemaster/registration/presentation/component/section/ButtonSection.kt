@@ -14,6 +14,7 @@ internal fun ButtonSection(
     modifier: Modifier = Modifier,
     onSignInClick: () -> Unit = {},
     onSignUpClick: () -> Unit = {},
+    onForgotPasswordClick: () -> Unit = {},
 ) {
     Column(modifier = modifier) {
         Button(
@@ -26,6 +27,13 @@ internal fun ButtonSection(
         Button(
             onClick = onSignUpClick,
             content = { Text(text = "Sign Up") },
+        )
+
+        Spacer(modifier = Modifier.size(size = Sizing.spacing8))
+
+        Button(
+            onClick = onForgotPasswordClick,
+            content = { Text(text = "Forgot Password") },
         )
     }
 }

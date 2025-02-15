@@ -19,7 +19,8 @@ import taiwan.no.one.ricemaster.registration.presentation.entity.SignUpInfoEntit
 import taiwan.no.one.ricemaster.registration.presentation.entity.SignUpUiState
 import taiwan.no.one.ricemaster.registration.presentation.entity.mapper.toEntity
 import taiwan.no.one.ricemaster.registration.presentation.navigation.SignUpNavEvent
-import taiwan.no.one.ricemaster.registration.presentation.viewmodel.signup.SignUpEvent.NavigateSignIn
+import taiwan.no.one.ricemaster.registration.presentation.navigation.SignUpNavEvent.NavigateToSignIn
+import taiwan.no.one.ricemaster.registration.presentation.viewmodel.signup.SignUpEvent.GotoSignIn
 import taiwan.no.one.ricemaster.registration.presentation.viewmodel.signup.SignUpEvent.SignUp
 import taiwan.no.one.ricemaster.registration.presentation.viewmodel.signup.SignUpEvent.UpdateConfirmPassword
 import taiwan.no.one.ricemaster.registration.presentation.viewmodel.signup.SignUpEvent.UpdateEmail
@@ -48,7 +49,7 @@ internal class SignUpViewModel(
 
     override fun handleEvent(event: SignUpEvent) {
         when (event) {
-            NavigateSignIn -> viewModelScope.launch { _navSharedFlow.emit(SignUpNavEvent.NavigateToSignIn) }
+            GotoSignIn -> viewModelScope.launch { _navSharedFlow.emit(NavigateToSignIn) }
             SignUp -> viewModelScope.launch { authRepo.createUser() }
             is UpdateEmail -> signUpFormRepo.updateEmail(event.email)
             is UpdatePassword -> signUpFormRepo.updatePassword(event.password)

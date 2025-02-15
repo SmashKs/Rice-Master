@@ -13,4 +13,10 @@ sealed interface SignInNavEvent : NavEvent {
             )
         }
     }
+
+    data object NavigateToForgotPassword : SignInNavEvent {
+        override fun NavController.navigate() {
+            navigate(route = ForgotPasswordRoute)
+        }
+    }
 }

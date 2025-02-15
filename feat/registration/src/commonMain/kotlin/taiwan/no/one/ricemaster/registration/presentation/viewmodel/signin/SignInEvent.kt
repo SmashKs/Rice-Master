@@ -4,7 +4,9 @@ import taiwan.no.one.ricemaster.registration.presentation.entity.SocialIcon
 import taiwan.no.one.ricemaster.ui.event.Event
 
 sealed interface SignInEvent : Event {
-    data object NavigateSignUp : SignInEvent
+    data object GotoSignUp : SignInEvent
+
+    data object GotoForgotPassword : SignInEvent
 
     data object SignIn : SignInEvent
 

@@ -30,9 +30,12 @@ import taiwan.no.one.ricemaster.registration.presentation.entity.SocialIcon.TWIT
 import taiwan.no.one.ricemaster.registration.presentation.entity.mapper.toEntity
 import taiwan.no.one.ricemaster.registration.presentation.handler.SignInHandler
 import taiwan.no.one.ricemaster.registration.presentation.navigation.SignInNavEvent
+import taiwan.no.one.ricemaster.registration.presentation.navigation.SignInNavEvent.NavigateToForgotPassword
+import taiwan.no.one.ricemaster.registration.presentation.navigation.SignInNavEvent.NavigateToSignUp
 import taiwan.no.one.ricemaster.registration.presentation.viewmodel.signin.SignInEvent.DoneLoginMethod
 import taiwan.no.one.ricemaster.registration.presentation.viewmodel.signin.SignInEvent.Execute
-import taiwan.no.one.ricemaster.registration.presentation.viewmodel.signin.SignInEvent.NavigateSignUp
+import taiwan.no.one.ricemaster.registration.presentation.viewmodel.signin.SignInEvent.GotoForgotPassword
+import taiwan.no.one.ricemaster.registration.presentation.viewmodel.signin.SignInEvent.GotoSignUp
 import taiwan.no.one.ricemaster.registration.presentation.viewmodel.signin.SignInEvent.SignIn
 import taiwan.no.one.ricemaster.registration.presentation.viewmodel.signin.SignInEvent.UpdateEmail
 import taiwan.no.one.ricemaster.registration.presentation.viewmodel.signin.SignInEvent.UpdatePassword
@@ -71,7 +74,8 @@ internal class SignInViewModel(
 
     override fun handleEvent(event: SignInEvent) {
         when (event) {
-            NavigateSignUp -> viewModelScope.launch { _navSharedFlow.emit(SignInNavEvent.NavigateToSignUp) }
+            GotoSignUp -> viewModelScope.launch { _navSharedFlow.emit(NavigateToSignUp) }
+            GotoForgotPassword -> viewModelScope.launch { _navSharedFlow.emit(NavigateToForgotPassword) }
             is SignIn -> viewModelScope.launch { authRepo.signIn() }
             is UpdateEmail -> userFormRepo.updateEmail(event.email)
             is UpdatePassword -> userFormRepo.updatePassword(event.password)

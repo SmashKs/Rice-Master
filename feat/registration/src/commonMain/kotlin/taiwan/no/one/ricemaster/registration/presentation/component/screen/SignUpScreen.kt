@@ -156,7 +156,7 @@ internal fun SignUpScreen(
 
         Column(modifier = Modifier) {
             Button(
-                onClick = { eventHandler.invoke(SignUpEvent.NavigateSignIn) },
+                onClick = { eventHandler.invoke(SignUpEvent.GotoSignIn) },
                 content = { Text(text = "Sign In") },
             )
 

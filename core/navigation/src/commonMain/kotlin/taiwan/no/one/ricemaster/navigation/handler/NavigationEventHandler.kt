@@ -5,6 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.flowWithLifecycle
+import androidx.navigation.NavController
 import kotlinx.coroutines.flow.Flow
 import taiwan.no.one.ricemaster.navigation.NavEvent
 
@@ -16,5 +17,16 @@ fun <E : NavEvent> Flow<E>.handleNavigationEvents(
     LaunchedEffect(this) {
         flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
             .collect { event -> handler.invoke(event) }
+    }
+}
+
+@Composable
+fun <E : NavEvent> Flow<E>.handleNavigationEvents(
+    navController: NavController,
+    lifecycle: Lifecycle = LocalLifecycleOwner.current.lifecycle,
+) {
+    LaunchedEffect(this) {
+        flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+            .collect { event -> with(event) { navController.navigate() } }
     }
 }

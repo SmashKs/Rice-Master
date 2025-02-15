@@ -14,8 +14,6 @@ import taiwan.no.one.ricemaster.registration.presentation.component.section.Sign
 import taiwan.no.one.ricemaster.registration.presentation.entity.SignInUiState
 import taiwan.no.one.ricemaster.registration.presentation.entity.SocialIcon
 import taiwan.no.one.ricemaster.registration.presentation.viewmodel.signin.SignInEvent
-import taiwan.no.one.ricemaster.registration.presentation.viewmodel.signin.SignInEvent.NavigateSignUp
-import taiwan.no.one.ricemaster.registration.presentation.viewmodel.signin.SignInEvent.SignIn
 import taiwan.no.one.ricemaster.ui.Sizing
 
 @Composable
@@ -37,8 +35,9 @@ internal fun SignInScreen(
 
         ButtonSection(
             modifier = Modifier,
-            onSignInClick = { eventHandler.invoke(SignIn) },
-            onSignUpClick = { eventHandler.invoke(NavigateSignUp) },
+            onSignInClick = { eventHandler.invoke(SignInEvent.SignIn) },
+            onSignUpClick = { eventHandler.invoke(SignInEvent.GotoSignUp) },
+            onForgotPasswordClick = { eventHandler.invoke(SignInEvent.GotoForgotPassword) },
         )
 
         Login3PartyIconsSection(

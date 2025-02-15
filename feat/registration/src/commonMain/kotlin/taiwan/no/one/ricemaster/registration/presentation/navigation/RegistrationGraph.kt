@@ -10,8 +10,10 @@ import kotlinx.serialization.Serializable
 import org.koin.compose.viewmodel.koinViewModel
 import taiwan.no.one.ricemaster.navigation.Graph.RegistrationGraph
 import taiwan.no.one.ricemaster.navigation.handler.handleNavigationEvents
+import taiwan.no.one.ricemaster.registration.presentation.component.ForgotPasswordRoute
 import taiwan.no.one.ricemaster.registration.presentation.component.SignInRoute
 import taiwan.no.one.ricemaster.registration.presentation.component.SignUpRoute
+import taiwan.no.one.ricemaster.registration.presentation.viewmodel.forgot.ForgotPasswordViewModel
 import taiwan.no.one.ricemaster.registration.presentation.viewmodel.signin.SignInViewModel
 import taiwan.no.one.ricemaster.registration.presentation.viewmodel.signup.SignUpViewModel
 
@@ -21,6 +23,9 @@ internal data object SignInRoute
 @Serializable
 internal data object SignUpRoute
 
+@Serializable
+internal data object ForgotPasswordRoute
+
 fun NavGraphBuilder.RegistrationGraph(
     navController: NavController,
 ) {
@@ -29,7 +34,7 @@ fun NavGraphBuilder.RegistrationGraph(
             val vm = koinViewModel<SignInViewModel>()
             val state = vm.state.collectAsStateWithLifecycle().value
 
-            vm.navSharedFlow.handleNavigationEvents { event -> with(event) { navController.navigate() } }
+            vm.navSharedFlow.handleNavigationEvents(navController)
 
             SignInRoute(
                 modifier = Modifier,
@@ -42,12 +47,23 @@ fun NavGraphBuilder.RegistrationGraph(
             val vm = koinViewModel<SignUpViewModel>()
             val state = vm.state.collectAsStateWithLifecycle().value
 
-            vm.navSharedFlow.handleNavigationEvents { event -> with(event) { navController.navigate() } }
+            vm.navSharedFlow.handleNavigationEvents(navController)
 
             SignUpRoute(
                 modifier = Modifier,
                 state = state,
                 eventHandler = { vm.handleEvent(it) },
+            )
+        }
+
+        composable<ForgotPasswordRoute> {
+            val vm = koinViewModel<ForgotPasswordViewModel>()
+
+            vm.navSharedFlow.handleNavigationEvents(navController)
+
+            ForgotPasswordRoute(
+                modifier = Modifier,
+                eventHandler = {},
             )
         }
     }
