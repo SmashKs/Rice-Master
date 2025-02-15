@@ -10,5 +10,8 @@ internal fun SignUpRoute(
     modifier: Modifier = Modifier,
     eventHandler: (SignUpEvent) -> Unit = {},
 ) {
-    SignUpScreen(modifier = modifier)
+    SignUpScreen(
+        modifier = modifier,
+        eventHandler = eventHandler,
+    )
 }
