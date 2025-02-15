@@ -1,10 +1,10 @@
 package taiwan.no.one.ricemaster.registration.data.repository
 
 import kotlinx.coroutines.flow.Flow
-import taiwan.no.one.ricemaster.registration.data.model.SignInModel
+import taiwan.no.one.ricemaster.registration.data.model.SignInInfoModel
 
-interface UserFormRepo {
-    fun observeSignInFlow(): Flow<SignInModel>
+interface SignInFormRepo {
+    fun observeSignInFlow(): Flow<SignInInfoModel>
 
     fun updateEmail(email: String)
 

@@ -5,7 +5,7 @@ import taiwan.no.one.ricemaster.ui.event.Event
 sealed interface SignUpEvent : Event {
     data object SignUp : SignUpEvent
 
-    data object SignIn : SignUpEvent
+    data object NavigateSignIn : SignUpEvent
 
     data class UpdateEmail(val email: String) : SignUpEvent
 

@@ -40,11 +40,14 @@ fun NavGraphBuilder.RegistrationGraph(
 
         composable<SignUpRoute> {
             val vm = koinViewModel<SignUpViewModel>()
+            val state = vm.state.collectAsStateWithLifecycle().value
 
             vm.navSharedFlow.handleNavigationEvents { event -> with(event) { navController.navigate() } }
 
             SignUpRoute(
                 modifier = Modifier,
+                state = state,
+                eventHandler = { vm.handleEvent(it) },
             )
         }
     }
