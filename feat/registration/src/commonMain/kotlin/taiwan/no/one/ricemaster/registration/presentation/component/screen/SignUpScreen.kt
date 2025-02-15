@@ -12,6 +12,7 @@ import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
@@ -25,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import taiwan.no.one.ricemaster.registration.presentation.component.textFieldValueSaver
 import taiwan.no.one.ricemaster.registration.presentation.entity.SignInUiState.Init.email
 import taiwan.no.one.ricemaster.registration.presentation.entity.SignInUiState.Init.password
@@ -149,5 +151,19 @@ internal fun SignUpScreen(
             )
         }
         //endregion
+    }
+}
+
+@Preview
+@Composable
+private fun SignUpScreenPreview() {
+    MaterialTheme {
+        SignUpScreen(
+            state = SignUpUiState.Input(
+                email = "cassie.ward@example.com",
+                password = "numquam",
+                confirmPassword = "sententiae",
+            ),
+        )
     }
 }
