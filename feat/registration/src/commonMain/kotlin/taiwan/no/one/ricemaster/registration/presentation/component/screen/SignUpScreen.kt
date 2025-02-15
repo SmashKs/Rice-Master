@@ -4,11 +4,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -151,6 +153,20 @@ internal fun SignUpScreen(
             )
         }
         //endregion
+
+        Column(modifier = Modifier) {
+            Button(
+                onClick = { eventHandler.invoke(SignUpEvent.NavigateSignIn) },
+                content = { Text(text = "Sign In") },
+            )
+
+            Spacer(modifier = Modifier.size(size = Sizing.spacing8))
+
+            Button(
+                onClick = { eventHandler.invoke(SignUpEvent.SignUp) },
+                content = { Text(text = "Sign Up") },
+            )
+        }
     }
 }
 
