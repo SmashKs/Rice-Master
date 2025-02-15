@@ -63,7 +63,7 @@ fun NavGraphBuilder.RegistrationGraph(
 
             ForgotPasswordRoute(
                 modifier = Modifier,
-                eventHandler = {},
+                eventHandler = { vm.handleEvent(it) },
             )
         }
     }

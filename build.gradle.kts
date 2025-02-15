@@ -27,7 +27,6 @@ subprojects {
                 "-Xwhen-guards",
                 "-Xnon-local-break-continue",
                 "-Xmulti-dollar-interpolation",
-                "-Xcontext-receivers",
             )
             if (System.getProperty("idea.active") == "true") {
                 freeCompilerArgs.add("-Xdebug")

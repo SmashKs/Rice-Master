@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.Icons.AutoMirrored.Filled
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
@@ -50,6 +52,14 @@ internal fun SignUpScreen(
             modifier = Modifier,
             title = {
                 Text(text = "Sign Up")
+            },
+            navigationIcon = {
+                IconButton(onClick = { eventHandler.invoke(SignUpEvent.GoBack) }) {
+                    Icon(
+                        imageVector = Filled.ArrowBack,
+                        contentDescription = "Back",
+                    )
+                }
             },
         )
 
