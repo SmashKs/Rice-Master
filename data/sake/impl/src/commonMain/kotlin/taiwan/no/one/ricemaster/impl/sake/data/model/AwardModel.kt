@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "sake_awards")
 internal data class AwardModel(
     @PrimaryKey(autoGenerate = true)
-    val id: Long = 0,
-    val awardName: String,
+    val awardId: Long = 0,
+    val name: String,
     val year: Int,
 )

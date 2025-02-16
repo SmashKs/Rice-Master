@@ -7,7 +7,7 @@ import taiwan.no.one.ricemaster.persistence.data.BaseDao
 
 @Dao
 internal interface SakeAwardDao : BaseDao<AwardModel> {
-    @Query("SELECT * FROM sake_awards WHERE id = :id LIMIT 1")
+    @Query("SELECT * FROM sake_awards WHERE awardId = :id LIMIT 1")
     suspend fun getSakeAwardById(id: Long): AwardModel?
 
     @Query("SELECT * FROM sake_awards")

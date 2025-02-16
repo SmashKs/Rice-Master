@@ -7,7 +7,7 @@ import taiwan.no.one.ricemaster.persistence.data.BaseDao
 
 @Dao
 internal interface SakeImageDao : BaseDao<ImageModel> {
-    @Query("SELECT * FROM sake_images WHERE id = :id LIMIT 1")
+    @Query("SELECT * FROM sake_images WHERE imageId = :id LIMIT 1")
     suspend fun getSakeImageById(id: Long): ImageModel?
 
     @Query("SELECT * FROM sake_images")

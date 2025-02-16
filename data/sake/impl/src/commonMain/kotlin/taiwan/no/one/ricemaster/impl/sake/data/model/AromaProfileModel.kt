@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "aroma_profiles")
 internal data class AromaProfileModel(
     @PrimaryKey(autoGenerate = true)
-    val id: Long = 0,
+    val aromaProfileId: Long = 0,
     val name: String,
     val description: String?,
 )

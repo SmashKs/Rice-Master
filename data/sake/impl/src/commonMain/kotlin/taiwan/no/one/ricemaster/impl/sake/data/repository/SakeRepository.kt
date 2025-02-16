@@ -1,11 +1,22 @@
 package taiwan.no.one.ricemaster.impl.sake.data.repository
 
+import kotlinx.datetime.Clock
 import org.koin.core.annotation.Factory
 import org.koin.core.annotation.Provided
 import taiwan.no.one.ricemaster.impl.sake.data.SakeDatabase
+import taiwan.no.one.ricemaster.impl.sake.data.model.relation.SakeAromaCrossRef
+import taiwan.no.one.ricemaster.impl.sake.data.model.relation.SakeAwardCrossRef
+import taiwan.no.one.ricemaster.impl.sake.data.model.relation.SakeFlavorCrossRef
 import taiwan.no.one.ricemaster.impl.sake.data.provider.ProvideFakeData
 import taiwan.no.one.ricemaster.sake.api.SakeRepo
+import taiwan.no.one.ricemaster.sake.api.entity.AromaProfileEntity
+import taiwan.no.one.ricemaster.sake.api.entity.AwardEntity
+import taiwan.no.one.ricemaster.sake.api.entity.BreweryEntity
+import taiwan.no.one.ricemaster.sake.api.entity.FlavorProfileEntity
+import taiwan.no.one.ricemaster.sake.api.entity.ImageEntity
+import taiwan.no.one.ricemaster.sake.api.entity.SakeDetailEntity
 import taiwan.no.one.ricemaster.sake.api.entity.SakeEntity
+import taiwan.no.one.ricemaster.sake.api.entity.SpeciallyDesignatedSakeEntity
 
 @Factory
 internal class SakeRepository(
@@ -27,21 +38,89 @@ internal class SakeRepository(
         println("7777777777777777777777777")
         sakeDatabase.sakeDao().insert(*ProvideFakeData.sakes.toTypedArray())
         println("8888888888888888888888888")
+        ProvideFakeData.sakes.forEach { sakeModel ->
+            sakeModel.aromaIds.forEach {
+                sakeDatabase.sakeDao().insertSakeAromaCrossRef(SakeAromaCrossRef(sakeModel.sakeId, it))
+            }
+            sakeModel.awardIds.forEach {
+                sakeDatabase.sakeDao().insertSakeAwardCrossRef(SakeAwardCrossRef(sakeModel.sakeId, it))
+            }
+            sakeModel.flavorIds.forEach {
+                sakeDatabase.sakeDao().insertSakeFlavorCrossRef(SakeFlavorCrossRef(sakeModel.sakeId, it))
+            }
+        }
+        println("9999999999999999999999999")
     }
 
     override suspend fun getSake(): SakeEntity = sakeDatabase.sakeDao()
         .getSakeById(1)
         ?.run {
             SakeEntity(
-                id = id,
+                id = sakeId,
                 name = name,
                 abv = abv,
                 polishingRatio = polishingRatio,
-                brewDate = brewDate,
-                expirationDate = expirationDate,
-                priceRange = priceRange,
-                imageUrl = imageUrl,
-                description = description,
+                brewDate = brewDate ?: Clock.System.now(),
+                expirationDate = expirationDate ?: Clock.System.now(),
+                priceRange = priceRange.orEmpty(),
+                description = description.orEmpty(),
             )
         }!!
+
+    override suspend fun getSakeDetail(id: Long): SakeDetailEntity {
+        return sakeDatabase.sakeDao().getDetailedSake(id).run {
+            SakeDetailEntity(
+                sake = SakeEntity(
+                    id = id,
+                    name = sake.name,
+                    abv = sake.abv,
+                    polishingRatio = sake.polishingRatio,
+                    brewDate = sake.brewDate ?: Clock.System.now(),
+                    expirationDate = sake.expirationDate ?: Clock.System.now(),
+                    priceRange = sake.priceRange.orEmpty(),
+                    description = sake.description.orEmpty(),
+                ),
+                brewery = BreweryEntity(
+                    id = brewery.breweryId,
+                    name = brewery.name,
+                    location = brewery.location,
+                    description = brewery.description.orEmpty(),
+                    website = brewery.website.orEmpty(),
+                ),
+                speciallyDesignatedSake = SpeciallyDesignatedSakeEntity(
+                    id = speciallyDesignatedSake.speciallyDesignatedSakeId,
+                    name = speciallyDesignatedSake.name,
+                    description = speciallyDesignatedSake.description.orEmpty(),
+                ),
+                images = images.map {
+                    ImageEntity(
+                        id = it.imageId,
+                        imageUrl = it.imageUrl,
+                        description = it.description,
+                    )
+                },
+                flavorProfiles = flavorProfiles.map {
+                    FlavorProfileEntity(
+                        id = it.flavorProfileId,
+                        name = it.name,
+                        description = it.description,
+                    )
+                },
+                aromaProfiles = aromaProfiles.map {
+                    AromaProfileEntity(
+                        id = it.aromaProfileId,
+                        name = it.name,
+                        description = it.description.orEmpty(),
+                    )
+                },
+                awards = awards.map {
+                    AwardEntity(
+                        id = it.awardId,
+                        awardName = it.name,
+                        year = it.year,
+                    )
+                },
+            )
+        }
+    }
 }

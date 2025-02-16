@@ -1,9 +1,15 @@
 package taiwan.no.one.ricemaster.impl.sake.data.model.relation
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 
-@Entity(primaryKeys = ["sakeId", "awardId"])
+@Entity(
+    tableName = "sake_award_cross_ref",
+    primaryKeys = ["sakeId", "awardId"],
+)
 internal data class SakeAwardCrossRef(
-    val sakeId: Long,
-    val awardId: Long,
+    @ColumnInfo(index = true)
+    val sakeId: Long, // Foreign key from SakeModel
+    @ColumnInfo(index = true)
+    val awardId: Long, // Foreign key from AwardModel
 )

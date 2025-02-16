@@ -7,7 +7,7 @@ import taiwan.no.one.ricemaster.persistence.data.BaseDao
 
 @Dao
 internal interface FlavorProfileDao : BaseDao<FlavorProfileModel> {
-    @Query("SELECT * FROM flavor_profiles WHERE id = :id LIMIT 1")
+    @Query("SELECT * FROM flavor_profiles WHERE flavorProfileId = :id LIMIT 1")
     suspend fun getFlavorProfileById(id: Long): FlavorProfileModel?
 
     @Query("SELECT * FROM flavor_profiles")

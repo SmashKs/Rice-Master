@@ -7,7 +7,7 @@ import taiwan.no.one.ricemaster.persistence.data.BaseDao
 
 @Dao
 internal interface BreweryDao : BaseDao<BreweryModel> {
-    @Query("SELECT * FROM breweries WHERE id = :id LIMIT 1")
+    @Query("SELECT * FROM breweries WHERE breweryId = :id LIMIT 1")
     suspend fun getBreweryById(id: Long): BreweryModel?
 
     @Query("SELECT * FROM breweries")

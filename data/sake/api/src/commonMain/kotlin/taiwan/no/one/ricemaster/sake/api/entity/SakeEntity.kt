@@ -7,9 +7,8 @@ data class SakeEntity(
     val name: String,
     val abv: Float, // Alcohol By Volume
     val polishingRatio: Float,
-    val brewDate: Instant?,
-    val expirationDate: Instant?,
-    val priceRange: String?,
-    val imageUrl: String?,
-    val description: String?,
+    val brewDate: Instant,
+    val expirationDate: Instant,
+    val priceRange: String,
+    val description: String,
 )

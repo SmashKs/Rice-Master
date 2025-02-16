@@ -7,7 +7,7 @@ import taiwan.no.one.ricemaster.persistence.data.BaseDao
 
 @Dao
 internal interface SpeciallyDesignatedSakeDao : BaseDao<SpeciallyDesignatedSakeModel> {
-    @Query("SELECT * FROM specially_designated_sake WHERE id = :id LIMIT 1")
+    @Query("SELECT * FROM specially_designated_sake WHERE speciallyDesignatedSakeId = :id LIMIT 1")
     suspend fun getDesignatedSakeById(id: Long): SpeciallyDesignatedSakeModel?
 
     @Query("SELECT * FROM specially_designated_sake")

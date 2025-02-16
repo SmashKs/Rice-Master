@@ -12,6 +12,9 @@ import taiwan.no.one.ricemaster.impl.sake.data.model.FlavorProfileModel
 import taiwan.no.one.ricemaster.impl.sake.data.model.ImageModel
 import taiwan.no.one.ricemaster.impl.sake.data.model.SakeModel
 import taiwan.no.one.ricemaster.impl.sake.data.model.SpeciallyDesignatedSakeModel
+import taiwan.no.one.ricemaster.impl.sake.data.model.relation.SakeAromaCrossRef
+import taiwan.no.one.ricemaster.impl.sake.data.model.relation.SakeAwardCrossRef
+import taiwan.no.one.ricemaster.impl.sake.data.model.relation.SakeFlavorCrossRef
 import taiwan.no.one.ricemaster.impl.sake.data.repository.store.local.AromaProfileDao
 import taiwan.no.one.ricemaster.impl.sake.data.repository.store.local.BreweryDao
 import taiwan.no.one.ricemaster.impl.sake.data.repository.store.local.FlavorProfileDao
@@ -30,6 +33,9 @@ import taiwan.no.one.ricemaster.persistence.data.converter.DateConverter
         AwardModel::class,
         ImageModel::class,
         SpeciallyDesignatedSakeModel::class,
+        SakeAromaCrossRef::class,
+        SakeAwardCrossRef::class,
+        SakeFlavorCrossRef::class,
     ],
     version = 1, // Update the version if you add/change database schema in the future
     exportSchema = false, // Use true if you want to export the schema, generally used in production

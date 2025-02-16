@@ -14,7 +14,8 @@ internal class SearchViewModel(
     init {
         viewModelScope.launch {
             println("↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓")
-            println(sakeRepo.getSake())
+            println(sakeRepo.init())
+            println(sakeRepo.getSakeDetail(4))
             println("↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑")
         }
     }
