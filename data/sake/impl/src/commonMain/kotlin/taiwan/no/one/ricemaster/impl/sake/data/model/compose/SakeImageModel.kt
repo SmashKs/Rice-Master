@@ -1,0 +1,19 @@
+package taiwan.no.one.ricemaster.impl.sake.data.model.compose
+
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.PrimaryKey
+import taiwan.no.one.ricemaster.impl.sake.data.model.SakeModel
+
+@Entity(
+    tableName = "sake_images",
+    foreignKeys = [
+        ForeignKey(entity = SakeModel::class, parentColumns = ["id"], childColumns = ["sakeId"]),
+    ],
+)
+internal data class SakeImageModel(
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0,
+    val sakeId: Long,
+    val imageUrl: String,
+)
