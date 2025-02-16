@@ -42,6 +42,9 @@ kotlin {
             implementation(project(":core:navigation"))
             implementation(project(":core:persistence"))
             implementation(project(":core:util"))
+
+            implementation(project(":data:sake:api"))
+
             with(compose) {
                 implementation(material3)
                 implementation(components.resources)

@@ -1,11 +1,7 @@
 plugins {
-    alias(libs.plugins.androidKotlinMultiplatformLibrary)
-    alias(libs.plugins.composeMultiplatform)
-    alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.androidKotlinMultiplatformLibrary)
     alias(libs.plugins.kotlinSerialization)
-    alias(libs.plugins.googleKsp)
-    alias(libs.plugins.room)
 }
 
 kotlin {
