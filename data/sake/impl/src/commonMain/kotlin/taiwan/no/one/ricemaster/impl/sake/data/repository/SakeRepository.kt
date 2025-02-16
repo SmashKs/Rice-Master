@@ -4,10 +4,7 @@ import kotlinx.datetime.Clock
 import org.koin.core.annotation.Factory
 import org.koin.core.annotation.Provided
 import taiwan.no.one.ricemaster.impl.sake.data.SakeDatabase
-import taiwan.no.one.ricemaster.impl.sake.data.model.relation.SakeAromaCrossRef
-import taiwan.no.one.ricemaster.impl.sake.data.model.relation.SakeAwardCrossRef
-import taiwan.no.one.ricemaster.impl.sake.data.model.relation.SakeFlavorCrossRef
-import taiwan.no.one.ricemaster.impl.sake.data.provider.ProvideFakeData
+import taiwan.no.one.ricemaster.impl.sake.data.provider.parseJson
 import taiwan.no.one.ricemaster.sake.api.SakeRepo
 import taiwan.no.one.ricemaster.sake.api.entity.AromaProfileEntity
 import taiwan.no.one.ricemaster.sake.api.entity.AwardEntity
@@ -23,33 +20,34 @@ internal class SakeRepository(
     @Provided private val sakeDatabase: SakeDatabase,
 ) : SakeRepo {
     override suspend fun init() {
-        println("1111111111111111111111111")
-        sakeDatabase.speciallyDesignatedSakeDao().insert(*ProvideFakeData.speciallyDesignatedSakes.toTypedArray())
-        println("2222222222222222222222222")
-        sakeDatabase.sakeAwardDao().insert(*ProvideFakeData.awards.toTypedArray())
-        println("3333333333333333333333333")
-        sakeDatabase.sakeImageDao().insert(*ProvideFakeData.images.toTypedArray())
-        println("4444444444444444444444444")
-        sakeDatabase.breweryDao().insert(*ProvideFakeData.breweries.toTypedArray())
-        println("5555555555555555555555555")
-        sakeDatabase.aromaProfileDao().insert(*ProvideFakeData.aromaProfiles.toTypedArray())
-        println("6666666666666666666666666")
-        sakeDatabase.flavorProfileDao().insert(*ProvideFakeData.flavorProfiles.toTypedArray())
-        println("7777777777777777777777777")
-        sakeDatabase.sakeDao().insert(*ProvideFakeData.sakes.toTypedArray())
-        println("8888888888888888888888888")
-        ProvideFakeData.sakes.forEach { sakeModel ->
-            sakeModel.aromaIds.forEach {
-                sakeDatabase.sakeDao().insertSakeAromaCrossRef(SakeAromaCrossRef(sakeModel.sakeId, it))
-            }
-            sakeModel.awardIds.forEach {
-                sakeDatabase.sakeDao().insertSakeAwardCrossRef(SakeAwardCrossRef(sakeModel.sakeId, it))
-            }
-            sakeModel.flavorIds.forEach {
-                sakeDatabase.sakeDao().insertSakeFlavorCrossRef(SakeFlavorCrossRef(sakeModel.sakeId, it))
-            }
-        }
-        println("9999999999999999999999999")
+//        println("1111111111111111111111111")
+//        sakeDatabase.speciallyDesignatedSakeDao().insert(*ProvideFakeData.speciallyDesignatedSakes.toTypedArray())
+//        println("2222222222222222222222222")
+//        sakeDatabase.sakeAwardDao().insert(*ProvideFakeData.awards.toTypedArray())
+//        println("3333333333333333333333333")
+//        sakeDatabase.sakeImageDao().insert(*ProvideFakeData.images.toTypedArray())
+//        println("4444444444444444444444444")
+//        sakeDatabase.breweryDao().insert(*ProvideFakeData.breweries.toTypedArray())
+//        println("5555555555555555555555555")
+//        sakeDatabase.aromaProfileDao().insert(*ProvideFakeData.aromaProfiles.toTypedArray())
+//        println("6666666666666666666666666")
+//        sakeDatabase.flavorProfileDao().insert(*ProvideFakeData.flavorProfiles.toTypedArray())
+//        println("7777777777777777777777777")
+//        sakeDatabase.sakeDao().insert(*ProvideFakeData.sakes.toTypedArray())
+//        println("8888888888888888888888888")
+//        ProvideFakeData.sakes.forEach { sakeModel ->
+//            sakeModel.aromaIds.forEach {
+//                sakeDatabase.sakeDao().insertSakeAromaCrossRef(SakeAromaCrossRef(sakeModel.sakeId, it))
+//            }
+//            sakeModel.awardIds.forEach {
+//                sakeDatabase.sakeDao().insertSakeAwardCrossRef(SakeAwardCrossRef(sakeModel.sakeId, it))
+//            }
+//            sakeModel.flavorIds.forEach {
+//                sakeDatabase.sakeDao().insertSakeFlavorCrossRef(SakeFlavorCrossRef(sakeModel.sakeId, it))
+//            }
+//        }
+//        println("9999999999999999999999999")
+        println(parseJson())
     }
 
     override suspend fun getSake(): SakeEntity = sakeDatabase.sakeDao()

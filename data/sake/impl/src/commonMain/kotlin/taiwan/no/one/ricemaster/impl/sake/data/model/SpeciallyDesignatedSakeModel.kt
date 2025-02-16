@@ -2,7 +2,9 @@ package taiwan.no.one.ricemaster.impl.sake.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.serialization.Serializable
 
+@Serializable
 @Entity(tableName = "specially_designated_sake")
 internal data class SpeciallyDesignatedSakeModel(
     @PrimaryKey(autoGenerate = true)

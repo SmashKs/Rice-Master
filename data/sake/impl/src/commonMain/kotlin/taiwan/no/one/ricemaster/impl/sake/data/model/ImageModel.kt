@@ -3,7 +3,9 @@ package taiwan.no.one.ricemaster.impl.sake.data.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.serialization.Serializable
 
+@Serializable
 @Entity(tableName = "sake_images")
 internal data class ImageModel(
     @PrimaryKey(autoGenerate = true)
