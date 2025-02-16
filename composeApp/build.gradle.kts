@@ -37,7 +37,8 @@ kotlin {
             implementation(project(":core:navigation"))
             implementation(project(":core:persistence"))
 
-            implementation(project(":feat:detail"))
+            implementation(project(":data:sake:impl"))
+
             implementation(project(":feat:search"))
             implementation(project(":feat:profile"))
             implementation(project(":feat:identity"))

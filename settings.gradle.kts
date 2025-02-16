@@ -42,8 +42,9 @@ include(":core:util")
 include(":core:persistence")
 
 include(":data:user")
+include(":data:sake:impl")
+include(":data:sake:api")
 
-include(":feat:detail")
 include(":feat:search")
 include(":feat:identity")
 include(":feat:profile")
