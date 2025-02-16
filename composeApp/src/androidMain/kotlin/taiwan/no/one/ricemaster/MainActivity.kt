@@ -29,6 +29,6 @@ class MainActivity : ComponentActivity() {
 
 @PreviewLightDark
 @Composable
-fun AppAndroidPreview() {
+private fun AppAndroidPreview() {
     RiceMasterApp()
 }

@@ -16,11 +16,9 @@ class SakeModule {
     @Singleton
     internal fun getSakeDatabase(
         @Provided builder: RoomDatabase.Builder<SakeDatabase>,
-        @Provided presetCallback: RoomDatabase.Callback,
     ): SakeDatabase = builder
         .fallbackToDestructiveMigrationOnDowngrade(true)
         .setDriver(BundledSQLiteDriver())
         .setQueryCoroutineContext(Dispatchers.IO)
-        .addCallback(presetCallback)
         .build()
 }

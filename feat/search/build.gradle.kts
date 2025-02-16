@@ -1,9 +1,12 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
+
 plugins {
     alias(libs.plugins.androidKotlinMultiplatformLibrary)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.googleKsp)
 }
 
 kotlin {
@@ -36,6 +39,9 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(project(":core:navigation"))
+
+            implementation(project(":data:sake:api"))
+
             implementation(compose.material3)
             implementation(compose.components.uiToolingPreview)
 
@@ -43,6 +49,13 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
 
             implementation(libs.androidx.navigation.compose)
+
+            with(libs.koin) {
+                implementation(project.dependencies.platform(bom))
+                implementation(mm.compose)
+                implementation(mm.viewmodel.navigation)
+                implementation(annotations)
+            }
         }
 
         androidMain.dependencies {
@@ -58,5 +71,25 @@ kotlin {
             // on common by default and will correctly pull the iOS artifacts of any
             // KMP dependencies declared in commonMain.
         }
+
+        named("commonMain").configure {
+            kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
+        }
+    }
+}
+
+// KSP Tasks
+dependencies {
+    add("kspCommonMainMetadata", libs.koin.ksp.compiler)
+}
+
+ksp {
+    arg("KOIN_USE_COMPOSE_VIEWMODEL", "true")
+    arg("KOIN_CONFIG_CHECK", "true")
+}
+
+tasks.withType<KotlinCompilationTask<*>>().configureEach {
+    if (name != "kspCommonMainKotlinMetadata") {
+        dependsOn("kspCommonMainKotlinMetadata")
     }
 }

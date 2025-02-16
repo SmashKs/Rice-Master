@@ -8,7 +8,11 @@ import kotlinx.datetime.Instant
 @Entity(
     tableName = "sake",
     foreignKeys = [
-        ForeignKey(entity = BreweryModel::class, parentColumns = ["id"], childColumns = ["breweryId"]),
+        ForeignKey(
+            entity = BreweryModel::class,
+            parentColumns = ["id"],
+            childColumns = ["breweryId"],
+        ),
         ForeignKey(
             entity = SpeciallyDesignatedSakeModel::class,
             parentColumns = ["id"],
@@ -20,8 +24,6 @@ internal data class SakeModel(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
     val name: String,
-    val breweryId: Long,
-    val speciallyDesignatedId: Long,
     val abv: Float, // Alcohol By Volume
     val polishingRatio: Float,
     val brewDate: Instant?,
@@ -29,4 +31,8 @@ internal data class SakeModel(
     val priceRange: String?,
     val imageUrl: String?,
     val description: String?,
+    //region Foreign keys for relationships
+    val speciallyDesignatedId: Long,
+    val breweryId: Long,
+    //endregion
 )

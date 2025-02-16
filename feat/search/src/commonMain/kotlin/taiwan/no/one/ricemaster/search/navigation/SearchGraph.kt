@@ -6,7 +6,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import kotlinx.serialization.Serializable
+import org.koin.compose.viewmodel.koinViewModel
 import taiwan.no.one.ricemaster.search.component.SearchRoute
+import taiwan.no.one.ricemaster.search.presentation.viewmodel.SearchViewModel
 
 @Serializable
 private data object SearchRoute
@@ -22,6 +24,8 @@ fun SearchNavHost(
         startDestination = SearchRoute,
     ) {
         composable<SearchRoute> {
+            val vm = koinViewModel<SearchViewModel>()
+
             SearchRoute(modifier = Modifier)
         }
     }

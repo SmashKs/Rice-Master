@@ -6,21 +6,17 @@ import androidx.room.RoomDatabase
 import androidx.room.RoomDatabaseConstructor
 import androidx.room.TypeConverters
 import taiwan.no.one.ricemaster.impl.sake.data.model.AromaProfileModel
+import taiwan.no.one.ricemaster.impl.sake.data.model.AwardModel
 import taiwan.no.one.ricemaster.impl.sake.data.model.BreweryModel
 import taiwan.no.one.ricemaster.impl.sake.data.model.FlavorProfileModel
+import taiwan.no.one.ricemaster.impl.sake.data.model.ImageModel
 import taiwan.no.one.ricemaster.impl.sake.data.model.SakeModel
 import taiwan.no.one.ricemaster.impl.sake.data.model.SpeciallyDesignatedSakeModel
-import taiwan.no.one.ricemaster.impl.sake.data.model.compose.SakeAromaModel
-import taiwan.no.one.ricemaster.impl.sake.data.model.compose.SakeAwardModel
-import taiwan.no.one.ricemaster.impl.sake.data.model.compose.SakeFlavorModel
-import taiwan.no.one.ricemaster.impl.sake.data.model.compose.SakeImageModel
 import taiwan.no.one.ricemaster.impl.sake.data.repository.store.local.AromaProfileDao
 import taiwan.no.one.ricemaster.impl.sake.data.repository.store.local.BreweryDao
 import taiwan.no.one.ricemaster.impl.sake.data.repository.store.local.FlavorProfileDao
-import taiwan.no.one.ricemaster.impl.sake.data.repository.store.local.SakeAromaDao
 import taiwan.no.one.ricemaster.impl.sake.data.repository.store.local.SakeAwardDao
 import taiwan.no.one.ricemaster.impl.sake.data.repository.store.local.SakeDao
-import taiwan.no.one.ricemaster.impl.sake.data.repository.store.local.SakeFlavorDao
 import taiwan.no.one.ricemaster.impl.sake.data.repository.store.local.SakeImageDao
 import taiwan.no.one.ricemaster.impl.sake.data.repository.store.local.SpeciallyDesignatedSakeDao
 import taiwan.no.one.ricemaster.persistence.data.converter.DateConverter
@@ -31,10 +27,8 @@ import taiwan.no.one.ricemaster.persistence.data.converter.DateConverter
         BreweryModel::class,
         FlavorProfileModel::class,
         SakeModel::class,
-        SakeAromaModel::class,
-        SakeAwardModel::class,
-        SakeFlavorModel::class,
-        SakeImageModel::class,
+        AwardModel::class,
+        ImageModel::class,
         SpeciallyDesignatedSakeModel::class,
     ],
     version = 1, // Update the version if you add/change database schema in the future
@@ -51,11 +45,7 @@ internal abstract class SakeDatabase : RoomDatabase() {
 
     abstract fun flavorProfileDao(): FlavorProfileDao
 
-    abstract fun sakeFlavorDao(): SakeFlavorDao
-
     abstract fun aromaProfileDao(): AromaProfileDao
-
-    abstract fun sakeAromaDao(): SakeAromaDao
 
     abstract fun sakeImageDao(): SakeImageDao
 

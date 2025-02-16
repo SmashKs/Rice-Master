@@ -23,7 +23,7 @@ interface BaseDao<in T> {
      *
      * @param obj the objects to be inserted.
      */
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(vararg obj: T)
 
     /**
