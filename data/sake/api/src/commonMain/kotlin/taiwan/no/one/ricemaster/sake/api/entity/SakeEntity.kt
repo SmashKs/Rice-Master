@@ -11,4 +11,4 @@ data class SakeEntity(
     val expirationDate: Instant,
     val priceRange: String,
     val description: String,
-)
+) : Entity

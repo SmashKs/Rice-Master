@@ -21,6 +21,6 @@ internal data class ComposedSakeData(
     val images: List<ImageModel>,
 )
 
-internal fun parseJson(): ComposedSakeData {
+internal fun parseSakeDataJson(): ComposedSakeData {
     return Json.decodeFromString(ComposedSakeData.serializer(), fakeDataJson)
 }

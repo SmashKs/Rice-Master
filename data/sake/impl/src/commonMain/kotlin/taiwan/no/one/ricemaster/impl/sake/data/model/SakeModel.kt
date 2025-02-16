@@ -4,8 +4,10 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
+import taiwan.no.one.ricemaster.sake.api.entity.SakeEntity
 
 @Serializable
 @Entity(
@@ -45,7 +47,7 @@ internal data class SakeModel(
     val aromaIds: List<Long>,
     val awardIds: List<Long>,
     //endregion
-) {
+) : Model {
     constructor(
         sakeId: Long = 0,
         name: String,
@@ -71,5 +73,16 @@ internal data class SakeModel(
         emptyList(),
         emptyList(),
         emptyList(),
+    )
+
+    override fun toEntity(): SakeEntity = SakeEntity(
+        id = sakeId,
+        name = name,
+        abv = abv,
+        polishingRatio = polishingRatio,
+        brewDate = brewDate ?: Clock.System.now(),
+        expirationDate = expirationDate ?: Clock.System.now(),
+        priceRange = priceRange.orEmpty(),
+        description = description.orEmpty(),
     )
 }

@@ -8,4 +8,4 @@ data class SakeDetailEntity(
     val flavorProfiles: List<FlavorProfileEntity>,
     val aromaProfiles: List<AromaProfileEntity>,
     val awards: List<AwardEntity>,
-)
+) : Entity

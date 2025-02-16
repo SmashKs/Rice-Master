@@ -4,4 +4,4 @@ data class ImageEntity(
     val id: Long = 0,
     val imageUrl: String,
     val description: String,
-)
+) : Entity

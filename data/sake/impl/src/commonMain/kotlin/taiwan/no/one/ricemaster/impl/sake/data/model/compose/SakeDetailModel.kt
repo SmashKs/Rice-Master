@@ -8,11 +8,13 @@ import taiwan.no.one.ricemaster.impl.sake.data.model.AwardModel
 import taiwan.no.one.ricemaster.impl.sake.data.model.BreweryModel
 import taiwan.no.one.ricemaster.impl.sake.data.model.FlavorProfileModel
 import taiwan.no.one.ricemaster.impl.sake.data.model.ImageModel
+import taiwan.no.one.ricemaster.impl.sake.data.model.Model
 import taiwan.no.one.ricemaster.impl.sake.data.model.SakeModel
 import taiwan.no.one.ricemaster.impl.sake.data.model.SpeciallyDesignatedSakeModel
 import taiwan.no.one.ricemaster.impl.sake.data.model.relation.SakeAromaCrossRef
 import taiwan.no.one.ricemaster.impl.sake.data.model.relation.SakeAwardCrossRef
 import taiwan.no.one.ricemaster.impl.sake.data.model.relation.SakeFlavorCrossRef
+import taiwan.no.one.ricemaster.sake.api.entity.SakeDetailEntity
 
 internal data class SakeDetailModel(
     @Embedded
@@ -64,4 +66,14 @@ internal data class SakeDetailModel(
         ),
     )
     val awards: List<AwardModel>,
-)
+) : Model {
+    override fun toEntity(): SakeDetailEntity = SakeDetailEntity(
+        sake = sake.toEntity(),
+        brewery = brewery.toEntity(),
+        speciallyDesignatedSake = speciallyDesignatedSake.toEntity(),
+        images = images.map(ImageModel::toEntity),
+        flavorProfiles = flavorProfiles.map(FlavorProfileModel::toEntity),
+        aromaProfiles = aromaProfiles.map(AromaProfileModel::toEntity),
+        awards = awards.map(AwardModel::toEntity),
+    )
+}

@@ -6,4 +6,4 @@ data class BreweryEntity(
     val location: String,
     val description: String,
     val website: String,
-)
+) : Entity
