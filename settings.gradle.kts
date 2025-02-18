@@ -44,6 +44,8 @@ include(":core:persistence")
 include(":data:user")
 include(":data:sake:impl")
 include(":data:sake:api")
+include(":data:favorite:api")
+include(":data:favorite:impl")
 
 include(":feat:search")
 include(":feat:identity")

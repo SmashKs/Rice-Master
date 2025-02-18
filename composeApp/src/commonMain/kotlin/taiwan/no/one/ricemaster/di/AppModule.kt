@@ -2,9 +2,10 @@ package taiwan.no.one.ricemaster.di
 
 import org.koin.core.annotation.ComponentScan
 import org.koin.core.annotation.Module
-import taiwan.no.one.ricemaster.impl.sake.di.SakeModule
+import taiwan.no.one.ricemaster.favorite.impl.di.FavoriteModule
 import taiwan.no.one.ricemaster.network.di.NetworkModule
 import taiwan.no.one.ricemaster.registration.di.RegistrationModule
+import taiwan.no.one.ricemaster.sake.impl.di.SakeModule
 
 /**
  * The `AppModule` is the main Koin module responsible for orchestrating the dependency injection throughout the
@@ -21,6 +22,7 @@ import taiwan.no.one.ricemaster.registration.di.RegistrationModule
         NetworkModule::class,
         UtilModule::class,
         SakeModule::class,
+        FavoriteModule::class,
         RegistrationModule::class,
     ],
 )

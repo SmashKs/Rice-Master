@@ -37,6 +37,7 @@ kotlin {
             implementation(project(":core:navigation"))
 
             implementation(project(":data:sake:impl"))
+            implementation(project(":data:favorite:impl"))
 
             implementation(project(":feat:search"))
             implementation(project(":feat:profile"))
